@@ -1,5 +1,11 @@
+""" FacadeBase is the base facade layer, which initializes the DALs in its constructor.
+The DALs are assigend to variables. 
+Facadebase has generic get methods which are authorized (permitted) for all users (including 
+an anonymous app user)"""
+
+# Importing the DAL and the needed utilities
 from peregrine_app.dal import AdministratorDAL,UserDAL,FlightDAL,TicketDAL,CountryDAL,CustomerDAL,AirlineCompanyDAL,GroupDAL
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
     
 
@@ -35,28 +41,28 @@ class FacadeBase:
                 elif dal == "airline_company_dal":
                     self.airline_company_dal = AirlineCompanyDAL()
 
-    @abstractmethod
+
+        """This method is abstract since it MUST be implemented in all other facaedes,
+     as this method defines the dals, that are accessible to the specific inheriting Facade """
+    @abstractmethod    
     def accessible_dals(self):
         pass
 
-    def __getattr__(self, name):
-        for dal, funcs in self.accessible_dals:
-            if name in funcs:
-                return getattr(getattr(self, dal), name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-    
-    def check_access(self, dal_name, method_name):
+        """This method's parameters (dal_name , method_name), will be set in the other facades.
+        The method provides another layer of securing the permissions between different facades,
+        it does so by making sure the dal_name, and method_name, are allowed in the accessible dals,
+        if so, the code will continue and we'll enter the function. else wise an error will be raised"""    
+    def check_access(self, dal_name, method_name):   
         for dal in self.accessible_dals:
             if dal[0] == dal_name and method_name in dal[1]:
                 return True
         return False
 
-    def get_all_flights(self): # No need for Try/except
-        try:
+
+    def get_all_flights(self): 
+
             return self.flight_dal.get_all_flights()
-        except Exception as e:
-            print(f"An error occurred while fetching flights: {e}")
-            return None
+
     
     def get_flight_by_id(self, id):
         try:
@@ -101,11 +107,8 @@ class FacadeBase:
             return None       
     
     def get_all_airlines(self):
-        try:
+
             return self.airline_company_dal.get_all_airline_companies()
-        except Exception as e:
-            print(f"An error occurred while fetching airlines: {e}")
-            return None
     
     def get_airline_by_id(self,id):
         try:
@@ -129,11 +132,9 @@ class FacadeBase:
             return None
     
     def get_all_countries(self):
-        try:
+
             return self.country_dal.get_all_countries()
-        except Exception as e:
-            print(f"An error occurred while fetching countries: {e}")
-            return None
+
     
     def get_country_by_id(self,country_id):
         try:
@@ -141,3 +142,75 @@ class FacadeBase:
         except Exception as e:
             print(f"An error occurred while fetching country: {e}")
             return None
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # def __getattr__(self, name):
+    #     for dal, funcs in self.accessible_dals:
+    #         if name in funcs:
+    #             return getattr(getattr(self, dal), name)
+    #     raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")

@@ -1,6 +1,11 @@
+"""This module is a Data access layer module (DAL),
+ it includes all the functions interacting with the models (DB), for each model
+  there is a unique DAL which the permitted facade is allowed to access """
+
+# Importing the models and the needed utilities 
 from .models import Country,Customer,Administrator,AirlineCompany,Flight,Ticket
 from django.utils import timezone
-from django.db.models import Q
+from django.db.models import Q #build complex queries by allowing you to combine multiple queries with different conditions using logical operators (AND/OR).
 from django.contrib.auth.models import User , Group
 
 class CountryDAL:
@@ -16,15 +21,9 @@ class CountryDAL:
     
     @staticmethod
     def get_all_countries():
-        try:
+
             countries = Country.objects.values_list('name', flat=True)
             return countries
-        except Country.DoesNotExist:
-            print ('Country Does not exist in the DB')
-            return None
-        except Exception as e:
-            print (f"An error occurred while showing countries: {e}")
-            return None  
              
     @staticmethod
     def get_country_by_id(country_id):
@@ -79,16 +78,10 @@ class CustomerDAL:
                
     @staticmethod
     def get_all_customers():
-        try:
+
             all_customers = Customer.objects.all()
             return all_customers
-        except Customer.DoesNotExist:
-            print ('Customer Does not exist in the DB')
-            return None
-        except Exception as e:
-            print (f"An error occurred while fetching customers: {e}")
-            return None
-        
+       
     @staticmethod
     def add_customer(data):
         try:
@@ -314,16 +307,10 @@ class AirlineCompanyDAL:
      
     @staticmethod
     def get_all_airline_companies():
-        try:
+
             companies = AirlineCompany.objects.all()
             return companies
-        except AirlineCompany.DoesNotExist:
-            print ('Airline companies do not exist')
-            return None
-        except Exception as e:
-            print (f"An error occurred while fetching airline companies: {e}")
-            return None
-        
+       
     @staticmethod
     def get_airlines_by_country(country_id):
         try:
@@ -386,15 +373,9 @@ class AdministratorDAL:
         
     @staticmethod
     def get_all_admins():
-        try:
+
             admins = Administrator.objects.all()
             return admins
-        except Administrator.DoesNotExist:
-            print ('Admins do not exist/not found')
-            return None
-        except Exception as e:
-            print (f"An error occurred while fetching admins: {e}")
-            return None
         
     @staticmethod
     def add_new_admin(data):
@@ -426,7 +407,7 @@ class AdministratorDAL:
             print ('Admin does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while deleting admin: {e}")
+            print (f"An error occurred while removing admin: {e}")
             return None          
 
 
@@ -458,15 +439,9 @@ class UserDAL:
            
     @staticmethod
     def get_all_users():
-        try:
+            
             users = User.objects.all()
             return users
-        except User.DoesNotExist:
-            print ('Users do not exist/not found')
-            return None
-        except Exception as e:
-            print (f"An error occurred while fetching users: {e}")
-            return None
 
     @staticmethod
     def add_user(data):
@@ -503,7 +478,7 @@ class UserDAL:
             print ('User does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while deleting user: {e}")
+            print (f"An error occurred while removing user: {e}")
             return None
        
                      
@@ -547,15 +522,9 @@ class TicketDAL:
 
     @staticmethod
     def get_all_tickets():
-        try:
+
             tickets = Ticket.objects.all()
             return tickets
-        except Ticket.DoesNotExist:
-            print ('Tickets do not exist/not found')
-            return None
-        except Exception as e:
-            print (f"An error occurred while fetching tickets: {e}")
-            return None 
 
     @staticmethod
     def add_ticket(data):
@@ -575,7 +544,7 @@ class TicketDAL:
             print ('ticket does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while updatiing ticket: {e}")
+            print (f"An error occurred while updating ticket: {e}")
             return None
 
     @staticmethod
@@ -607,16 +576,10 @@ class GroupDAL:
 
     @staticmethod
     def get_all_userRoles():
-        try:
+
             user_roles = Group.objects.all().values()
             return user_roles
-        except Group.DoesNotExist:
-            print ('User roles do not exist/not found')
-            return None
-        except Exception as e:
-            print (f"An error occurred while fetching user roles: {e}")
-            return None
-        
+       
     @staticmethod
     def add_user_role(data):
         try:
@@ -647,7 +610,7 @@ class GroupDAL:
             print ('User role does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while deleting user role: {e}")
+            print (f"An error occurred while removing user role: {e}")
             return None
 
 

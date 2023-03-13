@@ -7,10 +7,15 @@ from peregrine_app.decorators import allowed_users
 from peregrine_app.forms import UserProfile , AddCustomerForm, UserFilterForm, AddAirlineForm, AddAdminForm
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib import auth ,messages
-from django.urls import reverse 
-          
+from django.urls import reverse , reverse_lazy
+from django.views import View
+from django.http import HttpResponseNotAllowed
+from django.utils.decorators import method_decorator
+        
 facade = AdministratorFacade()
 
+
+# Get Methods
 @login_required(login_url='peregrine_app_anonymousView:landing_page')
 @allowed_users(allowed_roles=['admin'])
 def admin_generic(request):
@@ -18,44 +23,29 @@ def admin_generic(request):
         form = UserFilterForm()
         return render(request, 'peregrine_app/admin.html',{'form' : form})
         
-
-
-def get_user_by_type(request, type):
-
-    if type == 'customer':
-        customers = facade.get_all_customers()
-        return render(request, 'peregrine_app/admin_customers.html', {'customers' : customers})
-
-
+@login_required(login_url='peregrine_app_anonymousView:landing_page')
+@allowed_users(allowed_roles=['admin'])
+def get_customers(request):
+    customers = facade.get_all_customers()
+    return render(request, 'peregrine_app/admin_customers.html', {'customers' : customers})
 
 @login_required(login_url='peregrine_app_anonymousView:landing_page')
-@allowed_users(allowed_roles=['admin'])    
-def user_choice(request):
+@allowed_users(allowed_roles=['admin'])
+def get_airlines(request):
+    airlines = facade.get_all_airlines()
+    return render(request, 'peregrine_app/admin_airlines.html', {'airlines' : airlines})
 
-    # pass
-    
-    if request.method == 'POST':
-        form = UserFilterForm(request.POST)
-        if form.is_valid():
-            try:
-                user_type = form.cleaned_data['user_type']
-                if user_type == 'customers':
-                    customers = facade.get_all_customers()
-                    return render(request, 'peregrine_app/admin_customers.html', {'customers' : customers})
-                if user_type == 'airlines':
-                    airlines = facade.get_all_airlines()
-                    return render(request, 'peregrine_app/admin_airlines.html', {'airlines' : airlines})
-                if user_type == 'admins':
-                    admins = facade.get_all_admins()
-                    return render(request, 'peregrine_app/admin_admins.html', {'admins' : admins})
-            except Exception as e:
-                print(f"An error occurred while fetching data: {e}")
-                return HttpResponse('Oops, Something went wrong!')
-    
-    form = UserFilterForm()
-    return render(request, 'peregrine_app/admin.html', {'form' : form})
+@login_required(login_url='peregrine_app_anonymousView:landing_page')
+@allowed_users(allowed_roles=['admin'])
+def get_admins(request):
+    admins = facade.get_all_admins()
+    return render(request, 'peregrine_app/admin_admins.html', {'admins' : admins})
 
 
+
+
+
+# Post methods
 @login_required(login_url='peregrine_app_anonymousView:landing_page')
 @allowed_users(allowed_roles=['admin'])
 def admin_add_customer(request):
@@ -66,7 +56,7 @@ def admin_add_customer(request):
         if (user_form.is_valid()) and (customer_form.is_valid()):
             try:
                 facade.add_customer(user_data=user_form.cleaned_data,data=customer_form.cleaned_data)
-                return redirect(reverse('peregrine_app/'))
+                return redirect(reverse('peregrine_app_adminView:get_customers'))
             except Exception as e:
                 print(f"An error occurred while adding a customer: {e}")
                 return HttpResponse ("Oops, Something Went Wrong!")
@@ -149,17 +139,6 @@ def admin_add_admin(request):
     return render(request, 'peregrine_app/admin_add_admin.html', context)
 
 
-# @login_required(login_url='peregrine_app_anonymousView:landing_page')
-# @allowed_users(allowed_roles=['admin'])
-# def admin_remove_customer(request,customer_id):
-
-#     try:
-#         facade.remove_customer(customer_id=customer_id)
-#         return redirect('peregrine_app_adminView:user_choice')
-#     except Exception as e:
-#         return HttpResponseServerError('Failed to remove customer: {}'.format(str(e)))
-
-
 @login_required(login_url='peregrine_app_anonymousView:landing_page')
 @allowed_users(allowed_roles=['admin'])
 def admin_remove_customer(request,customer_id):
@@ -167,7 +146,7 @@ def admin_remove_customer(request,customer_id):
     try:
         remove = facade.remove_customer(customer_id=customer_id)
         if remove == True:
-            return redirect('peregrine_app_adminView:user_choice')
+            return redirect('peregrine_app_adminView:get_customers')
         else:
             error = 'Note ! The selected Customer has on going active/purchased ticket/s, thus cannot be remove !'
             customers = facade.get_all_customers()
@@ -188,7 +167,7 @@ def admin_remove_airline(request,airline_id):
     try:
         remove = facade.remove_airline(id=airline_id)
         if remove == True:
-            return redirect('peregrine_app_adminView:user_choice')
+            return redirect('peregrine_app_adminView:get_airlines')
         else:                
             error = """Note ! The selected Airline has an on going active flight/s,
               which has purchased tickets, thus cannot be removed !"""
@@ -202,6 +181,7 @@ def admin_remove_airline(request,airline_id):
         return HttpResponseServerError('Failed to remove airline: {}'.format(str(e)))
 
 
+# Add conditions for superuser (admin cannot delete superusers)
 @login_required(login_url='peregrine_app_anonymousView:landing_page')
 @allowed_users(allowed_roles=['admin'])
 def admin_remove_admin(request,admin_id):
@@ -212,21 +192,6 @@ def admin_remove_admin(request,admin_id):
     except Exception as e:
         return HttpResponseServerError('Failed to remove admin: {}'.format(str(e)))
     
-
-# def logout_view(request):
-#     logout(request)
-#     return redirect('peregrine_app_anonymousView:landing_page')
-
-# def logout_view(request):
-
-#     # Deleting the token that was generated for the user
-#     token = request.META.get('HTTP_AUTHORIZATION').split()[1]
-#     refresh_token = RefreshToken(token)
-#     refresh_token.blacklist()
-
-#     # Logout the user
-#     logout(request)
-#     return redirect('peregrine_app_anonymousView:landing_page')
 
 
 @login_required(login_url='peregrine_app_anonymousView:landing_page')

@@ -192,18 +192,21 @@ class AdministratorFacade(FacadeBase):
             raise AccessDeniedError
                
     def remove_customer(self, customer_id):
+
         if (self.check_access('user_dal', 'remove_user')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) :
-            try:  # No need for try/except
+        
                 tickets = self.ticket_dal.get_tickets_by_customer_id(customer_id=customer_id)
                 if  tickets.exists():
-                    raise CannotRemoveCustomer
+                    return False
                 else:
-                    customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
-                    user_id = customer.user_id.id
-                    return self.user_dal.remove_user(id=user_id)            
-            except Exception as e:
-                print(f"An error occurred while removing customer: {e}")
-                return None
+                    try:
+                        customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
+                        user_id = customer.user_id.id
+                        self.user_dal.remove_user(id=user_id)
+                        return True           
+                    except Exception as e:
+                        print(f"An error occurred while removing customer: {e}")
+                        return None
         else:
             raise AccessDeniedError
 
@@ -241,17 +244,18 @@ class AdministratorFacade(FacadeBase):
           
     def remove_airline(self, id):
         if (self.check_access('user_dal', 'remove_user')) and (self.check_access('flight_dal', 'get_flights_by_airline_company_id')):
-            try:
+
                 flights = self.flight_dal.get_flights_by_airline_company_id(airline_company_id=id)
-                if flights == None:
+                if flights.exists():
+                    return False
+                try:
                     airline = self.airline_company_dal.get_airline_company_by_id(id=id)
                     user_id = airline.user_id.id
-                    return self.user_dal.remove_user(id=user_id)
-                else:
-                    raise CannotRemoveAirline
-            except Exception as e:
-                print(f"An error occurred while removing airline: {e}")
-                return None
+                    self.user_dal.remove_user(id=user_id)
+                    return True
+                except Exception as e:
+                    print(f"An error occurred while removing airline: {e}")
+                    return None
         else:
             raise AccessDeniedError 
 

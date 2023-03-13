@@ -56,11 +56,11 @@
       <p> <li><a href="{% url 'peregrine_app_baseView:get_all_flights' %}">View All Flights</a></li>
           <li><a href="{% url 'peregrine_app_baseView:get_all_airlines' %}">View All Airlines</a></li>
       </div>
-    <form method="post" action="{% url 'peregrine_app_adminView:user_choice' %}" >
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="submit">
-    </form>
+
+	<h2><a href="{% url 'peregrine_app_adminView:get_customers' %}">All Customers</a></h2>
+	<h2><a href="{% url 'peregrine_app_adminView:get_airlines' %}">All Airlines</a></h2>
+	<h2><a href="{% url 'peregrine_app_adminView:get_admins' %}">All Admins</a></h2>
+
     <h2><a href="{% url 'peregrine_app_adminView:admin_logout_view' %}">Log Out</a></h2>
 
 </body>
