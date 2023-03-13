@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="{% url 'peregrine_app_adminView:admin_add_admin' %}">Add admin</a>
+    <h3>Admin name &nbsp;&nbsp;&nbsp;&nbsp;User Id</h3>
+    {% if admins %}
+    <ul>
+        {% for admin in admins %}
+            <li>{{ admin.first_name }}&nbsp;{{ admin.last_name }}&nbsp;&nbsp;&nbsp; {{ admin.user_id.id }}</li>
+            <a href="{% url 'peregrine_app_adminView:admin_remove_admin' admin.id %}">Remove Admin</a>
+            <br>
+            <br>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>

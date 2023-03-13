@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Customers</h1>
+    <a href="{% url 'peregrine_app_adminView:admin_add_customer' %}">Add Customer</a>
+    {% if customers %}
+    {% if error %}
+    <ul>
+            <li>{{ error }}</li>
+    </ul>
+{% endif %}
+    <ul>
+        {% for customer in customers %}
+        <li> {{ customer.first_name }}&nbsp;&nbsp; {{ customer.last_name }}&nbsp;&nbsp;{{ customer.id }}</li>
+        <a href="{% url 'peregrine_app_adminView:admin_remove_customer' customer.id %}">Remove Customer</a>
+        <br>
+        <br>
+        {% endfor %}
+
+    </ul>
+  
+    {% else %}
+    <br>
+    <span>No Customers</span>
+    {% endif %}
+
+
+</body>
+</html>

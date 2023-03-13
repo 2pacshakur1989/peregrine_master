@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="{% url 'peregrine_app_baseView:get_all_airlines' %}" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Filter</button>
+    </form>
+    {% if airlines %}
+    <ul>
+        {% for airline in airlines %}
+            <li>{{ airline.name }}</li>
+            <li>{{ airline.country_id }}</li>
+            <br>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>

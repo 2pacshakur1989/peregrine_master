@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="post" action="{% url 'peregrine_app_baseView:get_all_flights' %}" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Filter</button>
+
+    </form>
+    <br>
+
+    {% if messages %}
+    {% for message in messages %}
+    <span>{{ message }}</span>
+    {% endfor %}
+    {% endif %}
+    <br>
+    <br>
+    {% if all_flights %}
+    <ul>
+
+        {% for flight in all_flights %}
+        
+            <li>{{ flight.airline_company_id.name }}</li>
+            <li>{{ flight.origin_country_id }}</li>
+            <li>{{ flight.destination_country_id }}</li>
+            <li>{{ flight.departure_time }}</li>
+            <li>{{ flight.landing_time }}</li>
+            <li>{{ flight.remaining_tickets }}</li>
+            <a href="{% url 'peregrine_app_customerView:add_ticket' flight.id %}">Add Ticket</a>
+            <br>
+            <br>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
+
+</html>
