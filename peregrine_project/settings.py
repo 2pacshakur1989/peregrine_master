@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'peregrine_app.all_views',
     'peregrine_app.all_urls',
     'rest_framework_simplejwt',
+    'peregrine_app.peregrine_api',
 ]
 
 MIDDLEWARE = [
@@ -174,3 +175,11 @@ REST_FRAMEWORK = {
 #     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
 #     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 # }
+
+
+SIMPLE_JWT = {
+    'BLACKLIST': 'myapp.models.MyBlacklistModel',
+    'OUTSTANDING_TOKEN_MODEL': 'myapp.models.MyOutstandingTokenModel',
+
+}
+

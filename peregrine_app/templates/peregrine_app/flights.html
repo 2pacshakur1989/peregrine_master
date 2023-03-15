@@ -26,7 +26,7 @@
     <ul>
 
         {% for flight in all_flights %}
-        
+        {% if flight.remaining_tickets > 0 %} 
             <li>{{ flight.airline_company_id.name }}</li>
             <li>{{ flight.origin_country_id }}</li>
             <li>{{ flight.destination_country_id }}</li>
@@ -36,6 +36,7 @@
             <a href="{% url 'peregrine_app_customerView:add_ticket' flight.id %}">Add Ticket</a>
             <br>
             <br>
+            {% endif %}
         {% endfor %}
     </ul>
     {% endif %}

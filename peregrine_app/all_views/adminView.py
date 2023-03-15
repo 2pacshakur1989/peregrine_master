@@ -87,7 +87,7 @@ def admin_add_airline(request):
         if (user_form.is_valid()) and (airline_form.is_valid()):
             try:
                 facade.add_airline(user_data=user_form.cleaned_data,data=airline_form.cleaned_data)
-                return redirect('peregrine_app_adminView:user_choice')
+                return redirect('peregrine_app_adminView:get_airlines')
             except Exception as e:
                 print(f"An error occurred while adding airline: {e}")
                 return HttpResponse ("Oops, Something Went Wrong!")

@@ -3,12 +3,14 @@ The DALs are assigend to variables.
 Facadebase has generic get methods which are authorized (permitted) for all users (including 
 an anonymous app user)"""
 
+""" The "transaction.atomic()" method makes sure that in case of encountering, a problem
+of adding one of the 2 (or user_form , or customer_form) then it won't add anything to the DB
+"""
 # Importing the DAL and the needed utilities
-from peregrine_app.dal import AdministratorDAL,UserDAL,FlightDAL,TicketDAL,CountryDAL,CustomerDAL,AirlineCompanyDAL,GroupDAL
+from peregrine_app.dal import TokenDAL, AdministratorDAL,UserDAL,FlightDAL,TicketDAL,CountryDAL,CustomerDAL,AirlineCompanyDAL,GroupDAL
 from abc import abstractmethod
 
     
-
 class FacadeBase:
 
     def __init__(self, dals=None):
@@ -40,6 +42,8 @@ class FacadeBase:
                     self.group_dal = GroupDAL()
                 elif dal == "airline_company_dal":
                     self.airline_company_dal = AirlineCompanyDAL()
+                elif dal == "token_dal":
+                    self.token_dal = TokenDAL()
 
 
         """This method is abstract since it MUST be implemented in all other facaedes,
@@ -54,7 +58,7 @@ class FacadeBase:
         if so, the code will continue and we'll enter the function. else wise an error will be raised"""    
     def check_access(self, dal_name, method_name):   
         for dal in self.accessible_dals:
-            if dal[0] == dal_name and method_name in dal[1]:
+            if (dal[0] == dal_name) and (method_name in dal[1]):
                 return True
         return False
 

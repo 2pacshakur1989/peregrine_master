@@ -9,6 +9,7 @@ from django.contrib.auth import logout
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.urls import reverse 
 from django.core import signing
+from django.contrib import messages
 
 facade = CustomerFacade()
 
@@ -30,6 +31,12 @@ def add_ticket(request,flight_id):
                     'flight_id': flight,
                     'customer_id': customer}
         new_ticket = facade.add_ticket(data=ticket_data)
+        if new_ticket == False:
+            messages.error(request, 'Customer cannot add the same ticket twice.')
+            return redirect(reverse('peregrine_app_baseView:get_all_flights'))
+        if new_ticket == None:
+            pass
+        
         return render(request, 'peregrine_app/customer.html')
     except Exception as e:
         print(f"An error occurred while adding ticket: {e}")
@@ -75,6 +82,7 @@ def update_customer(request):
                 with transaction.atomic():
                     facade.update_customer(customer_id=customer.id, data=customer_form.cleaned_data)
                     facade.update_user(id=user.id,data=user_form.cleaned_data)
+                    messages.success(request, 'Updated successfully')
                     return redirect('peregrine_app_customerView:customer_generic')
             except Exception as e:
                 # rollback the update
@@ -86,9 +94,6 @@ def update_customer(request):
          'user_form': user_form
     }
     return render(request, 'peregrine_app/updatecustomer.html', context)
-
-
-
 
 
 @login_required(login_url='peregrine_app_anonymousView:landing_page')

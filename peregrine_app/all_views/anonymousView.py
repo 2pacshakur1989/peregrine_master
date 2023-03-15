@@ -25,35 +25,35 @@ def landing_page(request):
     return render(request, 'peregrine_app/landing_page.html', {'form': form})
 
 
-# def login_view(request):
-#     if request.method == 'POST':
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             try:
-#                 username = form.cleaned_data['username']
-#                 password = form.cleaned_data['password']
-#                 user = authenticate(request, username=username, password=password)
-#                 if user is not None:
-#                     login(request, user)
-#                     right_facade = facade.get_facade_for_user(user=user)
-#                     if isinstance(right_facade, AdministratorFacade):
-#                         return redirect(('peregrine_app_adminView:admin_generic'))
-#                     elif isinstance(right_facade, AirlineFacade):
-#                         return redirect(reverse('peregrine_app_airlineView:airline_generic'))
-#                     elif isinstance(right_facade, CustomerFacade):
-#                         return redirect(reverse('peregrine_app_customerView:customer_generic'))
-#             except Exception as e:
-#                 print(f"An error occurred while logging in: {e}")
-#                 return None
-#     else:
-#         form = LoginForm()
-#         return render(request, 'peregrine_app/landing_page.html', {'form': form})
-#     context = {
-#         'form': form,
-#         'form_errors': form.errors if 'user_form' in locals() else None,
-#         'login_error': 'Invalid username or password. Please try again.',
-#     }
-#     return render(request, 'peregrine_app/landing_page.html', context)
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            try:
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    right_facade = facade.get_facade_for_user(user=user)
+                    if isinstance(right_facade, AdministratorFacade):
+                        return redirect(('peregrine_app_adminView:admin_generic'))
+                    elif isinstance(right_facade, AirlineFacade):
+                        return redirect(reverse('peregrine_app_airlineView:airline_generic'))
+                    elif isinstance(right_facade, CustomerFacade):
+                        return redirect(reverse('peregrine_app_customerView:customer_generic'))
+            except Exception as e:
+                print(f"An error occurred while logging in: {e}")
+                return None
+    else:
+        form = LoginForm()
+        return render(request, 'peregrine_app/landing_page.html', {'form': form})
+    context = {
+        'form': form,
+        'form_errors': form.errors if 'user_form' in locals() else None,
+        'login_error': 'Invalid username or password. Please try again.',
+    }
+    return render(request, 'peregrine_app/landing_page.html', context)
 
 
 def add_customer(request):
@@ -86,43 +86,43 @@ def add_customer(request):
 
 
 
-def login_view(request):
+# def login_view(request):
     
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            try:
-                username = form.cleaned_data['username']
-                password = form.cleaned_data['password']
-                user = authenticate(request, username=username, password=password)
-                if user is not None:
-                    login(request, user)
-                    token = get_token_for_user(user=user)
-                    right_facade = facade.get_facade_for_user(user=user,token=token)
-                    if isinstance(right_facade, AdministratorFacade):
-                        redirect_url = 'peregrine_app_adminView:admin_generic'
-                    elif isinstance(right_facade, AirlineFacade):
-                        redirect_url = 'peregrine_app_airlineView:airline_generic'
-                    elif isinstance(right_facade, CustomerFacade):
-                        redirect_url = 'peregrine_app_customerView:customer_generic'
-                    else:
-                        raise ValueError("Invalid user type")
-                    # response.set_cookie('token', token['access_token'], httponly=True)
-                    response = redirect(reverse(redirect_url))
-                    # response.set_cookie('token', token['access_token'], httponly=True)
-                    response['token'] = token
-                    print(f"Token generated: {token}")
-                    return response
-            except Exception as e:
-                print(f"An error occurred while logging in: {e}")
-    else:
-        form = LoginForm()
-    context = {
-        'form': form,
-        'form_errors': form.errors if 'user_form' in locals() else None,
-        'login_error': 'Invalid username or password. Please try again.',
-    }
-    return render(request, 'peregrine_app/landing_page.html', context)
+#     if request.method == 'POST':
+#         form = LoginForm(request.POST)
+#         if form.is_valid():
+#             try:
+#                 username = form.cleaned_data['username']
+#                 password = form.cleaned_data['password']
+#                 user = authenticate(request, username=username, password=password)
+#                 if user is not None:
+#                     login(request, user)
+#                     token = get_token_for_user(user=user)
+#                     right_facade = facade.get_facade_for_user(user=user,token=token)
+#                     if isinstance(right_facade, AdministratorFacade):
+#                         redirect_url = 'peregrine_app_adminView:admin_generic'
+#                     elif isinstance(right_facade, AirlineFacade):
+#                         redirect_url = 'peregrine_app_airlineView:airline_generic'
+#                     elif isinstance(right_facade, CustomerFacade):
+#                         redirect_url = 'peregrine_app_customerView:customer_generic'
+#                     else:
+#                         raise ValueError("Invalid user type")
+#                     # response.set_cookie('token', token['access_token'], httponly=True)
+#                     response = redirect(reverse(redirect_url))
+#                     # response.set_cookie('token', token['access_token'], httponly=True)
+#                     response['token'] = token
+#                     print(f"Token generated: {token}")
+#                     return response
+#             except Exception as e:
+#                 print(f"An error occurred while logging in: {e}")
+#     else:
+#         form = LoginForm()
+#     context = {
+#         'form': form,
+#         'form_errors': form.errors if 'user_form' in locals() else None,
+#         'login_error': 'Invalid username or password. Please try again.',
+#     }
+#     return render(request, 'peregrine_app/landing_page.html', context)
 
 
 

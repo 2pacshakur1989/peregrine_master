@@ -7,6 +7,7 @@ from .models import Country,Customer,Administrator,AirlineCompany,Flight,Ticket
 from django.utils import timezone
 from django.db.models import Q #build complex queries by allowing you to combine multiple queries with different conditions using logical operators (AND/OR).
 from django.contrib.auth.models import User , Group
+from rest_framework.authtoken.models import Token
 
 class CountryDAL:
 
@@ -614,11 +615,56 @@ class GroupDAL:
             return None
 
 
-           
-           
+class TokenDAL:
 
-           
-           
+    @staticmethod
+    def get_all_tokens():
+
+        tokens = Token.objects.all()
+        return tokens
+    
+    @staticmethod
+    def get_token_by_user(user):
+        try:
+            token = Token.objects.get(user=user)
+            return token
+        except Token.DoesNotExist:
+            print ('Token does not exist/not found')
+            return None
+        except Exception as e:
+            print (f"An error occurred while fetching user token: {e}")
+            return None   
+
+    @staticmethod
+    def get_token_by_key(key):
+        try:
+            token = Token.objects.get(key=key)
+            return token
+        except Token.DoesNotExist:
+            print ('Token does not exist/not found')
+            return None
+        except Exception as e:
+            print (f"An error occurred while fetching user token: {e}")
+            return None  
+
+    @staticmethod
+    def create_token(user):
+        try:
+            token = Token.objects.get_or_create(user=user)
+            return token               
+        except Exception as e:
+            print (f"An error occurred while creating user token: {e}")
+            return None 
+
+    @staticmethod
+    def delete_token(user):
+        try:
+            token = Token.objects.filter(user=user)
+            token.delete()
+        except Exception as e:
+            print (f"An error occurred while deleting token: {e}")
+            return None 
+       
 
 
         

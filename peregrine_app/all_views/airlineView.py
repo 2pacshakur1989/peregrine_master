@@ -6,6 +6,7 @@ from django.db import transaction
 from django.http import HttpResponseServerError
 from peregrine_app.decorators import allowed_users 
 from django.contrib.auth import logout
+from django.contrib import messages
 
 
 facade = AirlineFacade()
@@ -33,6 +34,7 @@ def update_airline(request):
                 with transaction.atomic():
                     facade.update_airline(id=airline_company.id, data=airline_form.cleaned_data)
                     facade.update_user(id=user.id,data=user_form.cleaned_data)
+                    messages.success(request, 'Updated successfully')
                     return redirect('peregrine_app_airlineView:airline_generic')
             except Exception as e:
                 # rollback the update
@@ -78,6 +80,7 @@ def add_flight(request):
                     'remaining_tickets': form.cleaned_data['remaining_tickets'],
                 }
                 facade.add_flight(data=flight_data)
+                messages.success(request, 'Added successfully')
                 return redirect('peregrine_app_airlineView:airline_generic')
             except Exception as e:
                 print(f"An error occurred while adding a flight: {e}")
@@ -106,6 +109,7 @@ def update_flight(request, flight_id):
         if flight_form.is_valid():
             try:
                 facade.update_flight(flight_id=flight_id, data=flight_form.cleaned_data)
+                messages.success(request, 'Updated successfully')
                 return redirect('peregrine_app_airlineView:get_my_flights')
             except Exception as e:
                 # handle the exception 

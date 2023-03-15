@@ -18,13 +18,23 @@ from django.urls import include, path
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+
+    # App urls
     path('', include("peregrine_app.all_urls.baseView_urls", namespace='peregrine_app_baseView')),
     path('', include("peregrine_app.all_urls.anonymousView_urls", namespace='peregrine_app_anonymousView')),
     path('', include("peregrine_app.all_urls.adminView_urls", namespace='peregrine_app_adminView')),
     path('', include("peregrine_app.all_urls.airlineView_urls", namespace='peregrine_app_airlineView')),
     path('', include("peregrine_app.all_urls.customerView_urls", namespace='peregrine_app_customerView')),
+
+    # API urls
+    path('', include("peregrine_app.peregrine_api.api_urls.api_flight_urls", namespace='peregrine_app_api_flight_view')),
+    path('', include("peregrine_app.peregrine_api.api_urls.api_login-logout_urls", namespace='peregrine_app_login_logout_api_view')),
+
     path('admin/', admin.site.urls),
+
 ]
+
+
 
 
 

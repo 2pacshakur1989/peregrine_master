@@ -67,12 +67,3 @@ class Ticket(models.Model):
 
 
 
-
-# class AuthToken(models.Model):
-#     key = models.CharField(max_length=40, primary_key=True)
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='auth_tokens', on_delete=models.CASCADE)
-#     created = models.DateTimeField(auto_now_add=True)
-    
-#     def __str__(self):
-#         return self.key
-

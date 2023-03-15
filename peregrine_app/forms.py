@@ -3,7 +3,9 @@ from .models import Customer , AirlineCompany, Flight , Country , Administrator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms.widgets import DateTimeInput
-from abc import abstractmethod ,ABC
+from datetime import timedelta,datetime
+import pytz
+
 import re
 
 
@@ -217,7 +219,27 @@ class AddFlightForm(forms.ModelForm):
 
         # Departure/Landing time Validation
         departure_time = self.cleaned_data.get('departure_time')
+        departure_time = departure_time.astimezone(pytz.UTC).replace(tzinfo=None)
         landing_time = self.cleaned_data.get('landing_time')
+        landing_time = landing_time.astimezone(pytz.UTC).replace(tzinfo=None)
+
+        current_time = datetime.now()
+
+        current_time = current_time.replace(second=0, microsecond=0)
+        # print(current_time)
+        twelve_hours_from_now = current_time + timedelta(hours=12)
+        # twelve_hours_from_now = pytz.UTC.localize(twelve_hours_from_now)
+        if departure_time == landing_time:
+            print(True)
+        else: 
+            print(False)
+        print(type(departure_time))
+        print(landing_time)
+        print(type(twelve_hours_from_now))
+        if departure_time < twelve_hours_from_now:
+            self.add_error('departure_time', 'departure time must be minimum 12 hours from now') 
+        if not (landing_time>(departure_time+timedelta(hours=2))) and  (landing_time<(departure_time+timedelta(hours=18)))  :
+            self.add_error('landing_time', 'Landing time has to be 2-18 hours difference from departure time') 
         if landing_time <= departure_time:
             self.add_error('landing_time', 'Landing time cannot be prior or equal to the departure time')               
 
