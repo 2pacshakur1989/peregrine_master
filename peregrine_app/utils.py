@@ -50,3 +50,19 @@ def get_token_for_user(user):
     return token
 
 
+def check_countries(origin_country_id,destination_country_id,func):
+    countries = func
+    o=None
+    d=None
+    for country in countries:
+        if origin_country_id == country:
+            o = "success"
+
+    for country in countries:
+        if destination_country_id == country:
+            d = "success"
+
+    if o and d == "success":
+        return True 
+
+

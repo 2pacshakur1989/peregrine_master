@@ -18,7 +18,6 @@ class LoginView(APIView):
 
         if user is not None:
             token, created = facade.token_dal.create_token(user=user)
-            # token, created = Token.objects.get_or_create(user=user)
             # Include additional information in the token payload
             token_payload = {
                 'user_id': user.id,

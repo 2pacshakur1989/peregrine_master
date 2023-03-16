@@ -6,6 +6,7 @@ requests the permitted dals from the Father class (Facadebase) """
 from .facadebase import FacadeBase
 from peregrine_app.exceptions import AccessDeniedError,CannotRemoveFlight
 from datetime import timedelta,datetime
+from peregrine_app.utils import check_countries
 
 
 
@@ -43,7 +44,10 @@ class AirlineFacade(FacadeBase):
             try:
                 if airlinecompany != data['airline_company_id']:
                     return False
-                return self.flight_dal.add_flight(data=data)
+                if check_countries(origin_country_id=data['origin_country_id'],destination_country_id=data['destination_country_id'],func=self.get_all_countries()) is not True:
+                    return 1
+
+                # return self.flight_dal.add_flight(data=data)
             except Exception as e:
                 print(f"An error occurred while adding flight: {e}")
                 return None
@@ -63,11 +67,7 @@ class AirlineFacade(FacadeBase):
     def update_flight(self, flight_id, data ,airlinecompany):  # This is for API
         if (self.check_access('flight_dal', 'update_flight')) and (self.check_access('flight_dal', 'get_flight_by_id')):
             try:
-                if self.flight_dal.get_flight_by_id(id=flight_id) == None:
-                    return 2
                 flight = self.flight_dal.get_flight_by_id(id=flight_id)
-                if flight == None:
-                    return 1
                 if flight.airline_company_id != airlinecompany :
                     return False
                 return self.flight_dal.update_flight(flight_id=flight_id,data=data)
@@ -89,19 +89,18 @@ class AirlineFacade(FacadeBase):
     #         raise AccessDeniedError
             
     def remove_flight(self, flight_id, airlinecompany):  # This is for the Api
-        if (self.check_access('flight_dal', 'remove_flight')) and (self.check_access('ticket_dal', 'get_tickets_by_flight_id')) and (self.check_access('flight_dal', 'get_flight_by_id')) and (self.check_access('flight_dal', 'get_flights_by_airline_company_id')):   
+        if (self.check_access('flight_dal', 'remove_flight')) and (self.check_access('ticket_dal', 'get_tickets_by_flight_id')) and (self.check_access('flight_dal', 'get_flight_by_id')) and (self.check_access('flight_dal', 'get_flights_by_airline_company_id')) and (self.check_access('flight_dal', 'get_flight_by_id')):   
             try:
-                if self.flight_dal.get_flight_by_id(id=flight_id) == None:
-                    return 2  # returning a cue value  (Flight Id does not exist)
-                flights = self.flight_dal.get_flights_by_airline_company_id(airline_company_id=airlinecompany)
-                for flight in flights:
-                    if flight.id == flight_id:
-                        tickets = self.ticket_dal.get_tickets_by_flight_id(flight_id=flight_id)
-                        if not tickets.exists():
-                            return self.flight_dal.remove_flight(flight_id=flight_id)
-                        else:
-                            return 1 # returning a cue value  (This flight has an on going active/pruchased tickets thus cannot be removed !)
-                return 0    # returning a cue value  (Cannot Remove Another Airline's Flight !)
+                flight = self.flight_dal.get_flight_by_id(id=flight_id)
+                if flight is None:
+                    return 0
+                if flight.airline_company_id != airlinecompany:
+                    return 1    # returning a cue value  (Cannot Remove Another Airline's Flight !)        
+                tickets = self.ticket_dal.get_tickets_by_flight_id(flight_id=flight_id)
+                if not tickets.exists():
+                    return self.flight_dal.remove_flight(flight_id=flight_id)
+                else:
+                    return 2 # returning a cue value  (This flight has an on going active/pruchased tickets thus cannot be removed !)
             except Exception as e:
                 print(f"An error occurred while removing flight: {e}")
                 return None
