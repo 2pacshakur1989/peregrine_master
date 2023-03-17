@@ -1,12 +1,7 @@
-from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from peregrine_app.peregrine_api.api_serializers.flight_serializer import FlightSerializer
-from django.http import JsonResponse
-from peregrine_app.models import Flight
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
 from peregrine_app.facades.anonymousfacade import AnonymousFacade
 from peregrine_app.facades.airlinefacade import AirlineFacade
 
@@ -16,9 +11,9 @@ airlinefacade = AirlineFacade()
 
 
 
+
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
-# @permission_classes([IsAuthenticated])
-def flight_list(request, id=None):
+def flight(request, id=None):
 
 
 
@@ -27,40 +22,55 @@ def flight_list(request, id=None):
         if 'origin' in request.query_params:
             # Handle 'get_flights_by_origin_country' for all users
             origin_country = request.query_params['origin']
-            flights = anonymousfacade.get_flights_by_origin_country_id(origin_country_id=origin_country)
+            flights = airlinefacade.get_flights_by_origin_country_id(origin_country_id=origin_country)
+            if (flights == False) or (not flights.exists()):
+                return Response("No flight/s found.", status=status.HTTP_404_NOT_FOUND)
             serializer = FlightSerializer(flights, many=True)
             return Response(serializer.data)
         
         elif 'destination' in request.query_params:
             # Handle 'get_flights_by_destination_country' for all users
             destination_country = request.query_params['destination']
-            flights = anonymousfacade.get_flights_by_destination_country_id(destination_country_id=destination_country)
+            flights = airlinefacade.get_flights_by_destination_country_id(destination_country_id=destination_country)
+            if (flights == False) or (not flights.exists()):
+                return Response("No flight/s found.", status=status.HTTP_404_NOT_FOUND)
             serializer = FlightSerializer(flights, many=True)
             return Response(serializer.data)
         
         elif 'airline' in request.query_params:
             # Handle 'get_my_flights_by_airline_company' for airline users
             airline_company = request.query_params['airline']
-            flights = anonymousfacade.get_flights_by_airline_company(airline_company_id=airline_company)
+            flights = airlinefacade.get_flights_by_airline_company(airline_company_id=airline_company)
+            if flights is False:
+                return Response("No flight/s found.", status=status.HTTP_404_NOT_FOUND)
             serializer = FlightSerializer(flights, many=True)
             return Response(serializer.data)
         
         elif 'departure' in request.query_params:
             # Handle 'get_my_flights_by_departure_time/date' for airline users
             departure_time = request.query_params['departure']
-            flights = anonymousfacade.get_flights_by_departure_date(departure_time=departure_time)
+            flights = airlinefacade.get_flights_by_departure_date(departure_time=departure_time)
+            if flights is None:
+                return Response("No flight/s found.", status=status.HTTP_404_NOT_FOUND)
             serializer = FlightSerializer(flights, many=True)
             return Response(serializer.data)           
         
         elif 'landing' in request.query_params:
             # Handle 'get_my_flights_by_departure_time/date' for airline users
             landing_time = request.query_params['landing']
-            flights = anonymousfacade.get_flights_by_landing_date(landing_time=landing_time)
+            flights = airlinefacade.get_flights_by_landing_date(landing_time=landing_time)
+            if flights is None:
+                return Response("Bad date input", status=status.HTTP_400_BAD_REQUEST)
+            if not flights.exists():
+                return Response("No Flight/s found", status=status.HTTP_400_BAD_REQUEST)
+
             serializer = FlightSerializer(flights, many=True)
             return Response(serializer.data)           
         else:
             # Handle 'get_all_flights' for other users
             flights = anonymousfacade.get_all_flights()
+            if flights is None:
+                return Response("No flight/s found.", status=status.HTTP_404_NOT_FOUND)
             serializer = FlightSerializer(flights, many=True)
             return Response(serializer.data)
     
@@ -76,12 +86,9 @@ def flight_list(request, id=None):
             new_flight = airlinefacade.add_flight(data=serializer.validated_data, airlinecompany=airlinecompany)
             if new_flight == False:
                 return Response("Airline is allowed to add flights with its Id ONLY", status=status.HTTP_403_FORBIDDEN)
-            if new_flight == 1:
-                return Response("Invalid Country Id", status=status.HTTP_400_BAD_REQUEST)
             serializer = FlightSerializer(new_flight)
             return Response({"message": "Flight Created successfully", "data": serializer.data}, status=status.HTTP_201_CREATED)
         else:
-            # print(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -111,9 +118,9 @@ def flight_list(request, id=None):
         if remove_flight == 0:
             return Response("Flight not found", status=status.HTTP_404_NOT_FOUND)               
         if remove_flight == 1:
-            return Response("Cannot Remove Another Airline's Flight !", status=status.HTTP_403_FORBIDDEN)
+            return Response("Cannot Remove Another Airline's Flight!", status=status.HTTP_403_FORBIDDEN)
         elif remove_flight ==2:
-            return Response("This flight has an on going active/pruchased tickets thus cannot be removed !", status=status.HTTP_403_FORBIDDEN)
+            return Response("This flight has an on going active/pruchased tickets thus cannot be removed!", status=status.HTTP_403_FORBIDDEN)
         return Response("Flight removed succesfully",  status=status.HTTP_202_ACCEPTED)
 
 

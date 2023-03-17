@@ -12,16 +12,19 @@ class FlightSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         # Returning the output of the custom methods
-        self.check_similar_countries(data.get('origin_country_id'), data.get('destination_country_id'))
+        oc_object = data.get('origin_country_id')
+        dc_obecjt = data.get('destination_country_id')
+
+        self.check_similar_countries(oc_object.id, dc_obecjt.id)
         self.check_time_conflict(data.get('departure_time'), data.get('landing_time'))
         self.check_remaining_tickets(data.get('remaining_tickets'))
 
         return data
 
     # Makes sure the departure country and landing country aren't the same
-    def check_similar_countries(self, origin_country_id, destination_country_id):
+    def check_similar_countries(self, oc_id, dc_id):
 
-        if origin_country_id == destination_country_id:
+        if oc_id == dc_id:
             raise serializers.ValidationError('Origin and destination countries cannot be the same.')
         
     # Making sure the time flights make sense (for example making sure the departure time cannot be in the past)

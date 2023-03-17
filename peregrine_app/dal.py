@@ -23,7 +23,9 @@ class CountryDAL:
     @staticmethod
     def get_all_countries():
 
-            countries = Country.objects.values_list('name', flat=True)
+            # countries = Country.objects.values_list('name', flat=True)
+            countries = Country.objects.all()
+
             return countries
              
     @staticmethod
@@ -35,7 +37,7 @@ class CountryDAL:
             print ('Country Does not exist in the DB')
             return None
         except Exception as e:
-            print (f"An error occurred while deleting country: {e}")
+            print (f"An error occurred while fechting country: {e}")
             return None
             
     @staticmethod

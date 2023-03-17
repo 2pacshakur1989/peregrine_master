@@ -9,6 +9,7 @@ of adding one of the 2 (or user_form , or customer_form) then it won't add anyth
 # Importing the DAL and the needed utilities
 from peregrine_app.dal import TokenDAL, AdministratorDAL,UserDAL,FlightDAL,TicketDAL,CountryDAL,CustomerDAL,AirlineCompanyDAL,GroupDAL
 from abc import abstractmethod
+from peregrine_app.utils import check_countries
 
     
 class FacadeBase:
@@ -77,6 +78,10 @@ class FacadeBase:
         
     def get_flights_by_origin_country_id(self, origin_country_id):
         try:
+            origin_country = self.get_country_by_id(country_id=origin_country_id)
+            countries = self.get_all_countries()    
+            if check_countries(input_country=origin_country, countries=countries) is None:
+                return False
             return self.flight_dal.get_flights_by_origin_country_id(origin_country_id=origin_country_id)
         except Exception as e:
             print(f"An error occurred while fetching flights: {e}")
@@ -84,6 +89,10 @@ class FacadeBase:
         
     def get_flights_by_destination_country_id(self, destination_country_id):
         try:
+            destination_country = self.get_country_by_id(country_id=destination_country_id)
+            countries = self.get_all_countries()    
+            if check_countries(input_country=destination_country, countries=countries) is None:
+                return False
             return self.flight_dal.get_flights_by_destination_country_id(destination_country_id=destination_country_id)
         except Exception as e:
             print(f"An error occurred while fetching flights: {e}")
@@ -105,6 +114,9 @@ class FacadeBase:
         
     def get_flights_by_airline_company(self, airline_company_id):
         try:
+            airline = self.get_airline_by_id(id=airline_company_id)
+            if airline is None:
+                return False
             return self.flight_dal.get_flights_by_airline_company_id(airline_company_id=airline_company_id)
         except Exception as e:
             print(f"An error occurred while fetching flights: {e}")
