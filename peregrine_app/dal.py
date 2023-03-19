@@ -58,7 +58,7 @@ class CustomerDAL:
     @staticmethod
     def get_customer_by_id(customer_id):
         try:
-            customer = Customer.objects.get(id=customer_id)
+            customer = Customer.objects.filter(id=customer_id)
             return customer
         except Customer.DoesNotExist:
             print ('Customer Does not exist in the DB')

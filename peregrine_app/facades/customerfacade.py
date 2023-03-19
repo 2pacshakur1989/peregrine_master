@@ -31,15 +31,15 @@ class CustomerFacade(FacadeBase):
         else:
             raise AccessDeniedError
             
-    def update_customer(self, customer_id, data):
-        if self.check_access('customer_dal', 'update_customer'):
-            try:
-                return self.customer_dal.update_customer(customer_id=customer_id, data=data)
-            except Exception as e:
-                print(f"An error occurred while updating customer: {e}")
-                return None
-        else:
-            raise AccessDeniedError
+    # def update_customer(self, customer_id, data):
+    #     if self.check_access('customer_dal', 'update_customer'):
+    #         try:
+    #             return self.customer_dal.update_customer(customer_id=customer_id, data=data)
+    #         except Exception as e:
+    #             print(f"An error occurred while updating customer: {e}")
+    #             return None
+    #     else:
+    #         raise AccessDeniedError
 
     def add_ticket(self, data):
         if (self.check_access('ticket_dal', 'add_ticket')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) :
@@ -90,12 +90,27 @@ class CustomerFacade(FacadeBase):
         else:
             raise AccessDeniedError
         
-    def update_user(self,id, data):
-        if self.check_access('user_dal', 'update_user'):
+    # def update_user(self,id, data):
+    #     if self.check_access('user_dal', 'update_user'):
+    #         try:
+    #             return self.user_dal.update_user(id=id,data=data)
+    #         except Exception as e:
+    #             print(f"An error occurred while updating customer: {e}")
+    #             return None
+    #     else:
+    #         raise AccessDeniedError
+        
+
+
+    def update_customer(self,customer_id,user_id, user_data, data):
+        if (self.check_access('customer_dal','update_customer')) and (self.check_access('user_dal','update_user')) :
             try:
-                return self.user_dal.update_user(id=id,data=data)
+                with transaction.atomic():  
+                    update_user = self.user_dal.update_user(id=user_id,data=user_data)
+                    update_customer = self.customer_dal.update_customer(customer_id=customer_id,data=data)
+                    return update_user, update_customer
             except Exception as e:
-                print(f"An error occurred while updating customer: {e}")
+                print(f"An error occurred while adding a customer: {e}")
                 return None
         else:
             raise AccessDeniedError

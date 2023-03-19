@@ -29,6 +29,8 @@ urlpatterns = [
     # API urls
     path('', include("peregrine_app.peregrine_api.api_urls.api_flight_urls", namespace='peregrine_app_api_flight_view')),
     path('', include("peregrine_app.peregrine_api.api_urls.api_login-logout_urls", namespace='peregrine_app_login_logout_api_view')),
+    path('', include("peregrine_app.peregrine_api.api_urls.api_customer_urls", namespace='peregrine_app_api_customer_view')),
+
 
     path('admin/', admin.site.urls),
 

@@ -1,24 +1,24 @@
+"""This is the Flight API view, it has different GET options which are all available to the anonymous user.
+The POST, PUT,DELETE methods are permitted for the Airline companies ONLY! """
+
+
 from rest_framework.decorators import api_view
 from peregrine_app.peregrine_api.api_serializers.flight_serializer import FlightSerializer
 from rest_framework import status
 from rest_framework.response import Response
-from peregrine_app.facades.anonymousfacade import AnonymousFacade
 from peregrine_app.facades.airlinefacade import AirlineFacade
 
-anonymousfacade = AnonymousFacade()
 airlinefacade = AirlineFacade()
-
-
-
 
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def flight(request, id=None):
 
 
-
     # GET REQUESTS
     if request.method == 'GET':
+
+            
         if 'origin' in request.query_params:
             # Handle 'get_flights_by_origin_country' for all users
             origin_country = request.query_params['origin']
@@ -51,7 +51,9 @@ def flight(request, id=None):
             departure_time = request.query_params['departure']
             flights = airlinefacade.get_flights_by_departure_date(departure_time=departure_time)
             if flights is None:
-                return Response("No flight/s found.", status=status.HTTP_404_NOT_FOUND)
+                return Response("Bad date input", status=status.HTTP_400_BAD_REQUEST)
+            if not flights.exists():
+                return Response("No Flight/s found", status=status.HTTP_400_BAD_REQUEST)
             serializer = FlightSerializer(flights, many=True)
             return Response(serializer.data)           
         
@@ -63,12 +65,21 @@ def flight(request, id=None):
                 return Response("Bad date input", status=status.HTTP_400_BAD_REQUEST)
             if not flights.exists():
                 return Response("No Flight/s found", status=status.HTTP_400_BAD_REQUEST)
-
             serializer = FlightSerializer(flights, many=True)
-            return Response(serializer.data)           
+            return Response(serializer.data) 
+        
+        elif 'id' in request.query_params:
+            # Handle 'get a specific flight' for other users
+            id = request.query_params['id']
+            flight = airlinefacade.get_flight_by_id(id=id)  
+            if flight is None:
+                return Response("Flight is not found", status=status.HTTP_400_BAD_REQUEST)
+            serializer = FlightSerializer(flight)
+            return Response(serializer.data)  
+         
         else:
             # Handle 'get_all_flights' for other users
-            flights = anonymousfacade.get_all_flights()
+            flights = airlinefacade.get_all_flights()
             if flights is None:
                 return Response("No flight/s found.", status=status.HTTP_404_NOT_FOUND)
             serializer = FlightSerializer(flights, many=True)

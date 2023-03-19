@@ -21,7 +21,7 @@ class AdministratorFacade(FacadeBase):
 
     @property
     def accessible_dals(self):
-        return [('customer_dal', ['get_all_customers', 'add_customer' , 'remove_customer']),
+        return [('customer_dal', ['get_all_customers', 'add_customer' , 'remove_customer','get_customer_by_id']),
                 ('airline_company_dal', ['add_airline_company', 'remove_airline_company', 'get_all_airline_companies']),
                 ('administrator_dal', ['add_new_admin', 'remove_admin','get_all_admins']),
                 ('user_dal', ['remove_user','add_user']),
@@ -67,20 +67,25 @@ class AdministratorFacade(FacadeBase):
                
     def remove_customer(self, customer_id):
 
-        if (self.check_access('user_dal', 'remove_user')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) :
-        
-                tickets = self.ticket_dal.get_tickets_by_customer_id(customer_id=customer_id)
-                if  tickets.exists():
-                    return False
-                else:
-                    try:
-                        customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
-                        user_id = customer.user_id.id
-                        self.user_dal.remove_user(id=user_id)
-                        return True           
-                    except Exception as e:
-                        print(f"An error occurred while removing customer: {e}")
-                        return None
+        if (self.check_access('user_dal', 'remove_user')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) and (self.check_access('customer_dal', 'get_customer_by_id')) :
+
+            customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
+            if not customer.exists():
+                return 2
+            for element in customer:
+                user_id = element.user_id.id
+                break
+            tickets = self.ticket_dal.get_tickets_by_customer_id(customer_id=customer_id)
+            if  tickets.exists():
+                return 3
+            # print(user_id)
+            try:
+                # pass
+                self.user_dal.remove_user(id=user_id)
+                return True          
+            except Exception as e:
+                print(f"An error occurred while removing customer: {e}")
+                return None
         else:
             raise AccessDeniedError
 

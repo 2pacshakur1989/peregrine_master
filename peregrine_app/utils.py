@@ -55,4 +55,25 @@ def check_countries(input_country,countries):
         return True
 
 
+# def partial_update():
+
+#         if 'username' in request.data:
+#             customer.username = request.data['username']
+#         if 'email' in request.data:
+#             customer.email = request.data['email']
+#         if 'password1' in request.data:
+#             customer.email = request.data['password1']
+#         if 'first_name' in request.data:
+#             customer.first_name = request.data['first_name']
+#         if 'last_name' in request.data:
+#             customer.last_name = request.data['last_name']
+#         if 'address' in request.data:
+#             customer.address = request.data['address']
+#         if 'phone_no' in request.data:
+#             customer.phone_no = request.data['phone_no']
+#         if 'credit_card_no' in request.data:
+#             customer.credit_card_no = request.data['credit_card_no']
+#         customer.save()
+#         return Response(CustomerSerializer(customer).data, status=status.HTTP_200_OK)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
