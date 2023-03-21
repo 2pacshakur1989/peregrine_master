@@ -11,7 +11,7 @@ from peregrine_app.facades.airlinefacade import AirlineFacade
 airlinefacade = AirlineFacade()
 
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST', 'PATCH', 'DELETE'])
 def flight(request, id=None):
 
 
@@ -91,9 +91,13 @@ def flight(request, id=None):
         if not ((request.user.is_authenticated) and (request.user.groups.filter(name='airline').exists())):
             return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
         airlinecompany = request.user.airlinecompany
-        serializer = FlightSerializer(data=request.data)
+        newflight = request.data
+        newflight.update({'airline_company_id':airlinecompany.id})
+        serializer = FlightSerializer(data=newflight)
+        
         if serializer.is_valid():
             # Use validated data instead of request.data
+            
             new_flight = airlinefacade.add_flight(data=serializer.validated_data, airlinecompany=airlinecompany)
             if new_flight == False:
                 return Response("Airline is allowed to add flights with its Id ONLY", status=status.HTTP_403_FORBIDDEN)
@@ -103,21 +107,35 @@ def flight(request, id=None):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-    # PUT REQUESTS
-    elif request.method == 'PUT':
-        if not ((request.user.is_authenticated) and (request.user.groups.filter(name='airline').exists())):
+    # PATCH REQUESTS
+    elif request.method == 'PATCH':
+        if not ((request.user.is_authenticated) or (request.user.groups.filter(name='airline').exists())):
             return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)                
         airlinecompany = request.user.airlinecompany
-        flight = airlinefacade.get_flight_by_id(id=id)
+        flight = airlinefacade.get_flight_by_id(id=id) # Getting the object and making sure it exists
         if flight is None:
             return Response("Flight not found", status=status.HTTP_404_NOT_FOUND)
-        serializer = FlightSerializer(flight, data=request.data)
+        serializer = FlightSerializer(flight, data=request.data, partial = True)
         if serializer.is_valid():
-            if airlinefacade.update_flight(data=serializer.validated_data, flight_id=id, airlinecompany=airlinecompany) == False:
-                return Response("Airline is allowed to update flights with its Id ONLY", status=status.HTTP_403_FORBIDDEN)  
-            return Response({"message": "Flight updated successfully", "data": serializer.data}, status=status.HTTP_202_ACCEPTED)
-        else:
+            data = {}
+
+            if 'airline_company_id' in request.data:
+                 data.update({'airline_company_id': serializer.validated_data['airline_company_id']})
+            if 'origin_country_id' in request.data:
+                 data.update({'origin_country_id': serializer.validated_data['origin_country_id']})
+            if 'destination_country_id' in request.data:
+                 data.update({'destination_country_id': serializer.validated_data['destination_country_id']})
+            if 'departure_time' in request.data:
+                 data.update({'departure_time': serializer.validated_data['departure_time']})    
+            if 'landing_time' in request.data:
+                 data.update({'landing_time': serializer.validated_data['landing_time']})    
+            if 'remaining_tickets' in request.data:
+                 data.update({'remaining_tickets': serializer.validated_data['remaining_tickets']}) 
+        else:  
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if airlinefacade.update_flight(data=data, flight_id=id, airlinecompany=airlinecompany) == False:
+            return Response("Airline is allowed to update flights with its Id ONLY", status=status.HTTP_403_FORBIDDEN)  
+        return Response({"message": "Flight updated successfully", "data": serializer.data}, status=status.HTTP_202_ACCEPTED)
 
 
     # DELETE REQUESTS

@@ -14,12 +14,36 @@ class FlightSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         # Returning the output of the custom methods
-        oc_object = data.get('origin_country_id')
-        dc_obecjt = data.get('destination_country_id')
 
-        self.check_similar_countries(oc_object.id, dc_obecjt.id)
-        self.check_time_conflict(data.get('departure_time'), data.get('landing_time'))
-        self.check_remaining_tickets(data.get('remaining_tickets'))
+        instance = self.instance
+        # If updating an existing instance, use the existing values for fields not being updated
+        if instance is not None:
+            for field in self.Meta.fields:
+                if field not in data:
+                    data[field] = getattr(instance, field)
+        
+        # if not data.get('airline_company_id'):
+        #     airline_company_id = instance.airline_company_id
+
+        if data.get('origin_country_id'):
+            oc_object = data.get('origin_country_id')
+
+        if data.get('destination_country_id'):
+            dc_object = data.get('destination_country_id')  
+        # Executing the function
+        self.check_similar_countries(oc_id=oc_object.id, dc_id=dc_object.id)
+
+        if data.get('departure_time'):
+            departure_time = data.get('departure_time')
+
+        if data.get('landing_time'):
+            landing_time = data.get('landing_time')
+        # Executing the function
+        self.check_time_conflict(departure_time=departure_time,landing_time=landing_time)
+
+        if data.get('remaining_tickets'):
+            # Executing the function
+            self.check_remaining_tickets(data.get('remaining_tickets'))
 
         return data
 
@@ -40,7 +64,7 @@ class FlightSerializer(serializers.ModelSerializer):
         current_time = current_time.replace(second=0, microsecond=0)
         if departure_time < twelve_hours_from_now:
             raise serializers.ValidationError ('Departure time must be minimum 12 hours from now') 
-        if not (landing_time>(departure_time+timedelta(hours=2))) and (landing_time<(departure_time+timedelta(hours=18))):
+        if not ((landing_time>(departure_time+timedelta(hours=2))) and (landing_time<(departure_time+timedelta(hours=18)))):
             raise serializers.ValidationError ('Landing time has to be 2-18 hours difference from departure time')
         if landing_time <= departure_time:
             raise serializers.ValidationError ('Landing time cannot be prior or equal to the departure time')

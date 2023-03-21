@@ -8,7 +8,6 @@ urlpatterns = [
     # GET URLS
     path('api/customers/', api_customer_views.customer, name='customer'),
 
-    # # POST/PUT/DELETE URLS
-    # path('api/customers/add', api_customer_views.customer, name='customer'),
+    # # POST/PATCH/DELETE URLS
     path('api/customers/<str:id>', api_customer_views.customer, name='customer')
 ]

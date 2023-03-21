@@ -70,19 +70,17 @@ class AdministratorFacade(FacadeBase):
         if (self.check_access('user_dal', 'remove_user')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) and (self.check_access('customer_dal', 'get_customer_by_id')) :
 
             customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
-            if not customer.exists():
-                return 2
+            if (customer is None) or (not customer.exists()) :
+                return 4
             for element in customer:
                 user_id = element.user_id.id
                 break
             tickets = self.ticket_dal.get_tickets_by_customer_id(customer_id=customer_id)
             if  tickets.exists():
                 return 3
-            # print(user_id)
             try:
-                # pass
                 self.user_dal.remove_user(id=user_id)
-                return True          
+                return True         
             except Exception as e:
                 print(f"An error occurred while removing customer: {e}")
                 return None
@@ -176,3 +174,4 @@ class AdministratorFacade(FacadeBase):
                 return None
         else:
             raise AccessDeniedError
+        

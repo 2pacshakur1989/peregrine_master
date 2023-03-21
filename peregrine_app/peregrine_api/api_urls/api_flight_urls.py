@@ -8,7 +8,7 @@ urlpatterns = [
 
     # GET URLS
     path('api/flights/',api_flight_views.flight, name='flight'),
-    path('api/flights/id/<str:id>',api_flight_views.flight, name='flight'),
+    path('api/flights/<str:id>', api_flight_views.flight, name='flight'),
     path('api/flights/origin/<str:origin>',api_flight_views.flight, name='flight'),
     path('api/flights/destination/<str:destination>',api_flight_views.flight, name='flight'),
     path('api/flights/airline/<str:airline>',api_flight_views.flight, name='flight'),
@@ -16,15 +16,9 @@ urlpatterns = [
     path('api/flights/landing/<str:landing>',api_flight_views.flight, name='flight'),
 
 
-    # POST URLS
-    path('api/flights/addflight/', api_flight_views.flight, name='flight'),
+    # POST/PATCH/DELETE URLS
+    path('api/flights/<str:id>', api_flight_views.flight, name='flight'),
 
-
-    # PUT URLS
-    path('api/flights/updateflight/<str:id>',api_flight_views.flight, name='flight'),
-
-    # DELETE URLS
-    path('api/flights/deleteflight/<str:id>',api_flight_views.flight, name='flight_lst')
 
 ]
 

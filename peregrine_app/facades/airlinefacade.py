@@ -66,8 +66,8 @@ class AirlineFacade(FacadeBase):
         if (self.check_access('flight_dal', 'update_flight')) and (self.check_access('flight_dal', 'get_flight_by_id')):
             try:
                 flight = self.flight_dal.get_flight_by_id(id=flight_id)
-                data_airline_company= data['airline_company_id']
-                if (flight.airline_company_id.id != airlinecompany.id) or (airlinecompany.id != data_airline_company.id):
+                # data_airline_company= data['airline_company_id']
+                if (flight.airline_company_id.id != airlinecompany.id):
                     return False
                 return self.flight_dal.update_flight(flight_id=flight_id,data=data)
             except Exception as e:

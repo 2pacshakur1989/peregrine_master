@@ -53,8 +53,8 @@ class UserProfile(UserCreationForm):
         if not re.fullmatch(password_pattern, password1):
             self.add_error('password1', 'Password must contain english letters and numbers')
 
-        elif len(password1) < 8 or len(password1) > 30:
-            self.add_error('username', 'Username should be between 8-30 characters')
+        elif len(password1) < 8 or len(password1) > 31:
+            self.add_error('password1', 'Password should be between 8-30 characters')
 
 class UpdateUserForm(forms.ModelForm):
 

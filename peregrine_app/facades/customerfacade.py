@@ -104,12 +104,17 @@ class CustomerFacade(FacadeBase):
 
     def update_customer(self,customer_id,user_id, user_data, data):
         if (self.check_access('customer_dal','update_customer')) and (self.check_access('user_dal','update_user')) :
+            customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
+            if (customer is None) or (not customer.exists()) :
+                return 4
             try:
                 with transaction.atomic():  
                     update_user = self.user_dal.update_user(id=user_id,data=user_data)
                     update_customer = self.customer_dal.update_customer(customer_id=customer_id,data=data)
                     return update_user, update_customer
             except Exception as e:
+                # rollback the update
+                transaction.set_rollback(True)
                 print(f"An error occurred while adding a customer: {e}")
                 return None
         else:
