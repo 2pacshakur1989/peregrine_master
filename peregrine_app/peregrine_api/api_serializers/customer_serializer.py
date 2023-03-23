@@ -8,10 +8,9 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customer
         fields = ['first_name', 'last_name', 'address', 'phone_no', 'credit_card_no']
 
-
+    # Main method that executes all custom validation methods
     def validate(self, data):
         # Returning the output of the custom methods
-
         instance = self.instance
         # If updating an existing instance, use the existing values for fields not being updated
         if instance is not None:
@@ -26,7 +25,7 @@ class CustomerSerializer(serializers.ModelSerializer):
             last_name = data.get('last_name')
 
         self.name_validation(first_name=first_name, last_name=last_name)
-        
+
         if data.get('address'):
             address = data.get('address')
             self.address_validation(address=address)
@@ -41,32 +40,13 @@ class CustomerSerializer(serializers.ModelSerializer):
 
         return data
 
-    # def first_name_validation(self, first_name):
-
-    #     name_pattern = re.compile(r'^[A-Za-z ]+$') # restrict to letters and spaces only
-    #     if not re.fullmatch(name_pattern, first_name):
-    #         raise serializers.ValidationError ('Names should contain only letters and spaces')
-
-    #     elif len(first_name) < 3 or len(first_name) > 20:
-    #         raise serializers.ValidationError ('Name should be between 3 and 20 characters long')
-        
-    # def last_name_validation(self, last_name):
-
-    #     name_pattern = re.compile(r'^[A-Za-z ]+$') # restrict to letters and spaces only
-    #     if not re.fullmatch(name_pattern, last_name):
-    #         raise serializers.ValidationError ('Names should contain only letters and spaces')
-
-    #     elif len(last_name) < 3 or len(last_name) > 20:
-    #         raise serializers.ValidationError ('Name should be between 3 and 20 characters long')
-
     def name_validation(self, first_name, last_name):
         name_pattern = re.compile(r'^[A-Za-z ]+$') # restrict to letters and spaces only
         if (not re.fullmatch(name_pattern, first_name)) or (not re.fullmatch(name_pattern, last_name)):
             raise serializers.ValidationError ('Names should contain only letters and spaces')
         elif (len(first_name) < 3 or len(first_name) > 20) or (len(last_name) < 3 or len(last_name) > 20):
             raise serializers.ValidationError ('Name should be between 3 and 20 characters long')
-           
-         
+                   
     def address_validation(self, address):
 
         address_pattern = re.compile(r'^[A-Za-z\d]+[A-Za-z\d\s\.]*$')

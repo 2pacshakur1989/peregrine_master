@@ -1,7 +1,6 @@
 """This is the Flight API view, it has different GET options which are all available to the anonymous user.
 The POST, PUT,DELETE methods are permitted for the Airline companies ONLY! """
 
-
 from rest_framework.decorators import api_view
 from peregrine_app.peregrine_api.api_serializers.flight_serializer import FlightSerializer
 from rest_framework import status
@@ -92,7 +91,7 @@ def flight(request, id=None):
             return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
         airlinecompany = request.user.airlinecompany
         newflight = request.data
-        newflight.update({'airline_company_id':airlinecompany.id})
+        newflight.update({'airline_company_id':airlinecompany})
         serializer = FlightSerializer(data=newflight)
         
         if serializer.is_valid():
@@ -134,8 +133,13 @@ def flight(request, id=None):
         else:  
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         if airlinefacade.update_flight(data=data, flight_id=id, airlinecompany=airlinecompany) == False:
-            return Response("Airline is allowed to update flights with its Id ONLY", status=status.HTTP_403_FORBIDDEN)  
-        return Response({"message": "Flight updated successfully", "data": serializer.data}, status=status.HTTP_202_ACCEPTED)
+            return Response("Airline is allowed to update flights with its Id ONLY", status=status.HTTP_403_FORBIDDEN)
+        # Creating a new instance to present the updated data  
+        updated_flight = airlinefacade.get_flight_by_id(id=id)
+        # Create a new serializer instance with the updated flight object:
+        updated_serializer = FlightSerializer(updated_flight)
+        # Return the data from the new serializer instance:
+        return Response({"message": "Flight updated successfully", "data": updated_serializer.data}, status=status.HTTP_202_ACCEPTED)
 
 
     # DELETE REQUESTS

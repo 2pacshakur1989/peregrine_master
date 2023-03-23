@@ -58,7 +58,8 @@ class CustomerDAL:
     @staticmethod
     def get_customer_by_id(customer_id):
         try:
-            customer = Customer.objects.filter(id=customer_id)
+            # customer = Customer.objects.filter(id=customer_id)
+            customer = Customer.objects.get(id=customer_id)
             return customer
         except Customer.DoesNotExist:
             print ('Customer Does not exist in the DB')
@@ -453,17 +454,22 @@ class UserDAL:
                 username=data['username'],
                 email=data['email']
             )
-            new_user.set_password(data['password1'])
+            new_user.set_password(data['password'])
             new_user.save()
             return new_user
         except Exception as e:
             print (f"An error occurred while adding user: {e}")
             return None
-        
+
     @staticmethod
     def update_user(id, data):
         try:
-            user = User.objects.filter(id=id).update(**data)
+            user = User.objects.get(id=id)
+            if 'password' in data:
+                user.set_password(data['password'])
+                del data['password']
+            user.__dict__.update(**data)
+            user.save()
             return user
         except User.DoesNotExist:
             print ('User does not exist/not found')
@@ -471,6 +477,18 @@ class UserDAL:
         except Exception as e:
             print (f"An error occurred while updating user: {e}")
             return None
+    #     
+    # @staticmethod
+    # def update_user(id, data):
+    #     try:
+    #         user = User.objects.filter(id=id).update(**data)
+    #         return user
+    #     except User.DoesNotExist:
+    #         print ('User does not exist/not found')
+    #         return None
+    #     except Exception as e:
+    #         print (f"An error occurred while updating user: {e}")
+    #         return None
 
     @staticmethod
     def remove_user(id):

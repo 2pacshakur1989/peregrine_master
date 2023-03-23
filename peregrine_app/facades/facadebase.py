@@ -142,7 +142,10 @@ class FacadeBase:
     
     def get_airline_by_username(self,username):
         try:
-            return self.airline_company_dal.get_airline_by_username(username=username)
+            airline_query_set =  self.airline_company_dal.get_airline_by_username(username=username)
+            for element in airline_query_set:
+                airline = element
+            return airline
         except Exception as e:
             print(f"An error occurred while fetching airline: {e}")
             return None

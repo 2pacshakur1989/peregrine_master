@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'email', 'password1','password2']
 
-    
+    # Main method that executes all custom validation methods    
     def validate(self, data):
 
         if data.get('username'):
@@ -28,7 +28,8 @@ class UserSerializer(serializers.ModelSerializer):
                 password1 = data.get('password1')
                 password2 = data.get('password2')
                 self.password_validation(password1=password1, password2=password2)
-            raise serializers.ValidationError ('In order to update a password, both the password field and the confirmation field are required')
+            else:
+                raise serializers.ValidationError ('In order to update a password, both the password field and the confirmation field are required')
 
         return data
     

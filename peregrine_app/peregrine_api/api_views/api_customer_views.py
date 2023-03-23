@@ -1,3 +1,6 @@
+"""Customer API view which includes , GET all customers (for the admin only), add customer,
+which is for the admin, and anonymous only , remove customer (admin only), update customer(customer only)"""
+
 from rest_framework.decorators import api_view
 from peregrine_app.peregrine_api.api_serializers.customer_serializer import CustomerSerializer
 from peregrine_app.peregrine_api.api_serializers.user_serializer import UserSerializer
@@ -5,12 +8,12 @@ from rest_framework import status
 from rest_framework.response import Response
 from peregrine_app.facades.adminfacade import AdministratorFacade
 from peregrine_app.facades.customerfacade import CustomerFacade
+from peregrine_app.facades.anonymousfacade import AnonymousFacade
 
-""" we are going to create a customer API view which includes , GET all customers (for the admin only), add customer,
-which is for the admin, and anonymous only , remove customer (admin only), update customer(customer only)"""
 
 adminfacade = AdministratorFacade()
 customerfacade = CustomerFacade()
+anonymousfacade = AnonymousFacade()
 
 @api_view(['GET', 'POST', 'PATCH', 'DELETE'])
 def customer(request, id=None):
@@ -32,33 +35,34 @@ def customer(request, id=None):
         #This method is accessible to an anonymous user who wants to create a customer profile , and the admin
         if ((request.user.is_authenticated) and ((request.user.groups.filter(name='airline').exists()) or (request.user.groups.filter(name='customer').exists()))):
             return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
+        # Serializing the data
         customer_serializer = CustomerSerializer(data=request.data)
         user_serializer = UserSerializer(data=request.data)
-        if (customer_serializer.is_valid()) and (user_serializer.is_valid()):
-        # Use validated data instead of request.data
+        if user_serializer.is_valid():
+
             user_data = {
                 'username': user_serializer.validated_data['username'],
                 'email': user_serializer.validated_data['email'],
                 'password': user_serializer.validated_data['password1']
             }
+        else:
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if customer_serializer.is_valid():
+
             customer_data = {
                 'first_name': customer_serializer.validated_data['first_name'],
                 'last_name': customer_serializer.validated_data['last_name'],
                 'address': customer_serializer.validated_data['address'],
                 'phone_no': customer_serializer.validated_data['phone_no'],
                 'credit_card_no': customer_serializer.validated_data['credit_card_no'],
-            }            
-            new_customer = adminfacade.add_customer(user_data=user_data, data=customer_data)
-            customer_serializer = CustomerSerializer(new_customer)
-            user_serializer = UserSerializer(new_customer)
-            return Response({"message": "Customer Created successfully", "data": customer_serializer.data}, status=status.HTTP_201_CREATED)
-        # The errors were done this way because in order to return 2 different serializers errors , You must call is_valid() before accessing .errors.
-        errors = {}
-        if not user_serializer.is_valid():
-            errors.update(user_serializer.errors)
-        if not customer_serializer.is_valid():
-            errors.update(customer_serializer.errors)
-        return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+            }
+        else:  
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)     
+        anonymousfacade.add_customer(user_data=user_data, data=customer_data)
+        # Serializing the data again in order to present it
+        user_serializer = UserSerializer(user_data)
+        customer_serializer = CustomerSerializer(customer_data)
+        return Response({"message": "Customer Created successfully","user_data":user_serializer.data ,"customer_data": customer_serializer.data}, status=status.HTTP_201_CREATED)
 
 
     # PATCH REQUESTS
@@ -69,8 +73,7 @@ def customer(request, id=None):
         if str(request.user.customer.id) != id:
             return Response("Customer is allowed to update its own details ONLY", status=status.HTTP_403_FORBIDDEN)  
         user_id = request.user.customer.user_id.id
-
-        # Create new serializer instances with the existing objects and partial=True
+        # Creating new serializer instances with the existing objects and partial=True (to allow the fields to be optional for update)
         user_serializer = UserSerializer(request.user, data=request.data, partial=True)
         customer_serializer = CustomerSerializer(request.user.customer, data=request.data, partial=True)
 
@@ -83,9 +86,9 @@ def customer(request, id=None):
             if 'email' in request.data:
                 user_data.update({'email': user_serializer.validated_data['email']})
             if 'password1' in request.data:
-                user_data.update({'password1': user_serializer.validated_data['password1']})  
-            if 'password2' in request.data:
-                user_data.update({'password1': user_serializer.validated_data['password2']})    
+                user_data.update({'password': user_serializer.validated_data['password1']})  
+            # if 'password2' in request.data:
+            #     user_data.update({'password2': user_serializer.validated_data['password2']})    
         else:
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
@@ -107,14 +110,13 @@ def customer(request, id=None):
     
         customerfacade.update_customer(customer_id=id, user_id=user_id, user_data=user_data, data=customer_data)
 
-        updated_user_obj = request.user
-        updated_customer_obj = request.user.customer
-        updated_user_serializer = UserSerializer(updated_user_obj)
-        updated_customer_serializer = CustomerSerializer(updated_customer_obj)
+        # updated_user = customerfacade.get_user_by_id(user_id=request.user.id)
+        # updated_customer = customerfacade.get_customer_by_id(customer_id=id)
 
+        updated_user_serializer = UserSerializer(user_data)
+        updated_customer_serializer = CustomerSerializer(customer_data)
+        # Serializing the data again in order to present it
         return Response({"message": "Customer Updated successfully", "data": {"user": updated_user_serializer.data, "customer": updated_customer_serializer.data}}, status=status.HTTP_201_CREATED)
-
-        ##### SOLVE THE ISSUE OF THE DISPLAYED DATA !!!!!
 
  
     # DELETE REQUESTS

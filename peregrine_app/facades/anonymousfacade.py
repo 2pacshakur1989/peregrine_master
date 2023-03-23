@@ -22,7 +22,8 @@ class AnonymousFacade(FacadeBase):
     def accessible_dals(self):
         return [('user_dal', ['add_user','get_user_by_username']),
                  ('customer_dal', ['add_customer']),
-                 ('token_dal', ['create_token', 'delete_token', 'get_token_by_user'])]
+                 ('token_dal', ['create_token', 'delete_token', 'get_token_by_user']),
+                 ('group_dal', ['get_userRole_by_role'])]
     
     def get_facade_for_user(self,user):
         user_groups = user.groups.all()
@@ -40,20 +41,23 @@ class AnonymousFacade(FacadeBase):
     
     def __disable_add_user(self):
         self.add_user_allowed = False
-    
+
     def add_customer(self, user_data, data):
-        if self.check_access('customer_dal','add_customer'):
+        if (self.check_access('customer_dal','add_customer')) and (self.check_access('user_dal','add_user')) and (self.check_access('group_dal', 'get_userRole_by_role')):
             self.__enable_add_user()
             try:
                 group = self.group_dal.get_userRole_by_role(user_role='customer')
-                with transaction.atomic():  
+                with transaction.atomic():       
                     new_user = self.user_dal.add_user(data=user_data)
                     if new_user is not None:    
                         new_user.groups.add(group) 
                         data['user_id'] = new_user
                         new_customer = self.customer_dal.add_customer(data=data)
                         return new_customer
+                    transaction.set_rollback(True)
             except Exception as e:
+                # rollback the update
+                transaction.set_rollback(True)
                 print(f"An error occurred while adding a customer: {e}")
                 return None
             finally:

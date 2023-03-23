@@ -11,7 +11,7 @@ class FlightSerializer(serializers.ModelSerializer):
         model = Flight
         fields = ['airline_company_id','origin_country_id','destination_country_id','departure_time','landing_time','remaining_tickets']
 
-
+    # Main method that executes all custom validation methods
     def validate(self, data):
         # Returning the output of the custom methods
 
@@ -21,9 +21,6 @@ class FlightSerializer(serializers.ModelSerializer):
             for field in self.Meta.fields:
                 if field not in data:
                     data[field] = getattr(instance, field)
-        
-        # if not data.get('airline_company_id'):
-        #     airline_company_id = instance.airline_company_id
 
         if data.get('origin_country_id'):
             oc_object = data.get('origin_country_id')

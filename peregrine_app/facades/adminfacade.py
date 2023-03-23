@@ -43,38 +43,36 @@ class AdministratorFacade(FacadeBase):
         else:
             raise AccessDeniedError
         
-    def add_customer(self, user_data, data):
-        if (self.check_access('customer_dal','add_customer')) and (self.check_access('user_dal','add_user')):
-            self.__enable_add_user()
-            try:
-                group = self.group_dal.get_userRole_by_role(user_role='customer')
-                with transaction.atomic():       
-                    new_user = self.user_dal.add_user(data=user_data)
-                    if new_user is not None:    
-                        new_user.groups.add(group) 
-                        data['user_id'] = new_user
-                        new_customer = self.customer_dal.add_customer(data=data)
-                        return new_customer
-            except Exception as e:
-                # rollback the update
-                transaction.set_rollback(True)
-                print(f"An error occurred while adding a customer: {e}")
-                return None
-            finally:
-                self.__disable_add_user()
-        else:
-            raise AccessDeniedError
+    # def add_customer(self, user_data, data):
+    #     if (self.check_access('customer_dal','add_customer')) and (self.check_access('user_dal','add_user')) and (self.check_access('group_dal', 'get_userRole_by_role')):
+    #         self.__enable_add_user()
+    #         try:
+    #             group = self.group_dal.get_userRole_by_role(user_role='customer')
+    #             with transaction.atomic():       
+    #                 new_user = self.user_dal.add_user(data=user_data)
+    #                 if new_user is not None:    
+    #                     new_user.groups.add(group) 
+    #                     data['user_id'] = new_user
+    #                     new_customer = self.customer_dal.add_customer(data=data)
+    #                     return new_customer
+    #                 transaction.set_rollback(True)
+    #         except Exception as e:
+    #             # rollback the update
+    #             transaction.set_rollback(True)
+    #             print(f"An error occurred while adding a customer: {e}")
+    #             return None
+    #         finally:
+    #             self.__disable_add_user()
+    #     else:
+    #         raise AccessDeniedError
                
     def remove_customer(self, customer_id):
-
         if (self.check_access('user_dal', 'remove_user')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) and (self.check_access('customer_dal', 'get_customer_by_id')) :
 
             customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
-            if (customer is None) or (not customer.exists()) :
+            if customer is None :
                 return 4
-            for element in customer:
-                user_id = element.user_id.id
-                break
+            user_id = customer.user_id.id
             tickets = self.ticket_dal.get_tickets_by_customer_id(customer_id=customer_id)
             if  tickets.exists():
                 return 3
@@ -95,9 +93,13 @@ class AdministratorFacade(FacadeBase):
             raise AccessDeniedError                
 
     def add_airline(self, user_data ,data):
-        if self.check_access('airline_company_dal', 'add_airline_company'):
+        if (self.check_access('airline_company_dal', 'add_airline_company')) and (self.check_access('group_dal', 'get_userRole_by_role')) and (self.check_access('user_dal','add_user')) and (self.check_access('country_dal','get_country_by_id')):
             self.__enable_add_user()  
             try:
+                country_id = data['country_id']
+                country_id = country_id.id
+                if self.country_dal.get_country_by_id(country_id=country_id) is None:
+                    return 5
                 group = self.group_dal.get_userRole_by_role(user_role='airline')
                 with transaction.atomic(): 
                     new_user = self.user_dal.add_user(data=user_data)
@@ -105,9 +107,8 @@ class AdministratorFacade(FacadeBase):
                         new_user.groups.add(group) 
                         data['user_id'] = new_user
                         return self.airline_company_dal.add_airline_company(data=data)
+                    transaction.set_rollback(True)
             except Exception as e:
-                # rollback the update
-                transaction.set_rollback(True)
                 print(f"An error occurred while adding airline: {e}")
                 return None
             finally:    
@@ -118,12 +119,14 @@ class AdministratorFacade(FacadeBase):
     def remove_airline(self, id):
         if (self.check_access('user_dal', 'remove_user')) and (self.check_access('flight_dal', 'get_flights_by_airline_company_id')):
 
+                airline = self.airline_company_dal.get_airline_company_by_id(id=id)
+                if airline is None:
+                        return 4
+                user_id = airline.user_id.id
                 flights = self.flight_dal.get_flights_by_airline_company_id(airline_company_id=id)
-                if flights.exists():
+                if (flights.exists()):
                     return False
                 try:
-                    airline = self.airline_company_dal.get_airline_company_by_id(id=id)
-                    user_id = airline.user_id.id
                     self.user_dal.remove_user(id=user_id)
                     return True
                 except Exception as e:
@@ -140,7 +143,7 @@ class AdministratorFacade(FacadeBase):
             raise AccessDeniedError 
               
     def add_administrator(self,user_data, data):
-        if self.check_access('administrator_dal', 'add_new_admin'):
+        if self.check_access('administrator_dal', 'add_new_admin')  and (self.check_access('group_dal', 'get_userRole_by_role')) :
             self.__enable_add_user()
             try:
                 group = self.group_dal.get_userRole_by_role(user_role='admin')
@@ -153,6 +156,7 @@ class AdministratorFacade(FacadeBase):
                         new_user.save()                    
                         data['user_id'] = new_user
                         return self.administrator_dal.add_new_admin(data=data)
+                    transaction.set_rollback(True)
             except Exception as e:
                 # rollback the update
                 transaction.set_rollback(True)

@@ -14,11 +14,11 @@ from peregrine_app.exceptions import AccessDeniedError
 class CustomerFacade(FacadeBase):
 
     def __init__(self):
-        super().__init__(dals=['customer_dal', 'ticket_dal'])
+        super().__init__(dals=['customer_dal', 'ticket_dal', 'user_dal'])
     
     @property
     def accessible_dals(self):
-        return [('customer_dal', ['update_customer','get_customer_by_id']), ('ticket_dal', ['add_ticket', 'remove_ticket', 'get_ticket_by_id','get_tickets_by_customer_id']),('user_dal', ['update_user'])]
+        return [('customer_dal', ['update_customer','get_customer_by_id']), ('ticket_dal', ['add_ticket', 'remove_ticket', 'get_ticket_by_id', 'get_tickets_by_customer_id']),('user_dal', ['update_user', 'get_user_by_id'])]
     
     
     def get_customer_by_id(self, customer_id):
@@ -31,16 +31,6 @@ class CustomerFacade(FacadeBase):
         else:
             raise AccessDeniedError
             
-    # def update_customer(self, customer_id, data):
-    #     if self.check_access('customer_dal', 'update_customer'):
-    #         try:
-    #             return self.customer_dal.update_customer(customer_id=customer_id, data=data)
-    #         except Exception as e:
-    #             print(f"An error occurred while updating customer: {e}")
-    #             return None
-    #     else:
-    #         raise AccessDeniedError
-
     def add_ticket(self, data):
         if (self.check_access('ticket_dal', 'add_ticket')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) :
             with transaction.atomic():
@@ -81,7 +71,7 @@ class CustomerFacade(FacadeBase):
             raise AccessDeniedError
 
     def get_my_tickets(self, customer_id):
-        if self.check_access('ticket_dal', 'get_ticket_by_id'):
+        if self.check_access('ticket_dal', 'get_tickets_by_customer_id'):
             try:
                 return self.ticket_dal.get_tickets_by_customer_id(customer_id=customer_id)
             except Exception as e:
@@ -90,22 +80,10 @@ class CustomerFacade(FacadeBase):
         else:
             raise AccessDeniedError
         
-    # def update_user(self,id, data):
-    #     if self.check_access('user_dal', 'update_user'):
-    #         try:
-    #             return self.user_dal.update_user(id=id,data=data)
-    #         except Exception as e:
-    #             print(f"An error occurred while updating customer: {e}")
-    #             return None
-    #     else:
-    #         raise AccessDeniedError
-        
-
-
     def update_customer(self,customer_id,user_id, user_data, data):
         if (self.check_access('customer_dal','update_customer')) and (self.check_access('user_dal','update_user')) :
             customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
-            if (customer is None) or (not customer.exists()) :
+            if (customer is None) :
                 return 4
             try:
                 with transaction.atomic():  
@@ -119,3 +97,14 @@ class CustomerFacade(FacadeBase):
                 return None
         else:
             raise AccessDeniedError
+        
+    def get_user_by_id(self, user_id):
+        if self.check_access('user_dal','get_user_by_id'):
+            try:
+                user = self.user_dal.get_user_by_id(id=user_id)
+                return user
+            except Exception as e:
+                print(f"An error occurred while fetching user: {e}")
+                return None
+        else:
+            raise AccessDeniedError          
