@@ -10,7 +10,7 @@ from peregrine_app.facades.airlinefacade import AirlineFacade
 
 
 airlinefacade = AirlineFacade()
-adminfacade = AdministratorFacade()
+adminfacade = AdministratorFacade(user_group='admin')
 
 @api_view(['GET', 'POST', 'PATCH', 'DELETE'])
 def airline(request, id=None):

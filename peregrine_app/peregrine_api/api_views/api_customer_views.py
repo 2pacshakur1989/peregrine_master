@@ -11,8 +11,8 @@ from peregrine_app.facades.customerfacade import CustomerFacade
 from peregrine_app.facades.anonymousfacade import AnonymousFacade
 
 
-adminfacade = AdministratorFacade()
-customerfacade = CustomerFacade()
+adminfacade = AdministratorFacade(user_group='admin')
+customerfacade = CustomerFacade(user_group='customer')
 anonymousfacade = AnonymousFacade()
 
 @api_view(['GET', 'POST', 'PATCH', 'DELETE'])
@@ -86,9 +86,7 @@ def customer(request, id=None):
             if 'email' in request.data:
                 user_data.update({'email': user_serializer.validated_data['email']})
             if 'password1' in request.data:
-                user_data.update({'password': user_serializer.validated_data['password1']})  
-            # if 'password2' in request.data:
-            #     user_data.update({'password2': user_serializer.validated_data['password2']})    
+                user_data.update({'password': user_serializer.validated_data['password1']})    
         else:
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
@@ -108,7 +106,7 @@ def customer(request, id=None):
         else:
             return Response(customer_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-        customerfacade.update_customer(customer_id=id, user_id=user_id, user_data=user_data, data=customer_data)
+        customerfacade.update_customer(request, customer_id=id, user_id=user_id, user_data=user_data, data=customer_data)
 
         # updated_user = customerfacade.get_user_by_id(user_id=request.user.id)
         # updated_customer = customerfacade.get_customer_by_id(customer_id=id)

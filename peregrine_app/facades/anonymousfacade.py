@@ -10,12 +10,16 @@ from peregrine_app.facades.airlinefacade import AirlineFacade
 from peregrine_app.facades.customerfacade import CustomerFacade
 from peregrine_app.exceptions import AccessDeniedError
 from django.db import transaction
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import HttpResponse
+
 
 
 class AnonymousFacade(FacadeBase):
 
     def __init__(self):
         super().__init__(dals=['user_dal', 'customer_dal' ,'token_dal'])
+        self.session = None
         self.add_user_allowed = False    # allowing the add_user method work only when add_customer,add_admin , add_airline is requested
 
     @property
@@ -25,22 +29,62 @@ class AnonymousFacade(FacadeBase):
                  ('token_dal', ['create_token', 'delete_token', 'get_token_by_user']),
                  ('group_dal', ['get_userRole_by_role'])]
     
-    def get_facade_for_user(self,user):
-        user_groups = user.groups.all()
-        for group in user_groups:
-            if group.name == 'admin':
-                return AdministratorFacade()
-            elif group.name == 'airline':
-                return AirlineFacade()
-            elif group.name == 'customer':
-                return CustomerFacade()
-        return AnonymousFacade()
+
         
     def __enable_add_user(self):        # the __ before the name indicates that this is a prive function (which is still accessable from outside the class but "harder" to find)
         self.add_user_allowed = True
     
+    
     def __disable_add_user(self):
         self.add_user_allowed = False
+
+    
+    def login_func(self, request, **kwargs):
+        
+        username = kwargs.get('username')
+        password = kwargs.get('password')
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request,user=user)
+            user_groups = user.groups.all()
+            for group in user_groups:
+                if group.name == 'admin':
+                    facade = AdministratorFacade(user_group='admin')
+                elif group.name == 'airline':
+                    facade = AirlineFacade(user_groups='airline')
+                elif group.name == 'customer':
+                    facade = CustomerFacade(user_group='customer')
+                else:
+                    facade = AnonymousFacade()
+
+            token, created = self.token_dal.create_token(user=user)
+            # Include additional information in the token payload
+            token_payload = {
+                'user_id': user.id,
+                'username': user.username,
+                'is_staff': user.is_staff,
+                'is_superuser': user.is_superuser
+            }
+            if user.groups.filter(name='airline').exists():
+                token_payload['roles'] = ['airline']
+            elif user.groups.filter(name='customer').exists():
+                token_payload['roles'] = ['customer']
+            elif user.groups.filter(name='admin').exists():
+                token_payload['roles'] = ['admin']
+            return ({'token': token.key, 'payload': token_payload})
+        else:
+            return ({'error': 'Invalid credentials'})
+
+
+    def logout_func(self, request, user):
+        if self.check_access('token_dal','delete_token'):
+            logout(request)
+            self.token_dal.delete_token(user=user)
+            return ({'success': 'Successfully logged out.'}) 
+        else:
+            raise AccessDeniedError
+
 
     def add_customer(self, user_data, data):
         if (self.check_access('customer_dal','add_customer')) and (self.check_access('user_dal','add_user')) and (self.check_access('group_dal', 'get_userRole_by_role')):

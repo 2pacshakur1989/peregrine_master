@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.core import signing
 from django.contrib import messages
 
-facade = CustomerFacade()
+# facade = CustomerFacade()
 
 @login_required(login_url='peregrine_app_anonymousView:landing_page')
 @allowed_users(allowed_roles=['customer'])

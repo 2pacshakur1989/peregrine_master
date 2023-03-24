@@ -14,9 +14,11 @@ from peregrine_app.exceptions import AccessDeniedError
 class AdministratorFacade(FacadeBase):
 
     
-    def __init__(self):
+    def __init__(self, user_group):
         super().__init__(dals=['customer_dal', 'airline_company_dal', 'administrator_dal','user_dal','group_dal','flight_dal','ticket_dal'])
-
+        self._user_group = user_group
+        if not self._user_group == 'admin':
+            raise ValueError('Invalid user group')
         self.add_user_allowed = False    # allowing the add_user method work only when add_customer,add_admin , add_airline is requested
 
     @property
@@ -166,7 +168,9 @@ class AdministratorFacade(FacadeBase):
                  self.__disable_add_user()
         else:
             raise AccessDeniedError
-        
+
+
+
     def remove_administrator(self, id):
         if self.check_access('user_dal', 'remove_user'):
             try:

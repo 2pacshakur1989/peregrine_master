@@ -5,6 +5,12 @@ requests the permitted dals from the Father class (Facadebase) """
 # Importing the needed Facade and the needed utilities
 from .facadebase import FacadeBase
 from django.db import transaction
+from peregrine_app.decorators import allowed_users 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+import logging
+
+logger = logging.getLogger(__name__)
 
  # Custom made error, which handles the case, 
  # of a function requesting a DAL or a function which are not initialized in the constructor
@@ -13,24 +19,19 @@ from peregrine_app.exceptions import AccessDeniedError
 
 class CustomerFacade(FacadeBase):
 
-    def __init__(self):
+    def __init__(self, user_group):
         super().__init__(dals=['customer_dal', 'ticket_dal', 'user_dal'])
+        self._user_group = user_group
+        if not self._user_group == 'customer':
+            raise ValueError('Invalid user group')
     
     @property
     def accessible_dals(self):
         return [('customer_dal', ['update_customer','get_customer_by_id']), ('ticket_dal', ['add_ticket', 'remove_ticket', 'get_ticket_by_id', 'get_tickets_by_customer_id']),('user_dal', ['update_user', 'get_user_by_id'])]
-    
-    
-    def get_customer_by_id(self, customer_id):
-        if self.check_access('customer_dal', 'get_customer_by_id'):
-            try:
-                return self.customer_dal.get_customer_by_id(customer_id=customer_id)
-            except Exception as e:
-                print(f"An error occurred while updating customer: {e}")
-                return None
-        else:
-            raise AccessDeniedError
-            
+        
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['customer']))             
     def add_ticket(self, data):
         if (self.check_access('ticket_dal', 'add_ticket')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) :
             with transaction.atomic():
@@ -54,6 +55,9 @@ class CustomerFacade(FacadeBase):
         else:
             raise AccessDeniedError
 
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['customer']))  
     def remove_ticket(self, id):
         if (self.check_access('ticket_dal', 'remove_ticket')) and (self.check_access('ticket_dal', 'get_ticket_by_id')):
             with transaction.atomic():             
@@ -70,6 +74,9 @@ class CustomerFacade(FacadeBase):
         else:
             raise AccessDeniedError
 
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['customer']))  
     def get_my_tickets(self, customer_id):
         if self.check_access('ticket_dal', 'get_tickets_by_customer_id'):
             try:
@@ -79,8 +86,13 @@ class CustomerFacade(FacadeBase):
                 return None
         else:
             raise AccessDeniedError
-        
-    def update_customer(self,customer_id,user_id, user_data, data):
+
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['customer'])) 
+    def update_customer(self,request ,customer_id,user_id, user_data, data):
+        logger.info('update method called')
+
         if (self.check_access('customer_dal','update_customer')) and (self.check_access('user_dal','update_user')) :
             customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
             if (customer is None) :
@@ -97,14 +109,6 @@ class CustomerFacade(FacadeBase):
                 return None
         else:
             raise AccessDeniedError
-        
-    def get_user_by_id(self, user_id):
-        if self.check_access('user_dal','get_user_by_id'):
-            try:
-                user = self.user_dal.get_user_by_id(id=user_id)
-                return user
-            except Exception as e:
-                print(f"An error occurred while fetching user: {e}")
-                return None
-        else:
-            raise AccessDeniedError          
+
+
+       
