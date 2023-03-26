@@ -41,46 +41,23 @@ class AdministratorFacade(FacadeBase):
 
     def get_all_customers(self):
         if self.check_access('customer_dal', 'get_all_customers'):
-                return self.customer_dal.get_all_customers()
+            return self.customer_dal.get_all_customers()
         else:
             raise AccessDeniedError
-        
-    # def add_customer(self, user_data, data):
-    #     if (self.check_access('customer_dal','add_customer')) and (self.check_access('user_dal','add_user')) and (self.check_access('group_dal', 'get_userRole_by_role')):
-    #         self.__enable_add_user()
-    #         try:
-    #             group = self.group_dal.get_userRole_by_role(user_role='customer')
-    #             with transaction.atomic():       
-    #                 new_user = self.user_dal.add_user(data=user_data)
-    #                 if new_user is not None:    
-    #                     new_user.groups.add(group) 
-    #                     data['user_id'] = new_user
-    #                     new_customer = self.customer_dal.add_customer(data=data)
-    #                     return new_customer
-    #                 transaction.set_rollback(True)
-    #         except Exception as e:
-    #             # rollback the update
-    #             transaction.set_rollback(True)
-    #             print(f"An error occurred while adding a customer: {e}")
-    #             return None
-    #         finally:
-    #             self.__disable_add_user()
-    #     else:
-    #         raise AccessDeniedError
-               
+                       
     def remove_customer(self, customer_id):
         if (self.check_access('user_dal', 'remove_user')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) and (self.check_access('customer_dal', 'get_customer_by_id')) :
 
             customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
-            if customer is None :
-                return 4
+            if customer is None:
+                return ("Customer not found")
             user_id = customer.user_id.id
             tickets = self.ticket_dal.get_tickets_by_customer_id(customer_id=customer_id)
             if  tickets.exists():
-                return 3
+                return ("This customer has an on going active ticket thus cannot be deleted")
             try:
                 self.user_dal.remove_user(id=user_id)
-                return True         
+                return ('Customer removed successfully')         
             except Exception as e:
                 print(f"An error occurred while removing customer: {e}")
                 return None

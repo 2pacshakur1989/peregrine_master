@@ -9,7 +9,7 @@ from peregrine_app.facades.anonymousfacade import AnonymousFacade
 from peregrine_app.facades.airlinefacade import AirlineFacade
 
 
-airlinefacade = AirlineFacade()
+airlinefacade = AirlineFacade(user_group='airline')
 adminfacade = AdministratorFacade(user_group='admin')
 
 @api_view(['GET', 'POST', 'PATCH', 'DELETE'])

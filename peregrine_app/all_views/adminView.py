@@ -12,7 +12,7 @@ from django.views import View
 from django.http import HttpResponseNotAllowed
 from django.utils.decorators import method_decorator
         
-# facade = AdministratorFacade(user_group='admin')
+facade = AdministratorFacade(user_group='admin')
 
 
 # Get Methods

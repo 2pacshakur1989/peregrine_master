@@ -11,8 +11,11 @@ from django.db import transaction
 
 class AirlineFacade(FacadeBase):
     
-    def __init__(self):
+    def __init__(self, user_group):
         super().__init__(dals=['airline_company_dal', 'flight_dal','user_dal','ticket_dal', 'country_dal'])
+        self._user_group = user_group
+        if not self._user_group == 'airline':
+            raise ValueError('Invalid user group')
         
     @property
     def accessible_dals(self):
@@ -62,12 +65,21 @@ class AirlineFacade(FacadeBase):
     #     else:
     #         raise AccessDeniedError
         
+    # def add_flight(self, data, airlinecompany):     # This is for the API
+    #     if self.check_access('flight_dal', 'add_flight'):    
+    #         try:
+
+    #             return self.flight_dal.add_flight(data=data)
+    #         except Exception as e:
+    #             print(f"An error occurred while adding flight: {e}")
+    #             return None
+    #     else:
+    #         raise AccessDeniedError
+        
     def add_flight(self, data, airlinecompany):     # This is for the API
         if self.check_access('flight_dal', 'add_flight'):    
             try:
-                airline_object = data['airline_company_id']
-                if airlinecompany.id != airline_object.id:
-                    return False
+                data['airline_company_id'] = airlinecompany
                 return self.flight_dal.add_flight(data=data)
             except Exception as e:
                 print(f"An error occurred while adding flight: {e}")
@@ -78,9 +90,20 @@ class AirlineFacade(FacadeBase):
     def update_flight(self, flight_id, data ,airlinecompany):  # This is for API
         if (self.check_access('flight_dal', 'update_flight')) and (self.check_access('flight_dal', 'get_flight_by_id')):
             try:
+                data['airline_company_id'] = airlinecompany.id
+
+                origin = data['origin_country_id']
+                data['origin_country_id'] = origin.id
+
+                destination = data['destination_country_id']
+                data['destination_country_id'] = destination.id
+                
                 flight = self.flight_dal.get_flight_by_id(id=flight_id)
-                if (flight.airline_company_id.id != airlinecompany.id):
-                    return False
+                if flight is None:
+                    return None
+                if flight.airline_company_id != airlinecompany:
+                    return None
+                print(data['airline_company_id'])
                 return self.flight_dal.update_flight(flight_id=flight_id,data=data)
             except Exception as e:
                 print(f"An error occurred while updating flight: {e}")
@@ -91,16 +114,14 @@ class AirlineFacade(FacadeBase):
     def remove_flight(self, flight_id, airlinecompany):  # This is for the Api
         if (self.check_access('flight_dal', 'remove_flight')) and (self.check_access('ticket_dal', 'get_tickets_by_flight_id')) and (self.check_access('flight_dal', 'get_flight_by_id')) :   
             try:
-                flight = self.flight_dal.get_flight_by_id(id=flight_id)
-                if flight is None:
-                    return 0
+                flight = self.flight_dal.get_flight_by_id(id=flight_id)   
                 if flight.airline_company_id.id != airlinecompany.id:
-                    return 1    # returning a cue value  (Cannot Remove Another Airline's Flight !)        
+                    return ({'You are not authorized'})    # returning a cue value  (Cannot Remove Another Airline's Flight !)        
                 tickets = self.ticket_dal.get_tickets_by_flight_id(flight_id=flight_id)
                 if not tickets.exists():
-                    return self.flight_dal.remove_flight(flight_id=flight_id)
-                else:
-                    return 2 # returning a cue value  (This flight has an on going active/pruchased tickets thus cannot be removed !)
+                    self.flight_dal.remove_flight(flight_id=flight_id)
+                    return ({'Flight removed successfully'})
+                return ({'This flight has an on going active/pruchased tickets thus cannot be removed'}) # returning a cue value  (This flight has an on going active/pruchased tickets thus cannot be removed !)
             except Exception as e:
                 print(f"An error occurred while removing flight: {e}")
                 return None

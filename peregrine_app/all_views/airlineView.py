@@ -9,7 +9,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 
 
-facade = AirlineFacade()
+facade = AirlineFacade(user_group='airline')
 
 @login_required(login_url='peregrine_app_anonymousView:landing_page')
 @allowed_users(allowed_roles=['airline'])

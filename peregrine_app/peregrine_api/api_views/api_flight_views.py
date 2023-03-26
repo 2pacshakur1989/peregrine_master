@@ -2,15 +2,15 @@
 The POST, PUT,DELETE methods are permitted for the Airline companies ONLY! """
 
 from rest_framework.decorators import api_view
-from peregrine_app.peregrine_api.api_serializers.flight_serializer import FlightSerializer
+from peregrine_app.peregrine_api.api_serializers.flight_serializer import FlightSerializer, DisplayFlightSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from peregrine_app.facades.airlinefacade import AirlineFacade
 
-airlinefacade = AirlineFacade()
+airlinefacade = AirlineFacade(user_group='airline')
 
 
-@api_view(['GET', 'POST', 'PATCH', 'DELETE'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def flight(request, id=None):
 
 
@@ -22,66 +22,48 @@ def flight(request, id=None):
             # Handle 'get_flights_by_origin_country' for all users
             origin_country = request.query_params['origin']
             flights = airlinefacade.get_flights_by_origin_country_id(origin_country_id=origin_country)
-            if (flights == False) or (not flights.exists()):
-                return Response("No flight/s found.", status=status.HTTP_404_NOT_FOUND)
-            serializer = FlightSerializer(flights, many=True)
+            serializer = DisplayFlightSerializer(flights, many=True)
             return Response(serializer.data)
         
         elif 'destination' in request.query_params:
             # Handle 'get_flights_by_destination_country' for all users
             destination_country = request.query_params['destination']
             flights = airlinefacade.get_flights_by_destination_country_id(destination_country_id=destination_country)
-            if (flights == False) or (not flights.exists()):
-                return Response("No flight/s found.", status=status.HTTP_404_NOT_FOUND)
-            serializer = FlightSerializer(flights, many=True)
+            serializer = DisplayFlightSerializer(flights, many=True)
             return Response(serializer.data)
         
         elif 'airline' in request.query_params:
             # Handle 'get_my_flights_by_airline_company' for airline users
             airline_company = request.query_params['airline']
             flights = airlinefacade.get_flights_by_airline_company(airline_company_id=airline_company)
-            if flights is False:
-                return Response("No flight/s found.", status=status.HTTP_404_NOT_FOUND)
-            serializer = FlightSerializer(flights, many=True)
+            serializer = DisplayFlightSerializer(flights, many=True)
             return Response(serializer.data)
         
         elif 'departure' in request.query_params:
             # Handle 'get_my_flights_by_departure_time/date' for airline users
             departure_time = request.query_params['departure']
             flights = airlinefacade.get_flights_by_departure_date(departure_time=departure_time)
-            if flights is None:
-                return Response("Bad date input", status=status.HTTP_400_BAD_REQUEST)
-            if not flights.exists():
-                return Response("No Flight/s found", status=status.HTTP_400_BAD_REQUEST)
-            serializer = FlightSerializer(flights, many=True)
+            serializer = DisplayFlightSerializer(flights, many=True)
             return Response(serializer.data)           
         
         elif 'landing' in request.query_params:
             # Handle 'get_my_flights_by_departure_time/date' for airline users
             landing_time = request.query_params['landing']
             flights = airlinefacade.get_flights_by_landing_date(landing_time=landing_time)
-            if flights is None:
-                return Response("Bad date input", status=status.HTTP_400_BAD_REQUEST)
-            if not flights.exists():
-                return Response("No Flight/s found", status=status.HTTP_400_BAD_REQUEST)
-            serializer = FlightSerializer(flights, many=True)
+            serializer = DisplayFlightSerializer(flights, many=True)
             return Response(serializer.data) 
         
         elif 'id' in request.query_params:
             # Handle 'get a specific flight' for other users
             id = request.query_params['id']
             flight = airlinefacade.get_flight_by_id(id=id)  
-            if flight is None:
-                return Response("Flight is not found", status=status.HTTP_400_BAD_REQUEST)
-            serializer = FlightSerializer(flight)
+            serializer = DisplayFlightSerializer(flight)
             return Response(serializer.data)  
          
         else:
             # Handle 'get_all_flights' for other users
             flights = airlinefacade.get_all_flights()
-            if flights is None:
-                return Response("No flight/s found.", status=status.HTTP_404_NOT_FOUND)
-            serializer = FlightSerializer(flights, many=True)
+            serializer = DisplayFlightSerializer(flights, many=True)
             return Response(serializer.data)
     
     
@@ -90,56 +72,26 @@ def flight(request, id=None):
         if not ((request.user.is_authenticated) and (request.user.groups.filter(name='airline').exists())):
             return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
         airlinecompany = request.user.airlinecompany
-        newflight = request.data
-        newflight.update({'airline_company_id':airlinecompany})
-        serializer = FlightSerializer(data=newflight)
-        
+        serializer = FlightSerializer(data=request.data)       
         if serializer.is_valid():
             # Use validated data instead of request.data
-            
             new_flight = airlinefacade.add_flight(data=serializer.validated_data, airlinecompany=airlinecompany)
-            if new_flight == False:
-                return Response("Airline is allowed to add flights with its Id ONLY", status=status.HTTP_403_FORBIDDEN)
             serializer = FlightSerializer(new_flight)
             return Response({"message": "Flight Created successfully", "data": serializer.data}, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-    # PATCH REQUESTS
-    elif request.method == 'PATCH':
+    # PUT REQUESTS
+    elif request.method == 'PUT':
         if not ((request.user.is_authenticated) or (request.user.groups.filter(name='airline').exists())):
             return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)                
         airlinecompany = request.user.airlinecompany
-        flight = airlinefacade.get_flight_by_id(id=id) # Getting the object and making sure it exists
-        if flight is None:
-            return Response("Flight not found", status=status.HTTP_404_NOT_FOUND)
-        serializer = FlightSerializer(flight, data=request.data, partial = True)
+        serializer = FlightSerializer(data=request.data)     
         if serializer.is_valid():
-            data = {}
-
-            if 'airline_company_id' in request.data:
-                 data.update({'airline_company_id': serializer.validated_data['airline_company_id']})
-            if 'origin_country_id' in request.data:
-                 data.update({'origin_country_id': serializer.validated_data['origin_country_id']})
-            if 'destination_country_id' in request.data:
-                 data.update({'destination_country_id': serializer.validated_data['destination_country_id']})
-            if 'departure_time' in request.data:
-                 data.update({'departure_time': serializer.validated_data['departure_time']})    
-            if 'landing_time' in request.data:
-                 data.update({'landing_time': serializer.validated_data['landing_time']})    
-            if 'remaining_tickets' in request.data:
-                 data.update({'remaining_tickets': serializer.validated_data['remaining_tickets']}) 
-        else:  
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        if airlinefacade.update_flight(data=data, flight_id=id, airlinecompany=airlinecompany) == False:
-            return Response("Airline is allowed to update flights with its Id ONLY", status=status.HTTP_403_FORBIDDEN)
-        # Creating a new instance to present the updated data  
-        updated_flight = airlinefacade.get_flight_by_id(id=id)
-        # Create a new serializer instance with the updated flight object:
-        updated_serializer = FlightSerializer(updated_flight)
-        # Return the data from the new serializer instance:
-        return Response({"message": "Flight updated successfully", "data": updated_serializer.data}, status=status.HTTP_202_ACCEPTED)
+            # Use validated data instead of request.data
+            airlinefacade.update_flight(data=serializer.validated_data, flight_id=id, airlinecompany=airlinecompany)
+            return Response({"message": "Flight Updated successfully", "data": serializer.validated_data}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
     # DELETE REQUESTS
@@ -147,14 +99,7 @@ def flight(request, id=None):
         if not ((request.user.is_authenticated) and (request.user.groups.filter(name='airline').exists())) :
             return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
         airlinecompany = request.user.airlinecompany  
-        remove_flight = airlinefacade.remove_flight(flight_id=id,airlinecompany=airlinecompany)
-        if remove_flight == 0:
-            return Response("Flight not found", status=status.HTTP_404_NOT_FOUND)               
-        if remove_flight == 1:
-            return Response("Cannot Remove Another Airline's Flight!", status=status.HTTP_403_FORBIDDEN)
-        elif remove_flight ==2:
-            return Response("This flight has an on going active/pruchased tickets thus cannot be removed!", status=status.HTTP_403_FORBIDDEN)
-        return Response("Flight removed succesfully",  status=status.HTTP_202_ACCEPTED)
+        return Response(airlinefacade.remove_flight(flight_id=id,airlinecompany=airlinecompany))
 
 
 

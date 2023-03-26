@@ -17,7 +17,7 @@ class CountryDAL:
             country = Country.objects.create(name=new_country)
             return country
         except Exception as e:
-            print (f"An error occurred while adding the country: {e}")
+            print (f"Dal : An error occurred while adding the country: {e}")
             return None
     
     @staticmethod
@@ -34,10 +34,10 @@ class CountryDAL:
             country = Country.objects.get(id=country_id)
             return country
         except Country.DoesNotExist:
-            print ('Country Does not exist in the DB')
+            print ('Dal : Country Does not exist in the DB')
             return None
         except Exception as e:
-            print (f"An error occurred while fechting country: {e}")
+            print (f"Dal : An error occurred while fechting country: {e}")
             return None
             
     @staticmethod
@@ -46,12 +46,23 @@ class CountryDAL:
             country = Country.objects.get(id=country_id)
             country.delete()
         except Country.DoesNotExist:
-            print ('Country Does not exist in the DB')
+            print ('Dal : Country Does not exist in the DB')
             return None
         except Exception as e:
-            print (f"An error occurred while deleting country: {e}")
+            print (f"Dal : An error occurred while deleting country: {e}")
             return None
 
+    @staticmethod
+    def get_country_by_name(name):
+        try:
+            country = Country.objects.get(name=name)
+            return country
+        except Country.DoesNotExist:
+            print ('Dal : Country Does not exist in the DB')
+            return None
+        except Exception as e:
+            print (f"Dal : An error occurred while fechting country: {e}")
+            return None        
 
 class CustomerDAL:
 
@@ -62,10 +73,10 @@ class CustomerDAL:
             customer = Customer.objects.get(id=customer_id)
             return customer
         except Customer.DoesNotExist:
-            print ('Customer Does not exist in the DB')
+            print ('Dal : Customer Does not exist in the DB')
             return None
         except Exception as e:
-            print (f"An error occurred while deleting customer: {e}")
+            print (f"Dal : An error occurred while deleting customer: {e}")
             return None
         
     @staticmethod
@@ -74,10 +85,10 @@ class CustomerDAL:
             customer = Customer.objects.filter(user_id__username=username)
             return customer
         except Customer.DoesNotExist:
-            print ('Customer Does not exist in the DB')
+            print ('Dal : Customer Does not exist in the DB')
             return None
         except Exception as e:
-            print (f"An error occurred while deleting customer: {e}")
+            print (f"Dal : An error occurred while deleting customer: {e}")
             return None
                
     @staticmethod
@@ -92,7 +103,7 @@ class CustomerDAL:
             new_customer = Customer.objects.create(**data)
             return new_customer
         except Exception as e:
-            print (f"An error occurred while adding customer: {e}")
+            print (f"Dal : An error occurred while adding customer: {e}")
             return None
 
     @staticmethod
@@ -101,10 +112,10 @@ class CustomerDAL:
             update_customer = Customer.objects.filter(pk=customer_id).update(**data)
             return update_customer
         except Customer.DoesNotExist:
-            print ('Customer Does not exist in the DB')
+            print ('Dal : Customer Does not exist in the DB')
             return None
         except Exception as e:
-            print (f"An error occurred while updating customer: {e}")
+            print (f"Dal : An error occurred while updating customer: {e}")
             return None
         
     @staticmethod
@@ -113,10 +124,10 @@ class CustomerDAL:
            customer =  Customer.objects.get(id=customer_id)
            customer.delete()
         except Customer.DoesNotExist:
-            print ('Customer Does not exist in the DB')
+            print ('Dal : Customer Does not exist in the DB')
             return None
         except Exception as e:
-            print (f"An error occurred while removing customer: {e}")
+            print (f"Dal : An error occurred while removing customer: {e}")
             return None
 
 
@@ -128,10 +139,10 @@ class FlightDAL:
             flights = Flight.objects.filter(origin_country_id=origin_country_id)
             return flights
         except Flight.DoesNotExist:
-            print ('Flights do not exist')
+            print ('Dal : Flights do not exist')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching flights: {e}")
+            print (f"Dal : An error occurred while fetching flights: {e}")
             return None
 
     @staticmethod
@@ -140,10 +151,10 @@ class FlightDAL:
             flights = Flight.objects.filter(destination_country_id=destination_country_id)
             return flights
         except Flight.DoesNotExist:
-            print ('Flight does not exist')
+            print ('Dal : Flight does not exist')
             return None
         except Exception as e:
-            print (f"An error occured while fetching flight : {e}")
+            print (f"Dal : An error occured while fetching flight : {e}")
             return None
 
     @staticmethod
@@ -152,10 +163,10 @@ class FlightDAL:
             flights = Flight.objects.filter(departure_time=departure_time)
             return flights
         except Flight.DoesNotExist:
-            print ('Flight does not exist')
+            print ('Dal : Flight does not exist')
             return None
         except Exception as e:
-            print (f"An error occured while fetching flight : {e}")
+            print (f"Dal : An error occured while fetching flight : {e}")
             return None  
 
     @staticmethod
@@ -164,10 +175,10 @@ class FlightDAL:
             flights = Flight.objects.filter(landing_time=landing_time)
             return flights
         except Flight.DoesNotExist:
-            print ('Flight does not exist')
+            print ('Dal : Flight does not exist')
             return None
         except Exception as e:
-            print (f"An error occured while fetching flight : {e}")
+            print (f"Dal : An error occured while fetching flight : {e}")
             return None 
 
     @staticmethod
@@ -176,10 +187,10 @@ class FlightDAL:
             flights = Flight.objects.filter(ticket__customer_id=customer_id)
             return flights
         except Customer.DoesNotExist:
-            print ('Customer does not exist in the DB')
+            print ('Dal : Customer does not exist in the DB')
             return None
         except Exception as e:
-            print (f"An error occured while fetching flight : {e}")
+            print (f"Dal : An error occured while fetching flight : {e}")
             return None
                         
     @staticmethod
@@ -188,10 +199,10 @@ class FlightDAL:
             flights = Flight.objects.filter(airline_company_id=airline_company_id)
             return flights
         except Flight.DoesNotExist:
-            print ('flights do not exist/not found')
+            print ('Dal : flights do not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching flights: {e}")
+            print (f"Dal : An error occurred while fetching flights: {e}")
             return None
 
     @staticmethod
@@ -205,10 +216,10 @@ class FlightDAL:
             )
             return arrival_flights
         except Flight.DoesNotExist:
-            print ('flights do not exist/not found')
+            print ('Dal : flights do not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching flights: {e}")
+            print (f"Dal : An error occurred while fetching flights: {e}")
             return None
         
     @staticmethod
@@ -222,10 +233,10 @@ class FlightDAL:
             )
             return arrival_flights
         except Flight.DoesNotExist:
-            print ('flights do not exist/not found')
+            print ('Dal : Flights do not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching flights: {e}")
+            print (f"Dal : An error occurred while fetching flights: {e}")
             return None
 
     @staticmethod
@@ -234,10 +245,10 @@ class FlightDAL:
             flight = Flight.objects.get(id=id)
             return flight
         except Flight.DoesNotExist:
-            print ('Flight does not exist')
+            print ('Dal : Flight does not exist')
             return None
         except Exception as e:
-            print (f"An error occured while fetching flight : {e}")
+            print (f"Dal : An error occured while fetching flight : {e}")
             return None
         
     @staticmethod
@@ -246,10 +257,10 @@ class FlightDAL:
             all_flights = Flight.objects.all()
             return all_flights
         except Flight.DoesNotExist:
-            print ('Flights do not exist')
+            print ('Dal : Flights do not exist')
             return None
         except Exception as e:
-            print (f"An error occured while fetching flights : {e}")
+            print (f"Dal : An error occured while fetching flights : {e}")
             return None
         
     @staticmethod
@@ -258,7 +269,7 @@ class FlightDAL:
             new_flight = Flight.objects.create(**data)
             return new_flight
         except Exception as e:
-            print (f"An error occured while adding flight : {e}")
+            print (f"Dal : An error occured while adding flight : {e}")
             return None
         
     @staticmethod
@@ -267,7 +278,7 @@ class FlightDAL:
             update_flight = Flight.objects.filter(id=flight_id).update(**data)
             return update_flight
         except Exception as e:
-            print (f"An error occurred while updating flight: {e}")
+            print (f"Dal : An error occurred while updating flight: {e}")
             return None
        
     @staticmethod
@@ -276,10 +287,10 @@ class FlightDAL:
             flight = Flight.objects.get(id=flight_id)
             flight.delete()
         except Flight.DoesNotExist:
-            print ('Flight does not exist')
+            print ('Dal : Flight does not exist')
             return None
         except Exception as e:
-            print (f"An error occurred while removing flight: {e}")
+            print (f"Dal : An error occurred while removing flight: {e}")
             return None
 
 
@@ -291,10 +302,10 @@ class AirlineCompanyDAL:
             airline_company = AirlineCompany.objects.get(id=id)
             return airline_company
         except AirlineCompany.DoesNotExist:
-            print ('Airline company does not exist')
+            print ('Dal : Airline company does not exist')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching airline company: {e}")
+            print (f"Dal : An error occurred while fetching airline company: {e}")
             return None
             
     @staticmethod
@@ -303,10 +314,10 @@ class AirlineCompanyDAL:
             airline_company = AirlineCompany.objects.filter(user_id__username=username)
             return airline_company
         except AirlineCompany.DoesNotExist:
-            print ('Airline company does not exist')
+            print ('Dal : Airline company does not exist')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching airline company: {e}")
+            print (f"Dal : An error occurred while fetching airline company: {e}")
             return None
      
     @staticmethod
@@ -321,10 +332,10 @@ class AirlineCompanyDAL:
             airline_companies = AirlineCompany.objects.filter(country_id=country_id)
             return airline_companies
         except AirlineCompany.DoesNotExist:
-            print ('Airline companies do not exist')
+            print ('Dal : Airline companies do not exist')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching airline companies: {e}")
+            print (f"Dal : An error occurred while fetching airline companies: {e}")
             return None
         
     @staticmethod
@@ -333,7 +344,7 @@ class AirlineCompanyDAL:
             new_airline_company = AirlineCompany.objects.create(**data)
             return new_airline_company
         except Exception as e:
-            print (f"An error occurred while adding airline companies: {e}")
+            print (f"Dal : An error occurred while adding airline companies: {e}")
             return None
         
     @staticmethod
@@ -342,10 +353,10 @@ class AirlineCompanyDAL:
             airline_company = AirlineCompany.objects.filter(id=id).update(**data)
             return airline_company
         except AirlineCompany.DoesNotExist:
-            print ('Airline company does not exist/is not found')
+            print ('Dal : Airline company does not exist/is not found')
             return None
         except Exception as e:
-            print (f"An error occurred while updating airline companies: {e}")
+            print (f"Dal : An error occurred while updating airline companies: {e}")
             return None
         
     @staticmethod
@@ -354,10 +365,10 @@ class AirlineCompanyDAL:
             airline_company = AirlineCompany.objects.get(id=id)
             airline_company.delete()
         except AirlineCompany.DoesNotExist:
-            print ('Airline company does not exist/is not found')
+            print ('Dal : Airline company does not exist/is not found')
             return None
         except Exception as e:
-            print (f"An error occurred while removing airline companies: {e}")
+            print (f"Dal : An error occurred while removing airline companies: {e}")
             return None
 
 
@@ -369,10 +380,10 @@ class AdministratorDAL:
             admin = Administrator.objects.get(id=id)
             return admin
         except Administrator.DoesNotExist:
-            print ('Admin does not exist/not found')
+            print ('Dal : Admin does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching admin: {e}")
+            print (f"Dal : An error occurred while fetching admin: {e}")
             return None
         
     @staticmethod
@@ -387,7 +398,7 @@ class AdministratorDAL:
             new_admin = Administrator.objects.create(**data)
             return new_admin
         except Exception as e:
-            print (f"An error occurred while creating new admin: {e}")
+            print (f"Dal : An error occurred while creating new admin: {e}")
             return None
         
     @staticmethod
@@ -396,10 +407,10 @@ class AdministratorDAL:
             update_admin = Administrator.objects.filter(id=id).update(**data)
             return update_admin
         except Administrator.DoesNotExist:
-            print ('Admin does not exist/not found')
+            print ('Dal : Admin does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while updating admin: {e}")
+            print (f"Dal : An error occurred while updating admin: {e}")
             return None
         
     @staticmethod
@@ -408,10 +419,10 @@ class AdministratorDAL:
             admin = Administrator.objects.get(id=id)
             admin.delete()
         except Administrator.DoesNotExist:
-            print ('Admin does not exist/not found')
+            print ('Dal : Admin does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while removing admin: {e}")
+            print (f"Dal : An error occurred while removing admin: {e}")
             return None          
 
 
@@ -423,10 +434,10 @@ class UserDAL:
             user = User.objects.get(id=id)
             return user
         except User.DoesNotExist:
-            print ('User does not exist/not found')
+            print ('Dal : User does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching user: {e}")
+            print (f"Dal : An error occurred while fetching user: {e}")
             return None
 
     @staticmethod
@@ -435,10 +446,10 @@ class UserDAL:
             user = User.objects.get(username=username)
             return user
         except User.DoesNotExist:
-            print ('User does not exist/not found')
+            print ('Dal : User does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching user: {e}")
+            print (f"Dal : An error occurred while fetching user: {e}")
             return None       
            
     @staticmethod
@@ -458,7 +469,7 @@ class UserDAL:
             new_user.save()
             return new_user
         except Exception as e:
-            print (f"An error occurred while adding user: {e}")
+            print (f"Dal : An error occurred while adding user: {e}")
             return None
 
     @staticmethod
@@ -472,23 +483,11 @@ class UserDAL:
             user.save()
             return user
         except User.DoesNotExist:
-            print ('User does not exist/not found')
+            print ('Dal : User does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while updating user: {e}")
+            print (f"Dal : An error occurred while updating user: {e}")
             return None
-    #     
-    # @staticmethod
-    # def update_user(id, data):
-    #     try:
-    #         user = User.objects.filter(id=id).update(**data)
-    #         return user
-    #     except User.DoesNotExist:
-    #         print ('User does not exist/not found')
-    #         return None
-    #     except Exception as e:
-    #         print (f"An error occurred while updating user: {e}")
-    #         return None
 
     @staticmethod
     def remove_user(id):
@@ -496,10 +495,10 @@ class UserDAL:
             user = User.objects.get(id=id)
             user.delete()
         except User.DoesNotExist:
-            print ('User does not exist/not found')
+            print ('Dal : User does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while removing user: {e}")
+            print (f"Dal : An error occurred while removing user: {e}")
             return None
        
                      
@@ -511,10 +510,10 @@ class TicketDAL:
             ticket = Ticket.objects.get(id=id)
             return ticket
         except Ticket.DoesNotExist:
-            print ('ticket does not exist/not found')
+            print ('Dal : ticket does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching ticket: {e}")
+            print (f"Dal : An error occurred while fetching ticket: {e}")
             return None
 
     @staticmethod
@@ -523,10 +522,10 @@ class TicketDAL:
             tickets = Ticket.objects.filter(flight_id=flight_id)
             return tickets
         except Ticket.DoesNotExist:
-            print ('ticket/s does not exist/not found')
+            print ('Dal : ticket/s does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching tickets: {e}")
+            print (f"Dal : An error occurred while fetching tickets: {e}")
             return None
                
     @staticmethod
@@ -535,10 +534,10 @@ class TicketDAL:
             tickets = Ticket.objects.filter(customer_id=customer_id)
             return tickets
         except Ticket.DoesNotExist:
-            print ('ticket/s does not exist/not found')
+            print ('Dal : ticket/s does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching tickets: {e}")
+            print (f"Dal : An error occurred while fetching tickets: {e}")
             return None
 
     @staticmethod
@@ -553,7 +552,7 @@ class TicketDAL:
             new_ticket = Ticket.objects.create(**data) 
             return new_ticket
         except Exception as e:
-            print (f"An error occurred while adding ticket: {e}")
+            print (f"Dal : An error occurred while adding ticket: {e}")
             return None
 
     @staticmethod
@@ -562,10 +561,10 @@ class TicketDAL:
             updated = Ticket.objects.filter(id=id).update(**data)
             return updated
         except Ticket.DoesNotExist:
-            print ('ticket does not exist/not found')
+            print ('Dal : ticket does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while updating ticket: {e}")
+            print (f"Dal : An error occurred while updating ticket: {e}")
             return None
 
     @staticmethod
@@ -574,10 +573,10 @@ class TicketDAL:
             ticket = Ticket.objects.get(id=id)
             ticket.delete()
         except Ticket.DoesNotExist:
-            print ('ticket does not exist/not found')
+            print ('Dal : ticket does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while removing ticket: {e}")
+            print (f"Dal : An error occurred while removing ticket: {e}")
             return None             
         
 
@@ -589,10 +588,10 @@ class GroupDAL:
             user_role = Group.objects.get(name=user_role)
             return user_role
         except Group.DoesNotExist:
-            print ('User role does not exist/not found')
+            print ('Dal : User role does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching user role: {e}")
+            print (f"Dal : An error occurred while fetching user role: {e}")
             return None
 
     @staticmethod
@@ -607,7 +606,7 @@ class GroupDAL:
             new_user_role = Group.objects.create(**data)
             return new_user_role
         except Exception as e:
-            print (f"An error occurred while adding user role: {e}")
+            print (f"Dal : An error occurred while adding user role: {e}")
             return None   
 
     @staticmethod
@@ -616,10 +615,10 @@ class GroupDAL:
             user_role = Group.objects.filter(id=id).update(**data)
             return user_role
         except Group.DoesNotExist:
-            print ('User role does not exist/not found')
+            print ('Dal : User role does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while updating user role: {e}")
+            print (f"Dal : An error occurred while updating user role: {e}")
             return None
         
     @staticmethod
@@ -628,10 +627,10 @@ class GroupDAL:
             user = Group.objects.get(id=id)
             user.delete()
         except Group.DoesNotExist:
-            print ('User role does not exist/not found')
+            print ('Dal : User role does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while removing user role: {e}")
+            print (f"Dal : An error occurred while removing user role: {e}")
             return None
 
 
@@ -649,10 +648,10 @@ class TokenDAL:
             token = Token.objects.get(user=user)
             return token
         except Token.DoesNotExist:
-            print ('Token does not exist/not found')
+            print ('Dal : Token does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching user token: {e}")
+            print (f"Dal : An error occurred while fetching user token: {e}")
             return None   
 
     @staticmethod
@@ -661,10 +660,10 @@ class TokenDAL:
             token = Token.objects.get(key=key)
             return token
         except Token.DoesNotExist:
-            print ('Token does not exist/not found')
+            print ('Dal : Token does not exist/not found')
             return None
         except Exception as e:
-            print (f"An error occurred while fetching user token: {e}")
+            print (f"Dal : An error occurred while fetching user token: {e}")
             return None  
 
     @staticmethod
@@ -673,7 +672,7 @@ class TokenDAL:
             token = Token.objects.get_or_create(user=user)
             return token               
         except Exception as e:
-            print (f"An error occurred while creating user token: {e}")
+            print (f"Dal : An error occurred while creating user token: {e}")
             return None 
 
     @staticmethod
@@ -682,7 +681,7 @@ class TokenDAL:
             token = Token.objects.filter(user=user)
             token.delete()
         except Exception as e:
-            print (f"An error occurred while deleting token: {e}")
+            print (f"Dal : An error occurred while deleting token: {e}")
             return None 
        
 

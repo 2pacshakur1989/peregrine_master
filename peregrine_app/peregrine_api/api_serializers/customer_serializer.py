@@ -18,25 +18,21 @@ class CustomerSerializer(serializers.ModelSerializer):
                 if field not in data:
                     data[field] = getattr(instance, field)
 
-        if data.get('first_name'):
-            first_name = data.get('first_name')
 
-        if data.get('last_name'):   
-            last_name = data.get('last_name')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
 
         self.name_validation(first_name=first_name, last_name=last_name)
 
-        if data.get('address'):
-            address = data.get('address')
-            self.address_validation(address=address)
 
-        if data.get('phone_no'):
-            phone_no = data.get('phone_no')
-            self.phone_no_validation(phone_no=phone_no)
+        address = data.get('address')
+        self.address_validation(address=address)
 
-        if data.get('credit_card_no'):
-            credit_card_no = data.get('credit_card_no')
-            self.credit_card_validation(credit_card_no=credit_card_no)
+        phone_no = data.get('phone_no')
+        self.phone_no_validation(phone_no=phone_no)
+
+        credit_card_no = data.get('credit_card_no')
+        self.credit_card_validation(credit_card_no=credit_card_no)
 
         return data
 
@@ -75,3 +71,8 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 
+class DisplayCustomerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Customer
+        fields = ['id','first_name', 'last_name', 'address', 'phone_no', 'credit_card_no']

@@ -60,6 +60,7 @@ class Flight(models.Model):
 
 
 
+
 class Ticket(models.Model):
 
     flight_id = models.ForeignKey(Flight, on_delete=models.CASCADE)

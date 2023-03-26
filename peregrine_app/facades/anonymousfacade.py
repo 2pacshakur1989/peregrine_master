@@ -52,7 +52,7 @@ class AnonymousFacade(FacadeBase):
                 if group.name == 'admin':
                     facade = AdministratorFacade(user_group='admin')
                 elif group.name == 'airline':
-                    facade = AirlineFacade(user_groups='airline')
+                    facade = AirlineFacade(user_group='airline')
                 elif group.name == 'customer':
                     facade = CustomerFacade(user_group='customer')
                 else:
@@ -90,6 +90,7 @@ class AnonymousFacade(FacadeBase):
         if (self.check_access('customer_dal','add_customer')) and (self.check_access('user_dal','add_user')) and (self.check_access('group_dal', 'get_userRole_by_role')):
             self.__enable_add_user()
             try:
+                user_data['password'] = user_data['password1']
                 group = self.group_dal.get_userRole_by_role(user_role='customer')
                 with transaction.atomic():       
                     new_user = self.user_dal.add_user(data=user_data)

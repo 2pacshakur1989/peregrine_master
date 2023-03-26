@@ -78,13 +78,9 @@ class FacadeBase:
         
     def get_flights_by_origin_country_id(self, origin_country_id):
         try:
-            origin_country = self.get_country_by_id(country_id=origin_country_id)
-            countries = self.get_all_countries()    
-            if check_countries(input_country=origin_country, countries=countries) is None:
-                return False
             return self.flight_dal.get_flights_by_origin_country_id(origin_country_id=origin_country_id)
         except Exception as e:
-            print(f"An error occurred while fetching flights: {e}")
+            print(f"facade : An error occurred while fetching flights: {e}")
             return None
         
     def get_flights_by_destination_country_id(self, destination_country_id):
@@ -204,32 +200,3 @@ class FacadeBase:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # def __getattr__(self, name):
-    #     for dal, funcs in self.accessible_dals:
-    #         if name in funcs:
-    #             return getattr(getattr(self, dal), name)
-    #     raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
