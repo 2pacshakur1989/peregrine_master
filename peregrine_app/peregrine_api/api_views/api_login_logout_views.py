@@ -8,6 +8,7 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from peregrine_app.facades.anonymousfacade import AnonymousFacade
+from rest_framework.exceptions import AuthenticationFailed
 
 anonymousfacade = AnonymousFacade()
 
@@ -15,6 +16,9 @@ anonymousfacade = AnonymousFacade()
 class LoginView(APIView):
     @csrf_exempt
     def post(self, request):
+        if request.user.is_authenticated:
+            # If user is already authenticated, return an error response
+            raise AuthenticationFailed('User is already logged in')
         username = request.data.get('username')
         password = request.data.get('password')
         return Response (anonymousfacade.login_func(request=request ,username=username, password=password))    
@@ -25,5 +29,5 @@ class LogoutView(APIView):
 
     def post(self, request):
         user = request.user
-        return Response (anonymousfacade.logout_func(request,user))
+        return Response (anonymousfacade.logout_func(request=request,user=user))
         

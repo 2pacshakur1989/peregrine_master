@@ -27,14 +27,14 @@ def customer(request, id=None):
                 return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
             id = request.query_params['id']
             customer_instance = request.user.customer
-            customer =  customerfacade.get_customer_by_id(request,customer_id=id, customer_instance=customer_instance)
+            customer =  customerfacade.get_customer_by_id(request=request, customer_id=id, customer_instance=customer_instance)
             serializer = DisplayCustomerSerializer(customer)
             return Response(serializer.data)
         
         # This method is accessible only to the admin
         if not ((request.user.is_authenticated) and (request.user.groups.filter(name='admin').exists())):
             return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
-        customers = adminfacade.get_all_customers()
+        customers = adminfacade.get_all_customers(request=request)
         serializer = DisplayCustomerSerializer(customers, many=True)
         return Response(serializer.data)
     
@@ -51,7 +51,7 @@ def customer(request, id=None):
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         if not customer_serializer.is_valid():
             return Response(customer_serializer.errors, status=status.HTTP_400_BAD_REQUEST)     
-        anonymousfacade.add_customer(user_data=user_serializer.validated_data, data=customer_serializer.validated_data)
+        anonymousfacade.add_customer(request=request, user_data=user_serializer.validated_data, data=customer_serializer.validated_data)
         return Response({"message": "Customer Created successfully","user_data":user_serializer.data ,"customer_data": customer_serializer.data}, status=status.HTTP_201_CREATED)
 
 
@@ -70,7 +70,7 @@ def customer(request, id=None):
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         if not customer_serializer.is_valid():
             return Response(customer_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        customerfacade.update_customer(request, customer_id=id, user_id=user_id, user_data=user_serializer.validated_data, data=customer_serializer.validated_data)
+        customerfacade.update_customer(request=request, customer_id=id, user_id=user_id, user_data=user_serializer.validated_data, data=customer_serializer.validated_data)
         # Serializing the data again in order to present it
         return Response({"message": "Customer Updated successfully", "data": {"user": user_serializer.validated_data, "customer": customer_serializer.validated_data}}, status=status.HTTP_201_CREATED)
 
@@ -80,7 +80,7 @@ def customer(request, id=None):
         # This method is accessible only for the admin
         if not ((request.user.is_authenticated) and (request.user.groups.filter(name='admin').exists())):
             return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
-        return Response(adminfacade.remove_customer(customer_id=id))
+        return Response(adminfacade.remove_customer(request=request ,customer_id=id))
 
          
     

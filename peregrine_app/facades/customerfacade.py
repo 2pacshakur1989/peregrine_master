@@ -24,57 +24,61 @@ class CustomerFacade(FacadeBase):
            
     @property
     def accessible_dals(self):
-        return [('customer_dal', ['update_customer','get_customer_by_id']), ('ticket_dal', ['add_ticket', 'remove_ticket', 'get_ticket_by_id', 'get_tickets_by_customer_id']),('user_dal', ['update_user', 'get_user_by_id'])]
+        return [('customer_dal', ['update_customer','get_customer_by_id']),('flight_dal', ['get_flight_by_id']) ,('ticket_dal', ['add_ticket', 'remove_ticket', 'get_ticket_by_id', 'get_tickets_by_customer_id']),('user_dal', ['update_user', 'get_user_by_id'])]
         
 
     @method_decorator(login_required)
     @method_decorator(allowed_users(allowed_roles=['customer']))             
-    def add_ticket(self, data):
-        if (self.check_access('ticket_dal', 'add_ticket')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) :
-            with transaction.atomic():
-                try:
-                    tickets = self.ticket_dal.get_tickets_by_customer_id(customer_id=(data['customer_id']))
-                    flight = data['flight_id']
-                    for ticket in tickets:
-                        if ticket.flight_id == flight:
-                            return False
-                    if flight.remaining_tickets == 0:
-                        print('The selected flight has no available tickets. In case of canecllation please check later')
-                        return None
-                    flight.remaining_tickets = (flight.remaining_tickets) - 1
-                    flight.save()
-                    self.ticket_dal.add_ticket(data=data)
-                    return True
-                except Exception as e:
-                    transaction.set_rollback(True)
-                    print(f"An error occurred while purchasing ticket: {e}")
-                    return None
+    def add_ticket(self, request, customer, flight_id):
+        if (self.check_access('ticket_dal', 'add_ticket')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) and (self.check_access('flight_dal', 'get_flight_by_id')):
+            
+            tickets = self.ticket_dal.get_tickets_by_customer_id(customer_id=customer.id)
+
+            for ticket in tickets:
+                if ticket.flight_id.id == int(flight_id):
+                    return ('Cannot add a ticket twice (it seems that this ticket is already added)')
+            flight = self.flight_dal.get_flight_by_id(id=flight_id)
+            if flight is None:
+                return ('Flight not found')
+            if flight.remaining_tickets == 0:
+                return ('The selected flight has no available tickets. In case of canecllation please check later')
+            ticket_data = {
+                    'flight_id': flight,
+                    'customer_id': customer}
+            self.ticket_dal.add_ticket(data=ticket_data) 
+            flight.remaining_tickets = (flight.remaining_tickets) - 1
+            flight.save()
+            ticket = self.ticket_dal.get_tickets_by_flight_id(flight_id=flight_id)
+            return ({'Ticket added successfully'})
         else:
             raise AccessDeniedError
 
 
     @method_decorator(login_required)
     @method_decorator(allowed_users(allowed_roles=['customer']))  
-    def remove_ticket(self, id):
-        if (self.check_access('ticket_dal', 'remove_ticket')) and (self.check_access('ticket_dal', 'get_ticket_by_id')):
-            with transaction.atomic():             
+    def remove_ticket(self, request, id):
+        if (self.check_access('ticket_dal', 'remove_ticket')) and (self.check_access('ticket_dal', 'get_ticket_by_id')):        
+            with transaction.atomic():
                 try:
                     ticket = self.ticket_dal.get_ticket_by_id(id=id)
+                    if ticket is None:
+                        return ('Ticket not found')
                     flight = ticket.flight_id
                     flight.remaining_tickets = (flight.remaining_tickets) + 1
                     flight.save()
                     self.ticket_dal.remove_ticket(id=id)
-                    return True
+                    return ('Ticket removed successfully')
                 except Exception as e:
-                    print(f"An error occurred while removing ticket: {e}")
-                    return None
+                    with transaction.atomic():
+                        print(f"An error occurred while removing ticket: {e}")
+                        return None
         else:
             raise AccessDeniedError
 
 
     @method_decorator(login_required)
     @method_decorator(allowed_users(allowed_roles=['customer']))  
-    def get_my_tickets(self, customer_id):
+    def get_my_tickets(self, request, customer_id):
         if self.check_access('ticket_dal', 'get_tickets_by_customer_id'):
             try:
                 return self.ticket_dal.get_tickets_by_customer_id(customer_id=customer_id)
@@ -115,3 +119,23 @@ class CustomerFacade(FacadeBase):
                 return None
         else:
             raise AccessDeniedError 
+
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['customer']))
+    def get_ticket_by_id(self, request, ticket_id, customer):
+        if self.check_access('ticket_dal', 'get_ticket_by_id'):
+            try:
+                ticket = self.ticket_dal.get_ticket_by_id(id=ticket_id)
+                if ticket is None:
+                    return None
+                if customer != ticket.customer_id:
+                    return ('Not authorized')
+                return ticket
+            except Exception as e:
+                print(f"An error occurred while fetching flight: {e}")
+                return None
+        else:
+            raise AccessDeniedError 
+
+    

@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.conf import settings
 # Create your models here.
 
 class Country(models.Model):
@@ -49,6 +48,7 @@ class Customer(models.Model):
     def __str__(self):
         return self.first_name
 
+
 class Flight(models.Model):
 
     airline_company_id = models.ForeignKey(AirlineCompany,on_delete=models.CASCADE)
@@ -57,8 +57,6 @@ class Flight(models.Model):
     departure_time = models.DateTimeField()
     landing_time = models.DateTimeField()
     remaining_tickets = models.IntegerField()
-
-
 
 
 class Ticket(models.Model):

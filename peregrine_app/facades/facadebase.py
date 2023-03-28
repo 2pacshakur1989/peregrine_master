@@ -64,26 +64,26 @@ class FacadeBase:
         return False
 
 
-    def get_all_flights(self): 
+    def get_all_flights(self, request): 
 
             return self.flight_dal.get_all_flights()
 
     
-    def get_flight_by_id(self, id):
+    def get_flight_by_id(self, request, id):
         try:
             return self.flight_dal.get_flight_by_id(id=id)
         except Exception as e:
             print(f"An error occurred while fetching flight: {e}")
             return None
         
-    def get_flights_by_origin_country_id(self, origin_country_id):
+    def get_flights_by_origin_country_id(self, request, origin_country_id):
         try:
             return self.flight_dal.get_flights_by_origin_country_id(origin_country_id=origin_country_id)
         except Exception as e:
             print(f"facade : An error occurred while fetching flights: {e}")
             return None
         
-    def get_flights_by_destination_country_id(self, destination_country_id):
+    def get_flights_by_destination_country_id(self, request, destination_country_id):
         try:
             destination_country = self.get_country_by_id(country_id=destination_country_id)
             countries = self.get_all_countries()    
@@ -94,21 +94,21 @@ class FacadeBase:
             print(f"An error occurred while fetching flights: {e}")
             return None
         
-    def get_flights_by_departure_date(self, departure_time):
+    def get_flights_by_departure_date(self, request, departure_time):
         try:
             return self.flight_dal.get_flights_by_departure_date(departure_time=departure_time)
         except Exception as e:
             print(f"An error occurred while fetching flights: {e}")
             return None
 
-    def get_flights_by_landing_date(self, landing_time):
+    def get_flights_by_landing_date(self, request, landing_time):
         try:
             return self.flight_dal.get_flights_by_landing_date(landing_time=landing_time)
         except Exception as e:
             print(f"An error occurred while fetching flights: {e}")
             return None
         
-    def get_flights_by_airline_company(self, airline_company_id):
+    def get_flights_by_airline_company(self, request, airline_company_id):
         try:
             airline = self.get_airline_by_id(id=airline_company_id)
             if airline is None:
@@ -118,40 +118,32 @@ class FacadeBase:
             print(f"An error occurred while fetching flights: {e}")
             return None       
     
-    def get_all_airlines(self):
+    def get_all_airlines(self, request):
 
             return self.airline_company_dal.get_all_airline_companies()
     
-    def get_airline_by_id(self,id):
+    def get_airline_by_id(self, request, id):
         try:
             return self.airline_company_dal.get_airline_company_by_id(id=id)
         except Exception as e:
             print(f"An error occurred while fetching airline: {e}")
             return None
     
-    def get_airline_by_country(self,country_id):
+    def get_airline_by_country(self, request, country_id):
         try:
             return self.airline_company_dal.get_airlines_by_country(country_id=country_id)
         except Exception as e:
             print(f"An error occurred while fetching airlines: {e}")
             return None
     
-    def get_airline_by_username(self,username):
-        try:
-            airline_query_set =  self.airline_company_dal.get_airline_by_username(username=username)
-            for element in airline_query_set:
-                airline = element
-            return airline
-        except Exception as e:
-            print(f"An error occurred while fetching airline: {e}")
-            return None
+
     
-    def get_all_countries(self):
+    def get_all_countries(self, request):
 
             return self.country_dal.get_all_countries()
 
     
-    def get_country_by_id(self,country_id):
+    def get_country_by_id(self, request, country_id):
         try:
             return self.country_dal.get_country_by_id(country_id=country_id)
         except Exception as e:

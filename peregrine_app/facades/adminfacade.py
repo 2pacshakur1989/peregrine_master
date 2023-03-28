@@ -25,7 +25,7 @@ class AdministratorFacade(FacadeBase):
     def accessible_dals(self):
         return [('customer_dal', ['get_all_customers', 'add_customer' , 'remove_customer','get_customer_by_id']),
                 ('airline_company_dal', ['add_airline_company', 'remove_airline_company', 'get_all_airline_companies']),
-                ('administrator_dal', ['add_new_admin', 'remove_admin','get_all_admins']),
+                ('administrator_dal', ['add_new_admin', 'remove_admin','get_all_admins', 'get_admin_by_id']),
                 ('user_dal', ['remove_user','add_user']),
                 ('flight_dal', ['get_flights_by_airline_company_id']),
                 ('ticket_dal', ['get_tickets_by_customer_id']),
@@ -39,13 +39,13 @@ class AdministratorFacade(FacadeBase):
         self.add_user_allowed = False
 
 
-    def get_all_customers(self):
+    def get_all_customers(self, request):
         if self.check_access('customer_dal', 'get_all_customers'):
             return self.customer_dal.get_all_customers()
         else:
             raise AccessDeniedError
                        
-    def remove_customer(self, customer_id):
+    def remove_customer(self, request, customer_id):
         if (self.check_access('user_dal', 'remove_user')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) and (self.check_access('customer_dal', 'get_customer_by_id')) :
 
             customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
@@ -65,29 +65,21 @@ class AdministratorFacade(FacadeBase):
             raise AccessDeniedError
 
 
-    def get_all_airlines(self):
-        if self.check_access('airline_company_dal', 'get_all_airline_companies'):  
-                return self.airline_company_dal.get_all_airline_companies()
-        else:
-            raise AccessDeniedError                
-
-    def add_airline(self, user_data ,data):
-        if (self.check_access('airline_company_dal', 'add_airline_company')) and (self.check_access('group_dal', 'get_userRole_by_role')) and (self.check_access('user_dal','add_user')) and (self.check_access('country_dal','get_country_by_id')):
+            
+    def add_airline(self, request, user_data ,data):
+        if (self.check_access('airline_company_dal', 'add_airline_company')) and (self.check_access('group_dal', 'get_userRole_by_role')) and (self.check_access('user_dal','add_user')) :
             self.__enable_add_user()  
             try:
-                country_id = data['country_id']
-                country_id = country_id.id
-                if self.country_dal.get_country_by_id(country_id=country_id) is None:
-                    return 5
+                user_data['password'] = user_data['password1']
                 group = self.group_dal.get_userRole_by_role(user_role='airline')
                 with transaction.atomic(): 
                     new_user = self.user_dal.add_user(data=user_data)
                     if new_user is not None:
                         new_user.groups.add(group) 
                         data['user_id'] = new_user
-                        return self.airline_company_dal.add_airline_company(data=data)
-                    transaction.set_rollback(True)
+                        self.airline_company_dal.add_airline_company(data=data)
             except Exception as e:
+                transaction.set_rollback(True)
                 print(f"An error occurred while adding airline: {e}")
                 return None
             finally:    
@@ -95,19 +87,19 @@ class AdministratorFacade(FacadeBase):
         else:
             raise AccessDeniedError
           
-    def remove_airline(self, id):
+    def remove_airline(self, request, id):
         if (self.check_access('user_dal', 'remove_user')) and (self.check_access('flight_dal', 'get_flights_by_airline_company_id')):
 
                 airline = self.airline_company_dal.get_airline_company_by_id(id=id)
                 if airline is None:
-                        return 4
+                        return ('Airline not found')
                 user_id = airline.user_id.id
                 flights = self.flight_dal.get_flights_by_airline_company_id(airline_company_id=id)
                 if (flights.exists()):
-                    return False
+                    return ("This airline has an active flights, thus cannot be removed")
                 try:
                     self.user_dal.remove_user(id=user_id)
-                    return True
+                    return ({'Flight removed successfully'})
                 except Exception as e:
                     print(f"An error occurred while removing airline: {e}")
                     return None
@@ -115,14 +107,20 @@ class AdministratorFacade(FacadeBase):
             raise AccessDeniedError 
 
 
-    def get_all_admins(self):
+    def get_all_admins(self, request):
         if self.check_access('administrator_dal', 'get_all_admins'):        
             return self.administrator_dal.get_all_admins()  
         else:
             raise AccessDeniedError 
-              
-    def add_administrator(self,user_data, data):
-        if self.check_access('administrator_dal', 'add_new_admin')  and (self.check_access('group_dal', 'get_userRole_by_role')) :
+
+    def get_admin_by_id(self, request, admin_id):
+        if self.check_access('administrator_dal', 'get_admin_by_id'):
+            return self.administrator_dal.get_admin_by_id(id=admin_id)
+        else:
+            raise AccessDeniedError 
+
+    def add_administrator(self, request, user_data, data):
+        if self.check_access('administrator_dal', 'add_new_admin') and (self.check_access('user_dal','add_user')) and (self.check_access('group_dal', 'get_userRole_by_role')) :
             self.__enable_add_user()
             try:
                 group = self.group_dal.get_userRole_by_role(user_role='admin')
@@ -135,7 +133,6 @@ class AdministratorFacade(FacadeBase):
                         new_user.save()                    
                         data['user_id'] = new_user
                         return self.administrator_dal.add_new_admin(data=data)
-                    transaction.set_rollback(True)
             except Exception as e:
                 # rollback the update
                 transaction.set_rollback(True)
@@ -146,9 +143,7 @@ class AdministratorFacade(FacadeBase):
         else:
             raise AccessDeniedError
 
-
-
-    def remove_administrator(self, id):
+    def remove_administrator(self, request, id):
         if self.check_access('user_dal', 'remove_user'):
             try:
                 admin = self.administrator_dal.get_admin_by_id(id=id)

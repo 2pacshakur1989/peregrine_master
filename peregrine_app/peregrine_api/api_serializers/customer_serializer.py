@@ -70,7 +70,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 
-
+# SERIALIZER ONLY FOR DISPLAY
 class DisplayCustomerSerializer(serializers.ModelSerializer):
 
     class Meta:

@@ -64,6 +64,7 @@ class CountryDAL:
             print (f"Dal : An error occurred while fechting country: {e}")
             return None        
 
+
 class CustomerDAL:
 
     @staticmethod
@@ -344,7 +345,7 @@ class AirlineCompanyDAL:
             new_airline_company = AirlineCompany.objects.create(**data)
             return new_airline_company
         except Exception as e:
-            print (f"Dal : An error occurred while adding airline companies: {e}")
+            print (f"Dal : An error occurred while adding airline company: {e}")
             return None
         
     @staticmethod

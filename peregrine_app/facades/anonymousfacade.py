@@ -86,7 +86,7 @@ class AnonymousFacade(FacadeBase):
             raise AccessDeniedError
 
 
-    def add_customer(self, user_data, data):
+    def add_customer(self, request, user_data, data):
         if (self.check_access('customer_dal','add_customer')) and (self.check_access('user_dal','add_user')) and (self.check_access('group_dal', 'get_userRole_by_role')):
             self.__enable_add_user()
             try:
@@ -99,7 +99,6 @@ class AnonymousFacade(FacadeBase):
                         data['user_id'] = new_user
                         new_customer = self.customer_dal.add_customer(data=data)
                         return new_customer
-                    transaction.set_rollback(True)
             except Exception as e:
                 # rollback the update
                 transaction.set_rollback(True)

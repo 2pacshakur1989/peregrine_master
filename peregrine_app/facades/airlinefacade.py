@@ -6,7 +6,9 @@ requests the permitted dals from the Father class (Facadebase) """
 from .facadebase import FacadeBase
 from peregrine_app.exceptions import AccessDeniedError
 from django.db import transaction
-
+from peregrine_app.decorators import allowed_users 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 class AirlineFacade(FacadeBase):
@@ -21,8 +23,9 @@ class AirlineFacade(FacadeBase):
     def accessible_dals(self):
         return [('airline_company_dal', ['update_airline_company', 'get_airline_company_by_id']), ('flight_dal', ['get_flights_by_airline_company_id','add_flight','update_flight', 'remove_flight','get_flight_by_id']),('user_dal', ['update_user']),('ticket_dal', ['get_tickets_by_flight_id']), ('country_dal', ['get_country_by_id'])]
 
-
-    def get_my_flights(self,airline_company_id):
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['airline'])) 
+    def get_my_flights(self, request, airline_company_id):
         if self.check_access('flight_dal', 'get_flights_by_airline_company_id'):
             try:
                 return self.flight_dal.get_flights_by_airline_company_id(airline_company_id=airline_company_id)
@@ -31,16 +34,13 @@ class AirlineFacade(FacadeBase):
                 return None
         raise AccessDeniedError 
 
-    def update_airline(self,airline_company_id ,user_id, user_data, data):
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['airline'])) 
+    def update_airline(self, request, airline_company_id ,user_id, user_data, data):
         if (self.check_access('airline_company_dal','update_airline_company')) and (self.check_access('user_dal','update_user')) and (self.check_access('airline_company_dal','get_airline_company_by_id')) and (self.check_access('country_dal','get_country_by_id')):
-            airline = self.airline_company_dal.get_airline_company_by_id(id=airline_company_id)
-            if airline is None :
-                return 4 # 4 is a cue paramter
             country_id = data['country_id']
-            country_id = country_id.id
-            print(country_id)
-            if self.country_dal.get_country_by_id(country_id=country_id) is None:
-                return 'tytr'
+            data['country_id'] = country_id.id
             try:
                 with transaction.atomic():  
                     update_user = self.user_dal.update_user(id=user_id,data=user_data)
@@ -53,30 +53,11 @@ class AirlineFacade(FacadeBase):
                 return None
         else:
             raise AccessDeniedError
-        
 
-    # def update_airline(self,id, data):
-    #     if self.check_access('airline_company_dal', 'update_airline_company'):
-    #         try:
-    #             return self.airline_company_dal.update_airline_company(id=id ,data=data)
-    #         except Exception as e:
-    #             print(f"An error occurred while updating airline: {e}")
-    #             return None
-    #     else:
-    #         raise AccessDeniedError
-        
-    # def add_flight(self, data, airlinecompany):     # This is for the API
-    #     if self.check_access('flight_dal', 'add_flight'):    
-    #         try:
 
-    #             return self.flight_dal.add_flight(data=data)
-    #         except Exception as e:
-    #             print(f"An error occurred while adding flight: {e}")
-    #             return None
-    #     else:
-    #         raise AccessDeniedError
-        
-    def add_flight(self, data, airlinecompany):     # This is for the API
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['airline']))                
+    def add_flight(self, request, data, airlinecompany):     # This is for the API
         if self.check_access('flight_dal', 'add_flight'):    
             try:
                 data['airline_company_id'] = airlinecompany
@@ -87,7 +68,10 @@ class AirlineFacade(FacadeBase):
         else:
             raise AccessDeniedError
 
-    def update_flight(self, flight_id, data ,airlinecompany):  # This is for API
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['airline'])) 
+    def update_flight(self, request, flight_id, data ,airlinecompany):  # This is for API
         if (self.check_access('flight_dal', 'update_flight')) and (self.check_access('flight_dal', 'get_flight_by_id')):
             try:
                 data['airline_company_id'] = airlinecompany.id
@@ -110,8 +94,11 @@ class AirlineFacade(FacadeBase):
                 return None
         else:
             raise AccessDeniedError
-           
-    def remove_flight(self, flight_id, airlinecompany):  # This is for the Api
+
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['airline'])) 
+    def remove_flight(self, request, flight_id, airlinecompany):  # This is for the Api
         if (self.check_access('flight_dal', 'remove_flight')) and (self.check_access('ticket_dal', 'get_tickets_by_flight_id')) and (self.check_access('flight_dal', 'get_flight_by_id')) :   
             try:
                 flight = self.flight_dal.get_flight_by_id(id=flight_id)   
@@ -127,13 +114,18 @@ class AirlineFacade(FacadeBase):
                 return None
         else:
             raise AccessDeniedError
-                   
-    def update_user(self,id, data):
-        if self.check_access('user_dal', 'update_user'):
-            try:
-                return self.user_dal.update_user(id=id,data=data)
-            except Exception as e:
-                print(f"An error occurred while updating customer: {e}")
+
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['airline']))                   
+    def get_airline_by_username(self, request, username, airline_username):
+        try:
+            if airline_username != username:
                 return None
-        else:
-            raise AccessDeniedError
+            airline_query_set =  self.airline_company_dal.get_airline_by_username(username=username)
+            for element in airline_query_set:
+                airline = element
+            return airline
+        except Exception as e:
+            print(f"An error occurred while fetching airline: {e}")
+            return None

@@ -31,6 +31,9 @@ urlpatterns = [
     path('', include("peregrine_app.peregrine_api.api_urls.api_login-logout_urls", namespace='peregrine_app_login_logout_api_view')),
     path('', include("peregrine_app.peregrine_api.api_urls.api_customer_urls", namespace='peregrine_app_api_customer_view')),
     path('', include("peregrine_app.peregrine_api.api_urls.api_airline_urls", namespace='peregrine_app_api_airline_view')),
+    path('', include("peregrine_app.peregrine_api.api_urls.api_ticket_urls", namespace='peregrine_app_api_ticket_view')),
+    path('', include("peregrine_app.peregrine_api.api_urls.api_country_urls", namespace='peregrine_app_api_country_view')),
+    path('', include("peregrine_app.peregrine_api.api_urls.api_admin_urls", namespace='peregrine_app_api_admin_view')),
 
 
     path('admin/', admin.site.urls),
