@@ -12,7 +12,7 @@ class FlightSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Flight
-        fields = ['airline_company_id','origin_country_id','destination_country_id',
+        fields = ['id','airline_company_id','origin_country_id','destination_country_id',
                 'departure_time','landing_time','remaining_tickets']
    
     #Main method that executes all custom validation methods
@@ -80,7 +80,7 @@ class DisplayFlightSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Flight
-        fields = ['airline_company_name', 'origin_country_name',
+        fields = ['id','airline_company_name', 'origin_country_name',
                  'destination_country_name', 'departure_time', 'landing_time',
                   'remaining_tickets']
         

@@ -7,7 +7,7 @@ from peregrine_app.peregrine_api.api_serializers.user_serializer import UserSeri
 
 adminfacade = AdministratorFacade(user_group='admin')
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST', 'DELETE'])
 def admin(request):
 
     # GET REQUESTS
@@ -26,7 +26,9 @@ def admin(request):
             admins = adminfacade.get_all_admins(request=request)
             serializer = AdminSerializer(admins, many=True)
             return Response(serializer.data)
-        
+
+
+    # POST REQUESTS   
     if request.method == 'POST' :
          
         if not ((request.user.is_authenticated) and (request.user.groups.filter(name='admin').exists())):
@@ -38,10 +40,17 @@ def admin(request):
         if not admin_serializer.is_valid():
             return Response(admin_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         if adminfacade.add_administrator(request=request, user_data=user_serializer.validated_data, data=admin_serializer.validated_data):
-            return Response({"message": "Customer Created successfully","user_data":user_serializer.data ,"admin_data": admin_serializer.data}, status=status.HTTP_201_CREATED)
+            return Response({"message": "Admin Created successfully","user_data":user_serializer.data ,"admin_data": admin_serializer.data}, status=status.HTTP_201_CREATED)
 
 
-             
+    # DELETE REQUESTS
+    if request.method == 'DELETE' :
+        if not ((request.user.is_authenticated) and (request.user.groups.filter(name='admin').exists())):
+            return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
+        if not 'id' in request.query_params:
+            return Response("Airline id must be provided.", status=status.HTTP_400_BAD_REQUEST)
+        return Response(adminfacade.remove_administrator(request=request, id=request.query_params['id']))   
+  
 
         
         

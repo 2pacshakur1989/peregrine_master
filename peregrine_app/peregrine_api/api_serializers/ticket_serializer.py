@@ -5,4 +5,4 @@ class TicketSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ticket
-        fields = ['flight_id', 'customer_id']
+        fields = ['id','flight_id', 'customer_id']

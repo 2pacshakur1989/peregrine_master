@@ -11,7 +11,7 @@ airlinefacade = AirlineFacade(user_group='airline')
 
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
-def flight(request, id=None):
+def flight(request):
 
 
     # GET REQUESTS
@@ -51,15 +51,39 @@ def flight(request, id=None):
             landing_time = request.query_params['landing']
             flights = airlinefacade.get_flights_by_landing_date(request=request, landing_time=landing_time)
             serializer = DisplayFlightSerializer(flights, many=True)
-            return Response(serializer.data) 
+            return Response(serializer.data)
         
         elif 'id' in request.query_params:
             # Handle 'get a specific flight' for other users
             id = request.query_params['id']
             flight = airlinefacade.get_flight_by_id(request=request, id=id)  
             serializer = DisplayFlightSerializer(flight)
-            return Response(serializer.data)  
-         
+            return Response(serializer.data)
+
+        elif 'arrival' in request.query_params:
+            # Handles the get arrival flights of a certain country for the next 12 hours
+            arrival = request.query_params['arrival']
+            flights = airlinefacade.get_arrival_flights_by_country_id(request=request, country_id=arrival)
+            serializer = DisplayFlightSerializer(flights, many=True)
+            return Response(serializer.data)
+
+        elif 'depar_flights' in request.query_params:
+            # Handles the get departure flights of a certain country for the next 12 hours  
+            depar_flights = request.query_params['depar_flights']
+            flights = airlinefacade.get_departure_flights_by_country_id(request=request, country_id=depar_flights)
+            serializer = DisplayFlightSerializer(flights, many=True)
+            return Response(serializer.data)
+        
+        elif 'my' in request.query_params:
+
+            if not ((request.user.is_authenticated) and (request.user.groups.filter(name='airline').exists())):
+                return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
+            # my = request.query_params['my']
+            id = request.user.airlinecompany.id
+            flights = airlinefacade.get_my_flights(request=request, airline_company_id=id)
+            serializer = DisplayFlightSerializer(flights, many=True)
+            return Response(serializer.data)
+            
         else:
             # Handle 'get_all_flights' for other users
             flights = airlinefacade.get_all_flights(request=request)
@@ -86,11 +110,14 @@ def flight(request, id=None):
         if not ((request.user.is_authenticated) or (request.user.groups.filter(name='airline').exists())):
             return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)                
         airlinecompany = request.user.airlinecompany
-        serializer = FlightSerializer(data=request.data)     
+ 
+        if not 'id' in request.query_params:
+           return Response("Flight id must be provided.", status=status.HTTP_400_BAD_REQUEST)   
+        serializer = FlightSerializer(data=request.data)       
         if serializer.is_valid():
             # Use validated data instead of request.data
-            airlinefacade.update_flight(request=request, data=serializer.validated_data, flight_id=id, airlinecompany=airlinecompany)
-            return Response({"message": "Flight Updated successfully", "data": serializer.validated_data}, status=status.HTTP_201_CREATED)
+            if airlinefacade.update_flight(request=request, data=serializer.validated_data, flight_id=request.query_params['id'], airlinecompany=airlinecompany) is not None:
+                return Response({"message": "Flight Updated successfully", "data": serializer.validated_data}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -98,8 +125,10 @@ def flight(request, id=None):
     elif request.method == 'DELETE':
         if not ((request.user.is_authenticated) and (request.user.groups.filter(name='airline').exists())) :
             return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
+        if not 'id' in request.query_params:
+           return Response("Flight id must be provided.", status=status.HTTP_400_BAD_REQUEST)   
         airlinecompany = request.user.airlinecompany  
-        return Response(airlinefacade.remove_flight(request=request, flight_id=id,airlinecompany=airlinecompany))
+        return Response(airlinefacade.remove_flight(request=request, flight_id=request.query_params['id'] ,airlinecompany=airlinecompany))
 
 
 

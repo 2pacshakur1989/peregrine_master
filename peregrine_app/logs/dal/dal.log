@@ -1,0 +1,1 @@
+2023-03-29 16:29:12,177 ERROR Dal_get_ticket_by_id : An error occurred while fetching ticket: Field 'id' expected a number but got ''.

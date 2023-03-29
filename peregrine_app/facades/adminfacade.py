@@ -10,6 +10,10 @@ of adding one of the 2 (or user_form , or customer_form) then it won't add anyth
 from .facadebase import FacadeBase
 from django.db import transaction
 from peregrine_app.exceptions import AccessDeniedError
+from peregrine_app.decorators import allowed_users 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from peregrine_app.loggers import adminfacade_logger
 
 class AdministratorFacade(FacadeBase):
 
@@ -39,12 +43,17 @@ class AdministratorFacade(FacadeBase):
         self.add_user_allowed = False
 
 
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['admin']))
     def get_all_customers(self, request):
         if self.check_access('customer_dal', 'get_all_customers'):
             return self.customer_dal.get_all_customers()
-        else:
-            raise AccessDeniedError
-                       
+        adminfacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError
+
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['admin']))
     def remove_customer(self, request, customer_id):
         if (self.check_access('user_dal', 'remove_user')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) and (self.check_access('customer_dal', 'get_customer_by_id')) :
 
@@ -59,13 +68,15 @@ class AdministratorFacade(FacadeBase):
                 self.user_dal.remove_user(id=user_id)
                 return ('Customer removed successfully')         
             except Exception as e:
+                adminfacade_logger.error(f"An error occurred while removing customer: {e}")
                 print(f"An error occurred while removing customer: {e}")
                 return None
-        else:
-            raise AccessDeniedError
+        adminfacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError
 
 
-            
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['admin']))            
     def add_airline(self, request, user_data ,data):
         if (self.check_access('airline_company_dal', 'add_airline_company')) and (self.check_access('group_dal', 'get_userRole_by_role')) and (self.check_access('user_dal','add_user')) :
             self.__enable_add_user()  
@@ -80,13 +91,17 @@ class AdministratorFacade(FacadeBase):
                         self.airline_company_dal.add_airline_company(data=data)
             except Exception as e:
                 transaction.set_rollback(True)
+                adminfacade_logger.error(f"An error occurred while adding airline: {e}")
                 print(f"An error occurred while adding airline: {e}")
                 return None
             finally:    
                 self.__disable_add_user()
-        else:
-            raise AccessDeniedError
-          
+        adminfacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError
+
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['admin']))
     def remove_airline(self, request, id):
         if (self.check_access('user_dal', 'remove_user')) and (self.check_access('flight_dal', 'get_flights_by_airline_company_id')):
 
@@ -101,28 +116,43 @@ class AdministratorFacade(FacadeBase):
                     self.user_dal.remove_user(id=user_id)
                     return ({'Flight removed successfully'})
                 except Exception as e:
+                    adminfacade_logger.error(f"An error occurred while removing airline: {e}")
                     print(f"An error occurred while removing airline: {e}")
                     return None
-        else:
-            raise AccessDeniedError 
+        adminfacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError 
 
-
+  
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['admin']))
     def get_all_admins(self, request):
         if self.check_access('administrator_dal', 'get_all_admins'):        
             return self.administrator_dal.get_all_admins()  
-        else:
-            raise AccessDeniedError 
+        adminfacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError 
 
+    
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['admin']))
     def get_admin_by_id(self, request, admin_id):
         if self.check_access('administrator_dal', 'get_admin_by_id'):
-            return self.administrator_dal.get_admin_by_id(id=admin_id)
-        else:
-            raise AccessDeniedError 
+            try:
+                return self.administrator_dal.get_admin_by_id(id=admin_id)
+            except Exception as e:
+                adminfacade_logger.error(f"An error occurred while fetching admin: {e}")
+                print(f"An error occurred while fetching admin: {e}")  
+                return None   
+        adminfacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError 
 
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['admin']))
     def add_administrator(self, request, user_data, data):
         if self.check_access('administrator_dal', 'add_new_admin') and (self.check_access('user_dal','add_user')) and (self.check_access('group_dal', 'get_userRole_by_role')) :
             self.__enable_add_user()
             try:
+                user_data['password'] = user_data['password1']
                 group = self.group_dal.get_userRole_by_role(user_role='admin')
                 with transaction.atomic(): 
                     new_user = self.user_dal.add_user(data=user_data)
@@ -133,25 +163,32 @@ class AdministratorFacade(FacadeBase):
                         new_user.save()                    
                         data['user_id'] = new_user
                         return self.administrator_dal.add_new_admin(data=data)
+                    transaction.set_rollback(True)
             except Exception as e:
-                # rollback the update
-                transaction.set_rollback(True)
+                adminfacade_logger.error(f"An error occurred while adding admin: {e}")
                 print(f"An error occurred while adding admin: {e}")
                 return None               
             finally:
                  self.__disable_add_user()
-        else:
-            raise AccessDeniedError
+        adminfacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError
 
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['admin']))
     def remove_administrator(self, request, id):
         if self.check_access('user_dal', 'remove_user'):
             try:
                 admin = self.administrator_dal.get_admin_by_id(id=id)
+                if admin is None:
+                    return ('Admin not found')
                 user_id = admin.user_id.id
-                return self.user_dal.remove_user(id=user_id)
+                self.user_dal.remove_user(id=user_id)
+                return ('Admin removed successfully')
             except Exception as e:
+                adminfacade_logger.error(f"An error occurred while removing admin: {e}")
                 print(f"An error occurred while removing admin: {e}")
                 return None
-        else:
-            raise AccessDeniedError
+        adminfacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError
         

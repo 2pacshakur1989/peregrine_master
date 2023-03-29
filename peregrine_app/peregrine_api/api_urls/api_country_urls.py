@@ -6,6 +6,4 @@ app_name = "peregrine_app_api_country_view"
 urlpatterns = [
 
     path('api/countries/', api_country_views.country, name='country'),
-
-
 ]

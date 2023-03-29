@@ -1,14 +1,14 @@
 from rest_framework import serializers
 from peregrine_app.models import AirlineCompany
-from peregrine_app.peregrine_api.api_serializers.country_serializer import CountrySerializer
+from peregrine_app.peregrine_api.api_serializers.country_serializer import CountrySerializer, AirlineCountrySerializer
 import re
 
 class AirlineSerializer(serializers.ModelSerializer):
-    country_id = CountrySerializer()
+    country_id = AirlineCountrySerializer()
 
     class Meta:
         model = AirlineCompany
-        fields = ['name', 'country_id']
+        fields = ['id','name', 'country_id']
 
 
 class AddAirlineSerializer(serializers.ModelSerializer):

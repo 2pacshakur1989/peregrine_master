@@ -8,6 +8,12 @@ class CountrySerializer(serializers.ModelSerializer):
         fields = ['id','name']
 
 
+class AirlineCountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ['name']
+
+
 
 
     

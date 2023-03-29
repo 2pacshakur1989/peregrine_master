@@ -11,8 +11,7 @@ from peregrine_app.facades.customerfacade import CustomerFacade
 from peregrine_app.exceptions import AccessDeniedError
 from django.db import transaction
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import HttpResponse
-
+from peregrine_app.loggers import anonymousfacade_logger
 
 
 class AnonymousFacade(FacadeBase):
@@ -40,42 +39,46 @@ class AnonymousFacade(FacadeBase):
 
     
     def login_func(self, request, **kwargs):
-        
-        username = kwargs.get('username')
-        password = kwargs.get('password')
-        user = authenticate(username=username, password=password)
 
-        if user is not None:
-            login(request,user=user)
-            user_groups = user.groups.all()
-            for group in user_groups:
-                if group.name == 'admin':
-                    facade = AdministratorFacade(user_group='admin')
-                elif group.name == 'airline':
-                    facade = AirlineFacade(user_group='airline')
-                elif group.name == 'customer':
-                    facade = CustomerFacade(user_group='customer')
-                else:
-                    facade = AnonymousFacade()
+        if self.check_access('token_dal','create_token'):
+            username = kwargs.get('username')
+            password = kwargs.get('password')
+            user = authenticate(username=username, password=password)
 
-            token, created = self.token_dal.create_token(user=user)
-            # Include additional information in the token payload
-            token_payload = {
-                'user_id': user.id,
-                'username': user.username,
-                'is_staff': user.is_staff,
-                'is_superuser': user.is_superuser
-            }
-            if user.groups.filter(name='airline').exists():
-                token_payload['roles'] = ['airline']
-            elif user.groups.filter(name='customer').exists():
-                token_payload['roles'] = ['customer']
-            elif user.groups.filter(name='admin').exists():
-                token_payload['roles'] = ['admin']
-            return ({'token': token.key, 'payload': token_payload})
+            if user is not None:
+                login(request,user=user)
+                user_groups = user.groups.all()
+                for group in user_groups:
+                    if group.name == 'admin':
+                        facade = AdministratorFacade(user_group='admin')
+                    elif group.name == 'airline':
+                        facade = AirlineFacade(user_group='airline')
+                    elif group.name == 'customer':
+                        facade = CustomerFacade(user_group='customer')
+                    else:
+                        facade = AnonymousFacade()
+
+                token, created = self.token_dal.create_token(user=user)
+                # Include additional information in the token payload
+                token_payload = {
+                    'user_id': user.id,
+                    'username': user.username,
+                    'is_staff': user.is_staff,
+                    'is_superuser': user.is_superuser
+                }
+                if user.groups.filter(name='airline').exists():
+                    token_payload['roles'] = ['airline']
+                elif user.groups.filter(name='customer').exists():
+                    token_payload['roles'] = ['customer']
+                elif user.groups.filter(name='admin').exists():
+                    token_payload['roles'] = ['admin']
+                return ({'token': token.key, 'payload': token_payload})
+            else:
+                anonymousfacade_logger.error('Invalid credentials')
+                return ({'error': 'Invalid credentials'})
         else:
-            return ({'error': 'Invalid credentials'})
-
+            anonymousfacade_logger.error('Dal is not accessible')
+            raise AccessDeniedError
 
     def logout_func(self, request, user):
         if self.check_access('token_dal','delete_token'):
@@ -83,6 +86,7 @@ class AnonymousFacade(FacadeBase):
             self.token_dal.delete_token(user=user)
             return ({'success': 'Successfully logged out.'}) 
         else:
+            anonymousfacade_logger.error('Dal is not accessible')
             raise AccessDeniedError
 
 
@@ -102,9 +106,11 @@ class AnonymousFacade(FacadeBase):
             except Exception as e:
                 # rollback the update
                 transaction.set_rollback(True)
+                anonymousfacade_logger.error(f"An error occurred while adding a customer: {e}")
                 print(f"An error occurred while adding a customer: {e}")
                 return None
             finally:
                 self.__disable_add_user()
         else:
+            anonymousfacade_logger.error('Dal is not accessible')
             raise AccessDeniedError

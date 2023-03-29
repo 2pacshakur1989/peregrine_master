@@ -9,7 +9,7 @@ of adding one of the 2 (or user_form , or customer_form) then it won't add anyth
 # Importing the DAL and the needed utilities
 from peregrine_app.dal import TokenDAL, AdministratorDAL,UserDAL,FlightDAL,TicketDAL,CountryDAL,CustomerDAL,AirlineCompanyDAL,GroupDAL
 from abc import abstractmethod
-from peregrine_app.utils import check_countries
+from peregrine_app.loggers import facadebase_logger
 
     
 class FacadeBase:
@@ -66,13 +66,13 @@ class FacadeBase:
 
     def get_all_flights(self, request): 
 
-            return self.flight_dal.get_all_flights()
-
+            return self.flight_dal.get_all_flights()   
     
     def get_flight_by_id(self, request, id):
         try:
             return self.flight_dal.get_flight_by_id(id=id)
         except Exception as e:
+            facadebase_logger.error(f"An error occurred while fetching flight: {e}")
             print(f"An error occurred while fetching flight: {e}")
             return None
         
@@ -80,24 +80,39 @@ class FacadeBase:
         try:
             return self.flight_dal.get_flights_by_origin_country_id(origin_country_id=origin_country_id)
         except Exception as e:
+            facadebase_logger.error(f"facade : An error occurred while fetching flights: {e}")
             print(f"facade : An error occurred while fetching flights: {e}")
             return None
         
     def get_flights_by_destination_country_id(self, request, destination_country_id):
         try:
-            destination_country = self.get_country_by_id(country_id=destination_country_id)
-            countries = self.get_all_countries()    
-            if check_countries(input_country=destination_country, countries=countries) is None:
-                return False
             return self.flight_dal.get_flights_by_destination_country_id(destination_country_id=destination_country_id)
         except Exception as e:
+            facadebase_logger.error(f"An error occurred while fetching flights: {e}")
             print(f"An error occurred while fetching flights: {e}")
             return None
+
+    def get_arrival_flights_by_country_id(self, request, country_id):
+        try:
+            return self.flight_dal.get_arrival_flights_by_country_id(country_id=country_id)   
+        except Exception as e:
+            facadebase_logger.error(f"An error occurred while fetching flights: {e}")
+            print(f"An error occurred while fetching flights: {e}")
+            return None
+
+    def get_departure_flights_by_country_id(self, request, country_id):
+        try:
+            return self.flight_dal.get_departure_flights_by_country_id(country_id=country_id)   
+        except Exception as e:
+            facadebase_logger.error(f"An error occurred while fetching flights: {e}")
+            print(f"An error occurred while fetching flights: {e}")
+            return None       
         
     def get_flights_by_departure_date(self, request, departure_time):
         try:
             return self.flight_dal.get_flights_by_departure_date(departure_time=departure_time)
         except Exception as e:
+            facadebase_logger.error(f"An error occurred while fetching flights: {e}")
             print(f"An error occurred while fetching flights: {e}")
             return None
 
@@ -105,16 +120,15 @@ class FacadeBase:
         try:
             return self.flight_dal.get_flights_by_landing_date(landing_time=landing_time)
         except Exception as e:
+            facadebase_logger.error(f"An error occurred while fetching flights: {e}")
             print(f"An error occurred while fetching flights: {e}")
             return None
         
     def get_flights_by_airline_company(self, request, airline_company_id):
         try:
-            airline = self.get_airline_by_id(id=airline_company_id)
-            if airline is None:
-                return False
             return self.flight_dal.get_flights_by_airline_company_id(airline_company_id=airline_company_id)
         except Exception as e:
+            facadebase_logger.error(f"An error occurred while fetching flights: {e}")
             print(f"An error occurred while fetching flights: {e}")
             return None       
     
@@ -126,6 +140,7 @@ class FacadeBase:
         try:
             return self.airline_company_dal.get_airline_company_by_id(id=id)
         except Exception as e:
+            facadebase_logger.error(f"An error occurred while fetching airline: {e}")
             print(f"An error occurred while fetching airline: {e}")
             return None
     
@@ -133,20 +148,19 @@ class FacadeBase:
         try:
             return self.airline_company_dal.get_airlines_by_country(country_id=country_id)
         except Exception as e:
+            facadebase_logger.error(f"An error occurred while fetching airlines: {e}")
             print(f"An error occurred while fetching airlines: {e}")
             return None
-    
-
-    
+     
     def get_all_countries(self, request):
 
             return self.country_dal.get_all_countries()
-
-    
+   
     def get_country_by_id(self, request, country_id):
         try:
             return self.country_dal.get_country_by_id(country_id=country_id)
         except Exception as e:
+            facadebase_logger.error(f"An error occurred while fetching country: {e}")
             print(f"An error occurred while fetching country: {e}")
             return None
 

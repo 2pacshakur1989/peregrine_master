@@ -8,6 +8,8 @@ from django.db import transaction
 from peregrine_app.decorators import allowed_users 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from peregrine_app.loggers import customerfacade_logger
+from peregrine_app.loggers import ticket_logger
 
  # Custom made error, which handles the case, 
  # of a function requesting a DAL or a function which are not initialized in the constructor
@@ -31,26 +33,32 @@ class CustomerFacade(FacadeBase):
     @method_decorator(allowed_users(allowed_roles=['customer']))             
     def add_ticket(self, request, customer, flight_id):
         if (self.check_access('ticket_dal', 'add_ticket')) and (self.check_access('ticket_dal', 'get_tickets_by_customer_id')) and (self.check_access('flight_dal', 'get_flight_by_id')):
-            
-            tickets = self.ticket_dal.get_tickets_by_customer_id(customer_id=customer.id)
-
-            for ticket in tickets:
-                if ticket.flight_id.id == int(flight_id):
-                    return ('Cannot add a ticket twice (it seems that this ticket is already added)')
-            flight = self.flight_dal.get_flight_by_id(id=flight_id)
-            if flight is None:
-                return ('Flight not found')
-            if flight.remaining_tickets == 0:
-                return ('The selected flight has no available tickets. In case of canecllation please check later')
-            ticket_data = {
-                    'flight_id': flight,
-                    'customer_id': customer}
-            self.ticket_dal.add_ticket(data=ticket_data) 
-            flight.remaining_tickets = (flight.remaining_tickets) - 1
-            flight.save()
-            ticket = self.ticket_dal.get_tickets_by_flight_id(flight_id=flight_id)
-            return ({'Ticket added successfully'})
+            try:
+                tickets = self.ticket_dal.get_tickets_by_customer_id(customer_id=customer.id)
+                for ticket in tickets:
+                    if ticket.flight_id.id == int(flight_id):
+                        # ticket_logger.info(f"Cannot add a ticket twice (it seems that this ticket is already added) - Customer : {request.user.customer}")
+                        return ('Cannot add a ticket twice (it seems that this ticket is already added)')
+                flight = self.flight_dal.get_flight_by_id(id=flight_id)
+                if flight is None:
+                    # ticket_logger.info('Flight not found')
+                    return ('Flight not found')
+                if flight.remaining_tickets == 0:
+                    # ticket_logger.info('The selected flight has no available tickets. In case of canecllation please check later')
+                    return ('The selected flight has no available tickets. In case of canecllation please check later')
+                ticket_data = {
+                        'flight_id': flight,
+                        'customer_id': customer}
+                self.ticket_dal.add_ticket(data=ticket_data) 
+                flight.remaining_tickets = (flight.remaining_tickets) - 1
+                flight.save()
+                return ({'Ticket added successfully'})
+            except Exception as e:
+                customerfacade_logger.error(f"An error occurred while adding ticket: {e}")
+                print(f"An error occurred while adding ticket: {e}")
+                return None
         else:
+            customerfacade_logger.error('Dal is not accessible')
             raise AccessDeniedError
 
 
@@ -69,10 +77,12 @@ class CustomerFacade(FacadeBase):
                     self.ticket_dal.remove_ticket(id=id)
                     return ('Ticket removed successfully')
                 except Exception as e:
-                    with transaction.atomic():
-                        print(f"An error occurred while removing ticket: {e}")
-                        return None
+                    transaction.set_rollback(True)
+                    customerfacade_logger.error(f"An error occurred while removing ticket: {e}")
+                    print(f"An error occurred while removing ticket: {e}")
+                    return None
         else:
+            customerfacade_logger.error('Dal is not accessible')
             raise AccessDeniedError
 
 
@@ -83,9 +93,11 @@ class CustomerFacade(FacadeBase):
             try:
                 return self.ticket_dal.get_tickets_by_customer_id(customer_id=customer_id)
             except Exception as e:
+                customerfacade_logger.error(f"An error occurred while fetching tickets: {e}")
                 print(f"An error occurred while fetching tickets: {e}")
                 return None
         else:
+            customerfacade_logger.error('Dal is not accessible')
             raise AccessDeniedError
 
 
@@ -101,9 +113,11 @@ class CustomerFacade(FacadeBase):
             except Exception as e:
                 # rollback the update
                 transaction.set_rollback(True)
+                customerfacade_logger.error(f"An error occurred while adding a customer: {e}")
                 print(f"An error occurred while adding a customer: {e}")
                 return None
         else:
+            customerfacade_logger.error('Dal is not accessible')
             raise AccessDeniedError
 
 
@@ -115,9 +129,11 @@ class CustomerFacade(FacadeBase):
                 if customer_instance.id == int(customer_id):
                     return self.customer_dal.get_customer_by_id(customer_id=customer_id)
             except Exception as e:
+                customerfacade_logger.error(f"An error occurred while fetching customer: {e}")
                 print(f"An error occurred while fetching customer: {e}")
                 return None
         else:
+            customerfacade_logger.error('Dal is not accessible')
             raise AccessDeniedError 
 
 
@@ -133,9 +149,11 @@ class CustomerFacade(FacadeBase):
                     return ('Not authorized')
                 return ticket
             except Exception as e:
+                customerfacade_logger.error(f"An error occurred while fetching flight: {e}")
                 print(f"An error occurred while fetching flight: {e}")
                 return None
         else:
+            customerfacade_logger.error('Dal is not accessible')
             raise AccessDeniedError 
 
     

@@ -9,6 +9,7 @@ from django.db import transaction
 from peregrine_app.decorators import allowed_users 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from peregrine_app.loggers import airlinefacade_logger
 
 
 class AirlineFacade(FacadeBase):
@@ -21,7 +22,7 @@ class AirlineFacade(FacadeBase):
         
     @property
     def accessible_dals(self):
-        return [('airline_company_dal', ['update_airline_company', 'get_airline_company_by_id']), ('flight_dal', ['get_flights_by_airline_company_id','add_flight','update_flight', 'remove_flight','get_flight_by_id']),('user_dal', ['update_user']),('ticket_dal', ['get_tickets_by_flight_id']), ('country_dal', ['get_country_by_id'])]
+        return [('airline_company_dal', ['update_airline_company', 'get_airline_company_by_id', 'get_airline_by_username']), ('flight_dal', ['get_flights_by_airline_company_id','add_flight','update_flight', 'remove_flight','get_flight_by_id']),('user_dal', ['update_user']),('ticket_dal', ['get_tickets_by_flight_id']), ('country_dal', ['get_country_by_id'])]
 
     @method_decorator(login_required)
     @method_decorator(allowed_users(allowed_roles=['airline'])) 
@@ -30,8 +31,10 @@ class AirlineFacade(FacadeBase):
             try:
                 return self.flight_dal.get_flights_by_airline_company_id(airline_company_id=airline_company_id)
             except Exception as e:
+                airlinefacade_logger.error(f"An error occurred while fetching flights: {e}")
                 print(f"An error occurred while fetching flights: {e}")
                 return None
+        airlinefacade_logger.error('Dal is not accessible')
         raise AccessDeniedError 
 
 
@@ -49,10 +52,11 @@ class AirlineFacade(FacadeBase):
             except Exception as e:
                 # rollback the update
                 transaction.set_rollback(True)
+                airlinefacade_logger.error(f"facade : An error occurred while updating airline: {e}")
                 print(f"facade : An error occurred while updating airline: {e}")
                 return None
-        else:
-            raise AccessDeniedError
+        airlinefacade_logger.error('Dal is not accessible')    
+        raise AccessDeniedError
 
 
     @method_decorator(login_required)
@@ -63,10 +67,11 @@ class AirlineFacade(FacadeBase):
                 data['airline_company_id'] = airlinecompany
                 return self.flight_dal.add_flight(data=data)
             except Exception as e:
+                airlinefacade_logger.error(f"An error occurred while adding flight: {e}")
                 print(f"An error occurred while adding flight: {e}")
                 return None
-        else:
-            raise AccessDeniedError
+        airlinefacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError
 
 
     @method_decorator(login_required)
@@ -90,10 +95,11 @@ class AirlineFacade(FacadeBase):
                 print(data['airline_company_id'])
                 return self.flight_dal.update_flight(flight_id=flight_id,data=data)
             except Exception as e:
+                airlinefacade_logger.error(f"An error occurred while updating flight: {e}")
                 print(f"An error occurred while updating flight: {e}")
                 return None
-        else:
-            raise AccessDeniedError
+        airlinefacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError
 
 
     @method_decorator(login_required)
@@ -101,7 +107,9 @@ class AirlineFacade(FacadeBase):
     def remove_flight(self, request, flight_id, airlinecompany):  # This is for the Api
         if (self.check_access('flight_dal', 'remove_flight')) and (self.check_access('ticket_dal', 'get_tickets_by_flight_id')) and (self.check_access('flight_dal', 'get_flight_by_id')) :   
             try:
-                flight = self.flight_dal.get_flight_by_id(id=flight_id)   
+                flight = self.flight_dal.get_flight_by_id(id=flight_id)
+                if flight is None:
+                    return('Flight not found')  
                 if flight.airline_company_id.id != airlinecompany.id:
                     return ({'You are not authorized'})    # returning a cue value  (Cannot Remove Another Airline's Flight !)        
                 tickets = self.ticket_dal.get_tickets_by_flight_id(flight_id=flight_id)
@@ -110,22 +118,27 @@ class AirlineFacade(FacadeBase):
                     return ({'Flight removed successfully'})
                 return ({'This flight has an on going active/pruchased tickets thus cannot be removed'}) # returning a cue value  (This flight has an on going active/pruchased tickets thus cannot be removed !)
             except Exception as e:
+                airlinefacade_logger.error(f"An error occurred while removing flight: {e}")
                 print(f"An error occurred while removing flight: {e}")
                 return None
-        else:
-            raise AccessDeniedError
+        airlinefacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError
 
 
     @method_decorator(login_required)
     @method_decorator(allowed_users(allowed_roles=['airline']))                   
     def get_airline_by_username(self, request, username, airline_username):
-        try:
-            if airline_username != username:
+        if self.check_access('airline_company_dal', 'get_airline_by_username'):
+            try:
+                if airline_username != username:
+                    return None
+                airline_query_set =  self.airline_company_dal.get_airline_by_username(username=username)
+                for element in airline_query_set:
+                    airline = element
+                return airline
+            except Exception as e:
+                airlinefacade_logger.error(f"An error occurred while fetching airline: {e}")
+                print(f"An error occurred while fetching airline: {e}")
                 return None
-            airline_query_set =  self.airline_company_dal.get_airline_by_username(username=username)
-            for element in airline_query_set:
-                airline = element
-            return airline
-        except Exception as e:
-            print(f"An error occurred while fetching airline: {e}")
-            return None
+        airlinefacade_logger.error('Dal is not accessible')
+        raise AccessDeniedError

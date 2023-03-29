@@ -8,6 +8,12 @@ from django.utils import timezone
 from django.db.models import Q #build complex queries by allowing you to combine multiple queries with different conditions using logical operators (AND/OR).
 from django.contrib.auth.models import User , Group
 from rest_framework.authtoken.models import Token
+from peregrine_app.loggers import dal_logger
+# import logging
+
+
+
+
 
 class CountryDAL:
 
@@ -23,9 +29,7 @@ class CountryDAL:
     @staticmethod
     def get_all_countries():
 
-            # countries = Country.objects.values_list('name', flat=True)
             countries = Country.objects.all()
-
             return countries
              
     @staticmethod
@@ -35,9 +39,11 @@ class CountryDAL:
             return country
         except Country.DoesNotExist:
             print ('Dal : Country Does not exist in the DB')
+            dal_logger.error('Dal_get_country_by_id : Country Does not exist in the DB')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fechting country: {e}")
+            dal_logger.error(f"Dal_get_country_by_id : An error occurred while fechting country: {e}")
             return None
             
     @staticmethod
@@ -46,10 +52,12 @@ class CountryDAL:
             country = Country.objects.get(id=country_id)
             country.delete()
         except Country.DoesNotExist:
-            print ('Dal : Country Does not exist in the DB')
+            print ('Dal_remove_country : Country Does not exist in the DB')
+            dal_logger.error('Dal_remove_country : Country Does not exist in the DB')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while deleting country: {e}")
+            dal_logger.error(f"Dal_remove_country : An error occurred while deleting country: {e}")
             return None
 
     @staticmethod
@@ -58,11 +66,13 @@ class CountryDAL:
             country = Country.objects.get(name=name)
             return country
         except Country.DoesNotExist:
-            print ('Dal : Country Does not exist in the DB')
+            print ('Dal_get_country_by_name : Country Does not exist in the DB')
+            dal_logger.error('Dal_get_country_by_name : Country Does not exist in the DB')
             return None
         except Exception as e:
-            print (f"Dal : An error occurred while fechting country: {e}")
-            return None        
+            print (f"Dal : An error occurred while deleting country: {e}")
+            dal_logger.error(f"Dal_get_country_by_name : An error occurred while fechting country: {e}")
+            return None  
 
 
 class CustomerDAL:
@@ -75,9 +85,11 @@ class CustomerDAL:
             return customer
         except Customer.DoesNotExist:
             print ('Dal : Customer Does not exist in the DB')
+            dal_logger.error(f"Dal_get_customer_by_id : Customer Does not exist in the DB")
             return None
         except Exception as e:
             print (f"Dal : An error occurred while deleting customer: {e}")
+            dal_logger.error(f"Dal_get_customer_by_id : An error occurred while deleting customer: {e}")
             return None
         
     @staticmethod
@@ -87,9 +99,11 @@ class CustomerDAL:
             return customer
         except Customer.DoesNotExist:
             print ('Dal : Customer Does not exist in the DB')
+            dal_logger.error(f"Dal_get_customer_by_username : Customer Does not exist in the DB")
             return None
         except Exception as e:
             print (f"Dal : An error occurred while deleting customer: {e}")
+            dal_logger.error(f"Dal_get_customer_by_username : An error occurred while deleting customer: {e}")
             return None
                
     @staticmethod
@@ -105,6 +119,7 @@ class CustomerDAL:
             return new_customer
         except Exception as e:
             print (f"Dal : An error occurred while adding customer: {e}")
+            dal_logger.error(f"Dal_add_customer : An error occurred while adding customer: {e}")
             return None
 
     @staticmethod
@@ -114,9 +129,11 @@ class CustomerDAL:
             return update_customer
         except Customer.DoesNotExist:
             print ('Dal : Customer Does not exist in the DB')
+            dal_logger.error(f"Dal_update_customer : Customer Does not exist in the DB")
             return None
         except Exception as e:
             print (f"Dal : An error occurred while updating customer: {e}")
+            dal_logger.error(f"Dal_update_customer : An error occurred while updating customer: {e}")
             return None
         
     @staticmethod
@@ -126,9 +143,11 @@ class CustomerDAL:
            customer.delete()
         except Customer.DoesNotExist:
             print ('Dal : Customer Does not exist in the DB')
+            dal_logger.error(f"Dal_remove_customer : Customer Does not exist in the DB")
             return None
         except Exception as e:
             print (f"Dal : An error occurred while removing customer: {e}")
+            dal_logger.error(f"Dal_remove_customer : An error occurred while removing customer: {e}")
             return None
 
 
@@ -141,9 +160,11 @@ class FlightDAL:
             return flights
         except Flight.DoesNotExist:
             print ('Dal : Flights do not exist')
+            dal_logger.error('Dal_get_flights_by_origin_country_id : Flight do not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching flights: {e}")
+            dal_logger.error(f"Dal_get_flights_by_origin_country_i : An error occurred while fetching flights: {e}")
             return None
 
     @staticmethod
@@ -153,9 +174,11 @@ class FlightDAL:
             return flights
         except Flight.DoesNotExist:
             print ('Dal : Flight does not exist')
+            dal_logger.error('Dal_get_flights_by_destination_id : Flight do not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occured while fetching flight : {e}")
+            dal_logger.error(f"Dal_get_flights_by_destination_id : An error occured while fetching flight : {e}")
             return None
 
     @staticmethod
@@ -165,9 +188,11 @@ class FlightDAL:
             return flights
         except Flight.DoesNotExist:
             print ('Dal : Flight does not exist')
+            dal_logger.error('Dal_get_flights_by_departure_date : Flight do not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occured while fetching flight : {e}")
+            dal_logger.error(f"Dal_get_flights_by_departure_date : An error occured while fetching flight : {e}")
             return None  
 
     @staticmethod
@@ -177,9 +202,11 @@ class FlightDAL:
             return flights
         except Flight.DoesNotExist:
             print ('Dal : Flight does not exist')
+            dal_logger.error('Dal_get_flights_by_landing_date : Flight do not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occured while fetching flight : {e}")
+            dal_logger.error(f"Dal_get_flights_by_landing_date : An error occured while fetching flight : {e}")
             return None 
 
     @staticmethod
@@ -189,9 +216,11 @@ class FlightDAL:
             return flights
         except Customer.DoesNotExist:
             print ('Dal : Customer does not exist in the DB')
+            dal_logger.error('Dal_get_flights_by_customer : Flight do not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occured while fetching flight : {e}")
+            dal_logger.error(f"Dal_get_flights_by_customer : An error occured while fetching flight : {e}")
             return None
                         
     @staticmethod
@@ -201,9 +230,11 @@ class FlightDAL:
             return flights
         except Flight.DoesNotExist:
             print ('Dal : flights do not exist/not found')
+            dal_logger.error('Dal_get_flights_by_airline_company_id : Flight do not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching flights: {e}")
+            dal_logger.error(f"Dal_get_flights_by_airline_company : An error occurred while fetching flights: {e}")
             return None
 
     @staticmethod
@@ -218,9 +249,11 @@ class FlightDAL:
             return arrival_flights
         except Flight.DoesNotExist:
             print ('Dal : flights do not exist/not found')
+            dal_logger.error('Dal_get_arrival_flights_by_country_id : Flight do not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching flights: {e}")
+            dal_logger.error(f"Dal_get_arrival_flights_by_country_id : An error occurred while fetching flights: {e}")
             return None
         
     @staticmethod
@@ -235,9 +268,11 @@ class FlightDAL:
             return arrival_flights
         except Flight.DoesNotExist:
             print ('Dal : Flights do not exist/not found')
+            dal_logger.error('Dal_get_departure_flights_by_country_id : Flight do not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching flights: {e}")
+            dal_logger.error(f"Dal_get_departure_flights_by_country_id : An error occurred while fetching flights: {e}")
             return None
 
     @staticmethod
@@ -247,9 +282,11 @@ class FlightDAL:
             return flight
         except Flight.DoesNotExist:
             print ('Dal : Flight does not exist')
+            dal_logger.error('Dal_get_flight_by_id : Flight do not exist') 
             return None
         except Exception as e:
             print (f"Dal : An error occured while fetching flight : {e}")
+            dal_logger.error(f"Dal_get_flight_by_id : An error occured while fetching flight : {e}")
             return None
         
     @staticmethod
@@ -259,9 +296,11 @@ class FlightDAL:
             return all_flights
         except Flight.DoesNotExist:
             print ('Dal : Flights do not exist')
+            dal_logger.error('Dal_get_all_flights : Flight do not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occured while fetching flights : {e}")
+            dal_logger.error(f"Dal_get_all_flights : An error occured while fetching flights : {e}")
             return None
         
     @staticmethod
@@ -271,6 +310,7 @@ class FlightDAL:
             return new_flight
         except Exception as e:
             print (f"Dal : An error occured while adding flight : {e}")
+            dal_logger.error(f"Dal_add_flight : An error occured while adding flight : {e}")
             return None
         
     @staticmethod
@@ -280,6 +320,7 @@ class FlightDAL:
             return update_flight
         except Exception as e:
             print (f"Dal : An error occurred while updating flight: {e}")
+            dal_logger.error(f"Dal_update_flight : An error occurred while updating flight: {e}")
             return None
        
     @staticmethod
@@ -289,9 +330,11 @@ class FlightDAL:
             flight.delete()
         except Flight.DoesNotExist:
             print ('Dal : Flight does not exist')
+            dal_logger.error('Dal_remove_flight : Flight does not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while removing flight: {e}")
+            dal_logger.error(f"Dal_remove_flight : An error occurred while removing flight: {e}")
             return None
 
 
@@ -304,9 +347,11 @@ class AirlineCompanyDAL:
             return airline_company
         except AirlineCompany.DoesNotExist:
             print ('Dal : Airline company does not exist')
+            dal_logger.error('Dal_get_airline_company_by_id : Airline company does not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching airline company: {e}")
+            dal_logger.error(f"Dal_get_airline_company_by_id : An error occurred while fetching airline company: {e}")
             return None
             
     @staticmethod
@@ -316,9 +361,11 @@ class AirlineCompanyDAL:
             return airline_company
         except AirlineCompany.DoesNotExist:
             print ('Dal : Airline company does not exist')
+            dal_logger.error('Dal_get_airline_by_username : Airline company does not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching airline company: {e}")
+            dal_logger.error(f"Dal_get_airline_by_username : An error occurred while fetching airline company: {e}")
             return None
      
     @staticmethod
@@ -334,9 +381,11 @@ class AirlineCompanyDAL:
             return airline_companies
         except AirlineCompany.DoesNotExist:
             print ('Dal : Airline companies do not exist')
+            dal_logger.error('Dal_get_airlines_by_country : Airline companies do not exist')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching airline companies: {e}")
+            dal_logger.error(f"Dal_get_airlines_by_country : An error occurred while fetching airline companies: {e}")
             return None
         
     @staticmethod
@@ -346,6 +395,7 @@ class AirlineCompanyDAL:
             return new_airline_company
         except Exception as e:
             print (f"Dal : An error occurred while adding airline company: {e}")
+            dal_logger.error(f"Dal_add_airline_company : An error occurred while adding airline company: {e}")
             return None
         
     @staticmethod
@@ -355,9 +405,11 @@ class AirlineCompanyDAL:
             return airline_company
         except AirlineCompany.DoesNotExist:
             print ('Dal : Airline company does not exist/is not found')
+            dal_logger.error('Dal_update_airline_company : Airline company does not exist/is not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while updating airline companies: {e}")
+            dal_logger.error(f"Dal_update_airline_company : An error occurred while updating airline companies: {e}")
             return None
         
     @staticmethod
@@ -367,9 +419,11 @@ class AirlineCompanyDAL:
             airline_company.delete()
         except AirlineCompany.DoesNotExist:
             print ('Dal : Airline company does not exist/is not found')
+            dal_logger.error('Dal_remove_airline_company : Airline company does not exist/is not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while removing airline companies: {e}")
+            dal_logger.error(f"Dal_remove_airline_company : An error occurred while removing airline companies: {e}")
             return None
 
 
@@ -382,9 +436,11 @@ class AdministratorDAL:
             return admin
         except Administrator.DoesNotExist:
             print ('Dal : Admin does not exist/not found')
+            dal_logger.error('Dal_get_admin_by_id : Admin does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching admin: {e}")
+            dal_logger.error(f"Dal_get_admin_by_id : An error occurred while fetching admin: {e}")
             return None
         
     @staticmethod
@@ -400,6 +456,7 @@ class AdministratorDAL:
             return new_admin
         except Exception as e:
             print (f"Dal : An error occurred while creating new admin: {e}")
+            dal_logger.error(f"Dal_add_new_admin : An error occurred while creating new admin: {e}")
             return None
         
     @staticmethod
@@ -409,9 +466,11 @@ class AdministratorDAL:
             return update_admin
         except Administrator.DoesNotExist:
             print ('Dal : Admin does not exist/not found')
+            dal_logger.error('Dal_update_admin : Admin does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while updating admin: {e}")
+            dal_logger.error(f"Dal_update_airline : An error occurred while updating admin: {e}")
             return None
         
     @staticmethod
@@ -421,9 +480,11 @@ class AdministratorDAL:
             admin.delete()
         except Administrator.DoesNotExist:
             print ('Dal : Admin does not exist/not found')
+            dal_logger.error('Dal_remove_admin : Admin does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while removing admin: {e}")
+            dal_logger.error(f"Dal_remove_admin : An error occurred while removing admin: {e}")
             return None          
 
 
@@ -436,9 +497,11 @@ class UserDAL:
             return user
         except User.DoesNotExist:
             print ('Dal : User does not exist/not found')
+            dal_logger.error('Dal_get_user_by_id : User does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching user: {e}")
+            dal_logger.error(f"Dal_get_user_by_id : An error occurred while fetching user: {e}")
             return None
 
     @staticmethod
@@ -448,9 +511,11 @@ class UserDAL:
             return user
         except User.DoesNotExist:
             print ('Dal : User does not exist/not found')
+            dal_logger.error('Dal_get_user_by_username : User does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching user: {e}")
+            dal_logger.error(f"Dal_get_user_by_username : An error occurred while fetching user: {e}")
             return None       
            
     @staticmethod
@@ -471,6 +536,7 @@ class UserDAL:
             return new_user
         except Exception as e:
             print (f"Dal : An error occurred while adding user: {e}")
+            dal_logger.error(f"Dal_add_user : An error occurred while adding user: {e}")
             return None
 
     @staticmethod
@@ -485,9 +551,11 @@ class UserDAL:
             return user
         except User.DoesNotExist:
             print ('Dal : User does not exist/not found')
+            dal_logger.error('Dal_update_user : User does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while updating user: {e}")
+            dal_logger.error(f"Dal_update_user : An error occurred while updating user: {e}")
             return None
 
     @staticmethod
@@ -497,9 +565,11 @@ class UserDAL:
             user.delete()
         except User.DoesNotExist:
             print ('Dal : User does not exist/not found')
+            dal_logger.error('Dal_remove_user : User does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while removing user: {e}")
+            dal_logger.error(f"Dal_remove_user : An error occurred while removing user: {e}")
             return None
        
                      
@@ -512,9 +582,11 @@ class TicketDAL:
             return ticket
         except Ticket.DoesNotExist:
             print ('Dal : ticket does not exist/not found')
+            dal_logger.error('Dal_get_ticket_by_id : ticket does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching ticket: {e}")
+            dal_logger.error(f"Dal_get_ticket_by_id : An error occurred while fetching ticket: {e}")
             return None
 
     @staticmethod
@@ -524,9 +596,11 @@ class TicketDAL:
             return tickets
         except Ticket.DoesNotExist:
             print ('Dal : ticket/s does not exist/not found')
+            dal_logger.error('Dal_get_tickets_by_flight_id : ticket/s does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching tickets: {e}")
+            dal_logger.error(f"Dal_get_tickets_by_flight_id : An error occurred while fetching tickets: {e}")
             return None
                
     @staticmethod
@@ -536,9 +610,11 @@ class TicketDAL:
             return tickets
         except Ticket.DoesNotExist:
             print ('Dal : ticket/s does not exist/not found')
+            dal_logger.error('Dal_get_tickets_by_customer_id : ticket/s does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching tickets: {e}")
+            dal_logger.error(f"Dal_get_tickets_by_customer_id : An error occurred while fetching tickets: {e}")
             return None
 
     @staticmethod
@@ -554,6 +630,7 @@ class TicketDAL:
             return new_ticket
         except Exception as e:
             print (f"Dal : An error occurred while adding ticket: {e}")
+            dal_logger.error(f"Dal_add_ticket : An error occurred while adding ticket: {e}")
             return None
 
     @staticmethod
@@ -563,9 +640,11 @@ class TicketDAL:
             return updated
         except Ticket.DoesNotExist:
             print ('Dal : ticket does not exist/not found')
+            dal_logger.error('Dal_update_ticket : ticket does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while updating ticket: {e}")
+            dal_logger.error(f"Dal_update_ticket : An error occurred while updating ticket: {e}")
             return None
 
     @staticmethod
@@ -575,9 +654,11 @@ class TicketDAL:
             ticket.delete()
         except Ticket.DoesNotExist:
             print ('Dal : ticket does not exist/not found')
+            dal_logger.error('Dal_remove_ticket : ticket does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while removing ticket: {e}")
+            dal_logger.error(f"Dal_remove_ticket : An error occurred while removing ticket: {e}")
             return None             
         
 
@@ -590,9 +671,11 @@ class GroupDAL:
             return user_role
         except Group.DoesNotExist:
             print ('Dal : User role does not exist/not found')
+            dal_logger.error('Dal_get_userRole_by_role : User role does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching user role: {e}")
+            dal_logger.error(f"Dal_get_userRole_by_role : An error occurred while fetching user role: {e}")
             return None
 
     @staticmethod
@@ -608,6 +691,7 @@ class GroupDAL:
             return new_user_role
         except Exception as e:
             print (f"Dal : An error occurred while adding user role: {e}")
+            dal_logger.error(f"Dal_add_user_role : An error occurred while adding user role: {e}")
             return None   
 
     @staticmethod
@@ -617,9 +701,11 @@ class GroupDAL:
             return user_role
         except Group.DoesNotExist:
             print ('Dal : User role does not exist/not found')
+            dal_logger.error('Dal_update_user_role : User role does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while updating user role: {e}")
+            dal_logger.error(f"Dal_update_user_role : An error occurred while updating user role: {e}")
             return None
         
     @staticmethod
@@ -629,9 +715,11 @@ class GroupDAL:
             user.delete()
         except Group.DoesNotExist:
             print ('Dal : User role does not exist/not found')
+            dal_logger.error('Dal_remove_user_role : User role does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while removing user role: {e}")
+            dal_logger.error(f"Dal_remove_user_role : An error occurred while removing user role: {e}")
             return None
 
 
@@ -650,9 +738,11 @@ class TokenDAL:
             return token
         except Token.DoesNotExist:
             print ('Dal : Token does not exist/not found')
+            dal_logger.error('Dal_get_token_by_user : Token does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching user token: {e}")
+            dal_logger.error(f"Dal_get_token_by_user : An error occurred while fetching user token: {e}")
             return None   
 
     @staticmethod
@@ -662,9 +752,11 @@ class TokenDAL:
             return token
         except Token.DoesNotExist:
             print ('Dal : Token does not exist/not found')
+            dal_logger.error('Dal_get_token_by_key : Token does not exist/not found')
             return None
         except Exception as e:
             print (f"Dal : An error occurred while fetching user token: {e}")
+            dal_logger.error(f"Dal_get_token_by_key : An error occurred while fetching user token: {e}")
             return None  
 
     @staticmethod
@@ -674,6 +766,7 @@ class TokenDAL:
             return token               
         except Exception as e:
             print (f"Dal : An error occurred while creating user token: {e}")
+            dal_logger.error(f"Dal_create_token : An error occurred while creating user token: {e}")
             return None 
 
     @staticmethod
@@ -683,6 +776,7 @@ class TokenDAL:
             token.delete()
         except Exception as e:
             print (f"Dal : An error occurred while deleting token: {e}")
+            dal_logger.error(f"Dal_delete_token : An error occurred while deleting token: {e}")
             return None 
        
 
