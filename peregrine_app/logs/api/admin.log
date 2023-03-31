@@ -1,0 +1,8 @@
+2023-03-30 12:35:29,783 INFO Get all admins attempt
+2023-03-30 12:37:09,376 ERROR {'non_field_errors': [ErrorDetail(string='Username should be between 8-20 characters', code='invalid')]}
+2023-03-30 12:37:18,838 INFO Attempted add admin - admin 1
+2023-03-30 12:37:44,597 INFO Get all admins attempt
+2023-03-30 12:39:54,775 INFO Get all admins attempt
+2023-03-30 12:40:10,758 INFO Attempted remove admin - admin 1
+2023-03-30 12:40:15,886 INFO Attempted remove admin - admin 1
+2023-03-30 12:40:38,629 INFO Get all admins attempt

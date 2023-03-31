@@ -1,0 +1,26 @@
+2023-03-30 10:44:17,122 INFO get all flights attempt
+2023-03-30 10:44:43,547 INFO get flight by id attempt
+2023-03-30 10:45:29,367 INFO Get flights by origin country attempt
+2023-03-30 10:46:01,349 INFO Get flights by origin country attempt
+2023-03-30 10:46:02,895 INFO Get flights by origin country attempt
+2023-03-30 10:46:04,142 INFO Get flights by origin country attempt
+2023-03-30 10:46:05,181 INFO Get flights by origin country attempt
+2023-03-30 10:49:15,186 INFO Get flights by destination country attempt
+2023-03-30 10:49:18,010 INFO Get flights by destination country attempt
+2023-03-30 10:49:19,217 INFO Get flights by destination country attempt
+2023-03-30 10:49:20,444 INFO Get flights by destination country attempt
+2023-03-30 10:49:21,681 INFO Get flights by destination country attempt
+2023-03-30 10:49:23,131 INFO Get flights by destination country attempt
+2023-03-30 10:49:25,126 INFO Get flights by destination country attempt
+2023-03-30 10:49:55,347 INFO Attempted get my flights - customer 1
+2023-03-30 10:54:07,004 INFO Attempted get my flights - airline 1
+2023-03-30 10:54:13,331 ERROR {'non_field_errors': [ErrorDetail(string='Origin and destination countries cannot be the same.', code='invalid')]}
+2023-03-30 10:54:19,058 ERROR {'non_field_errors': [ErrorDetail(string='Departure time must be minimum 12 hours from now', code='invalid')]}
+2023-03-30 10:54:26,564 ERROR {'non_field_errors': [ErrorDetail(string='300-850 tickets are allowed', code='invalid')]}
+2023-03-30 10:54:34,010 INFO Attempted Add flight - airline 1
+2023-03-30 10:57:59,604 INFO get all flights attempt
+2023-03-30 10:59:06,883 INFO Attempted update flight - airline 1
+2023-03-30 10:59:25,157 INFO Attempted update flight - airline 1
+2023-03-30 10:59:57,952 INFO Attempted update flight - airline 1
+2023-03-30 11:10:06,040 INFO Attempted remove flight - airline 1
+2023-03-30 11:10:09,915 INFO Attempted remove flight - airline 1

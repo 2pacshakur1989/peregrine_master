@@ -7,7 +7,7 @@ class AdminSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Administrator
-        fields = ['first_name', 'last_name']
+        fields = ['id','first_name', 'last_name']
 
     def validate(self, data):
 

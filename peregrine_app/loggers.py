@@ -87,7 +87,7 @@ handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
 ticket_logger.addHandler(handler)
 
 
-"""Login/Logout Logger"""
+"""Login/Logout logger"""
 loginout_logger = logging.getLogger('loginlogout')
 loginout_logger.setLevel(logging.DEBUG)
 
@@ -96,6 +96,49 @@ handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
 loginout_logger.addHandler(handler)
 
 
+"""Flight logger"""
+flight_logger = logging.getLogger('flight')
+flight_logger.setLevel(logging.DEBUG)
+
+handler = logging.FileHandler('peregrine_app/logs/api/flight.log')
+handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+flight_logger.addHandler(handler)
+
+
+"""Customer logger"""
+customer_logger = logging.getLogger('customer')
+customer_logger.setLevel(logging.DEBUG)
+
+handler = logging.FileHandler('peregrine_app/logs/api/customer.log')
+handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+customer_logger.addHandler(handler)
+
+
+"""Country logger"""
+country_logger = logging.getLogger('country')
+country_logger.setLevel(logging.DEBUG)
+
+handler = logging.FileHandler('peregrine_app/logs/api/country.log')
+handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+country_logger.addHandler(handler)
+
+
+""""Airline logger"""
+airline_logger = logging.getLogger('airline')
+airline_logger.setLevel(logging.DEBUG)
+
+handler = logging.FileHandler('peregrine_app/logs/api/airline.log')
+handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+airline_logger.addHandler(handler)
+
+
+"""Admin logger"""
+admin_logger = logging.getLogger('admin')
+admin_logger.setLevel(logging.DEBUG)
+
+handler = logging.FileHandler('peregrine_app/logs/api/admin.log')
+handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+admin_logger.addHandler(handler)
 
 
 

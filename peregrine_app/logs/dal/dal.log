@@ -1,1 +1,4 @@
 2023-03-29 16:29:12,177 ERROR Dal_get_ticket_by_id : An error occurred while fetching ticket: Field 'id' expected a number but got ''.
+2023-03-30 10:44:43,544 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-03-30 11:10:09,917 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-03-30 12:40:15,891 ERROR Dal_get_admin_by_id : Admin does not exist/not found
