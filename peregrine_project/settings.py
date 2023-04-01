@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'peregrine_app.all_urls',
     'rest_framework_simplejwt',
     'peregrine_app.peregrine_api',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'peregrine_project.urls'
@@ -179,3 +181,6 @@ LOGGING = {
 
     },
 }
+
+# Allowing requests from REACT
+CORS_ORIGIN_WHITELIST = [    'http://localhost:3001',]

@@ -2,3 +2,12 @@
 2023-03-30 11:27:13,795 INFO Ticket id must be provided
 2023-03-30 11:28:43,682 INFO Attempted remove customer - admin 1
 2023-03-30 11:31:15,345 INFO Attemoted create a new customer
+2023-03-31 18:22:57,736 ERROR {'first_name': [ErrorDetail(string='This field is required.', code='required')], 'last_name': [ErrorDetail(string='This field is required.', code='required')]}
+2023-03-31 18:24:07,206 ERROR {'first_name': [ErrorDetail(string='This field is required.', code='required')], 'last_name': [ErrorDetail(string='This field is required.', code='required')]}
+2023-03-31 18:25:19,663 ERROR {'first_name': [ErrorDetail(string='This field is required.', code='required')], 'last_name': [ErrorDetail(string='This field is required.', code='required')]}
+2023-03-31 18:31:34,669 ERROR {'first_name': [ErrorDetail(string='This field is required.', code='required')], 'last_name': [ErrorDetail(string='This field is required.', code='required')]}
+2023-03-31 18:34:01,709 ERROR {'first_name': [ErrorDetail(string='This field is required.', code='required')], 'last_name': [ErrorDetail(string='This field is required.', code='required')]}
+2023-03-31 18:35:17,399 ERROR {'first_name': [ErrorDetail(string='This field is required.', code='required')], 'last_name': [ErrorDetail(string='This field is required.', code='required')]}
+2023-03-31 18:38:23,992 INFO Attempted create a new customer
+2023-03-31 18:48:31,666 INFO Attempted create a new customer
+2023-03-31 19:03:16,775 ERROR {'non_field_errors': [ErrorDetail(string='Username should be between 8-20 characters', code='invalid')]}
