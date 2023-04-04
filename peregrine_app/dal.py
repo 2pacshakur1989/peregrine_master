@@ -9,9 +9,6 @@ from django.db.models import Q #build complex queries by allowing you to combine
 from django.contrib.auth.models import User , Group
 from rest_framework.authtoken.models import Token
 from peregrine_app.loggers import dal_logger
-# import logging
-
-
 
 
 
@@ -153,6 +150,31 @@ class CustomerDAL:
 
 class FlightDAL:
 
+    @staticmethod
+    def get_flights_by_parameters(origin_country_id=None, destination_country_id=None, airline_company_id=None, departure_time=None, landing_time=None):
+        try:
+            flights = Flight.objects.all()
+            if origin_country_id:
+                flights = flights.filter(origin_country_id=origin_country_id)
+            if destination_country_id:
+                flights = flights.filter(destination_country_id=destination_country_id)
+            if airline_company_id:
+                flights = flights.filter(airline_company_id=airline_company_id)
+            if departure_time:
+                flights = flights.filter(departure_time=departure_time)
+            if landing_time:
+                flights = flights.filter(landing_time=landing_time)
+            return flights
+        except Flight.DoesNotExist:
+            print ('Dal : Flights do not exist')
+            dal_logger.error('Dal_get_flights_by_origin_country_id : Flight do not exist')
+            return None
+        except Exception as e:
+            print (f"Dal : An error occurred while fetching flights: {e}")
+            dal_logger.error(f"Dal_get_flights_by_parameters : An error occurred while fetching flights: {e}")
+            return None
+
+        
     @staticmethod
     def get_flights_by_origin_country_id(origin_country_id):
         try:

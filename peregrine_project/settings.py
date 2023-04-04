@@ -183,4 +183,4 @@ LOGGING = {
 }
 
 # Allowing requests from REACT
-CORS_ORIGIN_WHITELIST = [    'http://localhost:3001',]
+CORS_ORIGIN_WHITELIST = [    'http://localhost:3000',]

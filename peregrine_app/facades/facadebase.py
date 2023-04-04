@@ -131,10 +131,14 @@ class FacadeBase:
             facadebase_logger.error(f"An error occurred while fetching flights: {e}")
             print(f"An error occurred while fetching flights: {e}")
             return None       
+
+    def get_flights_by_combined_parameters(self, request, origin_country_id, destination_country_id, airline_company_id, departure_time, landing_time):
+
+        return self.flight_dal.get_flights_by_parameters(origin_country_id=origin_country_id, destination_country_id=destination_country_id, airline_company_id=airline_company_id, departure_time=departure_time, landing_time=landing_time)
     
     def get_all_airlines(self, request):
-
-            return self.airline_company_dal.get_all_airline_companies()
+        
+        return self.airline_company_dal.get_all_airline_companies()
     
     def get_airline_by_id(self, request, id):
         try:
