@@ -7,6 +7,7 @@ from .facadebase import FacadeBase
 from django.db import transaction
 from peregrine_app.decorators import allowed_users 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import check_password
 from django.utils.decorators import method_decorator
 from peregrine_app.loggers import customerfacade_logger
 from peregrine_app.loggers import ticket_logger
@@ -26,7 +27,7 @@ class CustomerFacade(FacadeBase):
            
     @property
     def accessible_dals(self):
-        return [('customer_dal', ['update_customer','get_customer_by_id']),('flight_dal', ['get_flight_by_id']) ,('ticket_dal', ['add_ticket', 'remove_ticket', 'get_ticket_by_id', 'get_tickets_by_customer_id']),('user_dal', ['update_user', 'get_user_by_id'])]
+        return [('customer_dal', ['update_customer','get_customer_by_id', 'get_customer_by_user_id']),('flight_dal', ['get_flight_by_id']) ,('ticket_dal', ['add_ticket', 'remove_ticket', 'get_ticket_by_id', 'get_tickets_by_customer_id']),('user_dal', ['update_user', 'get_user_by_id', 'get_user_by_username'])]
         
 
     @method_decorator(login_required)
@@ -101,25 +102,74 @@ class CustomerFacade(FacadeBase):
             raise AccessDeniedError
 
 
+    # @method_decorator(login_required)
+    # @method_decorator(allowed_users(allowed_roles=['customer'])) 
+    # def update_customer(self,request ,customer_id,user_id, user_data, data, currentpassword):
+    #     if (self.check_access('customer_dal','update_customer')) and (self.check_access('user_dal','update_user')) :
+    #         try:
+    #             if (user_data['current_password'] is not None) and (user_data['password1'] is not None) and (user_data['password2'] is not None):
+    #                 current_password_from_new_data = user_data['current_password']
+    #                 match_password = check_password(current_password_from_new_data, currentpassword)
+    #                 if not match_password:
+    #                     customerfacade_logger.error("Incorrect current password")
+    #                     print("Incorrect current password")
+    #                     return None
+    #                 else:
+    #                     user_data['password'] = user_data['password1']
+    #             with transaction.atomic():  
+                    
+    #                 update_user = self.user_dal.update_user(id=user_id,data=user_data)
+    #                 update_customer = self.customer_dal.update_customer(customer_id=customer_id,data=data)
+    #                 return update_user, update_customer
+    #         except Exception as e:
+    #             # rollback the update
+    #             # transaction.set_rollback(True)
+    #             customerfacade_logger.error(f"An error occurred while adding a customer: {e}")
+    #             print(f"An error occurred while adding a customer: {e}")
+    #             return None
+    #     else:
+    #         customerfacade_logger.error('Dal is not accessible')
+    #         raise AccessDeniedError
+
     @method_decorator(login_required)
     @method_decorator(allowed_users(allowed_roles=['customer'])) 
-    def update_customer(self,request ,customer_id,user_id, user_data, data):
-        if (self.check_access('customer_dal','update_customer')) and (self.check_access('user_dal','update_user')) :
+    def update_customer(self, request, customer_id, user_id, user_data, data, currentpassword):
+        if (self.check_access('customer_dal','update_customer')) and (self.check_access('user_dal','update_user')):
             try:
+                if 'current_password' in user_data or 'password1' in user_data or 'password2' in user_data:
+                    current_password_from_new_data = user_data.get('current_password')
+                    password1_from_new_data = user_data.get('password1')
+                    password2_from_new_data = user_data.get('password2')
+                    if current_password_from_new_data and password1_from_new_data and password2_from_new_data:
+                        match_password = check_password(current_password_from_new_data, currentpassword)
+                        if not match_password:
+                            customerfacade_logger.error("Incorrect current password")
+                            print("Incorrect current password")
+                            return None
+                        elif password1_from_new_data != password2_from_new_data:
+                            customerfacade_logger.error("New passwords do not match")
+                            print("New passwords do not match")
+                            return None
+                        else:
+                            user_data['password'] = password1_from_new_data
+                    else:
+                        customerfacade_logger.error("All password fields must be filled")
+                        print("All password fields must be filled")
+                        return None
+
                 with transaction.atomic():  
-                    update_user = self.user_dal.update_user(id=user_id,data=user_data)
-                    update_customer = self.customer_dal.update_customer(customer_id=customer_id,data=data)
+                    update_user = self.user_dal.update_user(id=user_id, data=user_data)
+                    update_customer = self.customer_dal.update_customer(customer_id=customer_id, data=data)
                     return update_user, update_customer
             except Exception as e:
                 # rollback the update
-                transaction.set_rollback(True)
-                customerfacade_logger.error(f"An error occurred while adding a customer: {e}")
-                print(f"An error occurred while adding a customer: {e}")
+                # transaction.set_rollback(True)
+                customerfacade_logger.error(f"An error occurred while updating a customer: {e}")
+                print(f"An error occurred while updating a customer: {e}")
                 return None
         else:
             customerfacade_logger.error('Dal is not accessible')
             raise AccessDeniedError
-
 
     @method_decorator(login_required)
     @method_decorator(allowed_users(allowed_roles=['customer']))
@@ -155,5 +205,74 @@ class CustomerFacade(FacadeBase):
         else:
             customerfacade_logger.error('Dal is not accessible')
             raise AccessDeniedError 
-
+        
+    # @method_decorator(login_required)
+    # @method_decorator(allowed_users(allowed_roles=['customer']))
+    # def get_customer_by_username(self, request, username):
+    #     if (self.check_access('customer_dal', 'get_customer_by_username')):
+    #         try:
+    #             customer = self.customer_dal.get_customer_by_username(username=username)
+    #             if customer is None:
+    #                 return None
+    #             return customer
+    #         except Exception as e:
+    #             customerfacade_logger.error(f"An error occurred while fetching customer: {e}")
+    #             print(f"An error occurred while fetching customer: {e}")
+    #             return None
+    #     else:
+    #         customerfacade_logger.error('Dal is not accessible')
+    #         raise AccessDeniedError 
+        
+    # @method_decorator(login_required)
+    # @method_decorator(allowed_users(allowed_roles=['customer']))
+    # def get_user_by_username(self,request, username):
+    #     if (self.check_access('user_dal', 'get_user_by_username')):
+    #         try:
+    #             user = self.user_dal.get_user_by_username(username=username)
+    #             if user is None:
+    #                 return None
+    #             return user
+    #         except Exception as e:
+    #             customerfacade_logger.error(f"An error occurred while fetching user: {e}")
+    #             print(f"An error occurred while fetching user: {e}")
+    #             return None
+    #     else:
+    #         customerfacade_logger.error('Dal is not accessible')
+    #         raise AccessDeniedError  
+    # 
+    # 
+    # 
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['customer']))
+    def get_customer_by_user_id(self, request, id):
+        if (self.check_access('customer_dal', 'get_customer_by_user_id')):
+            try:
+                customer = self.customer_dal.get_customer_by_user_id(id=id)
+                if customer is None:
+                    return None
+                return customer
+            except Exception as e:
+                customerfacade_logger.error(f"An error occurred while fetching customer: {e}")
+                print(f"An error occurred while fetching customer: {e}")
+                return None
+        else:
+            customerfacade_logger.error('Dal is not accessible')
+            raise AccessDeniedError 
+        
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['customer']))
+    def get_user_by_user_id(self,request, id):
+        if (self.check_access('user_dal', 'get_user_by_id')):
+            try:
+                user = self.user_dal.get_user_by_id(id=id)
+                if user is None:
+                    return None
+                return user
+            except Exception as e:
+                customerfacade_logger.error(f"An error occurred while fetching user: {e}")
+                print(f"An error occurred while fetching user: {e}")
+                return None
+        else:
+            customerfacade_logger.error('Dal is not accessible')
+            raise AccessDeniedError               
     

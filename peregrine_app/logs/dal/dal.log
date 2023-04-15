@@ -3,3 +3,131 @@
 2023-03-30 11:10:09,917 ERROR Dal_get_flight_by_id : Flight do not exist
 2023-03-30 12:40:15,891 ERROR Dal_get_admin_by_id : Admin does not exist/not found
 2023-04-04 08:33:49,350 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-05 08:11:52,679 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:12:01,191 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:12:03,174 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:12:11,510 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:12:40,679 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:12:45,628 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:14:04,151 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:15:32,073 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:15:35,584 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:19:57,637 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:20:22,514 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:20:26,333 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:20:29,357 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:20:31,003 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:20:37,607 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:20:39,088 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:20:41,268 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:20:45,048 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:20:47,610 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:20:53,891 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:22:27,925 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:24:57,102 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:25:20,890 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:25:26,222 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:25:51,250 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:25:51,999 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:25:59,334 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-05 08:46:07,026 ERROR Dal_get_flights_by_parameters : An error occurred while fetching flights: Origin country and destination country are mandatory parameters
+2023-04-08 08:38:12,098 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:38:18,529 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:38:19,462 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:38:24,412 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:38:47,843 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:38:53,983 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:38:53,997 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:39:16,364 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:39:16,378 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:39:28,562 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:39:31,695 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:39:46,004 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:39:59,381 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:40:53,600 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:41:03,431 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:41:14,396 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:41:37,894 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:43:30,108 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:43:33,216 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:43:42,725 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:43:43,888 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:43:46,544 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:43:49,308 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:43:52,562 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:45:39,749 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-08 08:45:41,613 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-14 13:05:07,329 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-14 13:05:07,334 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-14 13:05:07,344 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-14 13:05:07,347 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-14 13:05:11,870 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-14 13:05:11,872 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-14 13:05:11,882 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-14 13:05:11,884 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-14 13:05:19,379 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-14 13:05:19,384 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-14 13:05:19,400 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-14 13:05:19,405 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 08:54:53,988 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 08:54:53,998 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 08:54:54,009 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 08:54:54,012 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 10:32:29,072 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 10:32:29,073 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 10:32:29,080 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 10:32:29,080 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 10:32:37,380 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 10:32:37,387 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 10:32:37,390 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 10:32:37,393 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:38:50,469 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:38:50,472 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:38:50,474 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:38:50,475 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:39:00,815 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:39:00,816 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:39:00,820 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:39:00,821 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:41:11,285 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:41:11,288 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:41:11,290 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:41:11,292 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:43:18,038 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:43:18,040 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:43:18,042 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:43:18,046 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:43:23,465 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:43:23,466 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:43:23,470 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:43:23,471 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:43:27,507 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:43:27,508 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 11:43:27,511 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 11:43:27,512 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:35:30,520 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:35:30,522 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:35:30,525 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:35:30,526 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:47:47,854 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:47:47,855 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:47:47,858 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:47:47,860 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:48:12,920 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:48:12,923 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:48:12,925 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:48:12,927 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:49:02,935 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:49:02,938 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:49:19,528 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:49:19,531 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:49:19,533 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:49:19,534 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:51:31,231 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:51:31,233 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:51:31,235 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:51:31,237 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:52:34,495 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:52:34,497 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
+2023-04-15 12:52:34,500 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-15 12:52:34,504 ERROR Dal_get_user_by_username : User does not exist/not found

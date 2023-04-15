@@ -21,12 +21,12 @@ class LoginView(APIView):
             raise AuthenticationFailed('User is already logged in')
         username = request.data.get('username')
         password = request.data.get('password')
-        loginout_logger.info(f"User logged in sucessfully")
+        loginout_logger.info(f"User attempted login")
         return Response (anonymousfacade.login_func(request=request ,username=username, password=password))    
 
 class LogoutView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     def post(self, request):
         user = request.user
