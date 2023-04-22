@@ -24,7 +24,7 @@ def customer(request):
 
         # This method is accessible only to the customer
         if 'id' in request.query_params:
-            if not ((request.user.is_authenticated) and (request.user.groups.filter(name='customer').exists())):
+            if not ((request.user.is_authenticated) and ((request.user.groups.filter(name='customer').exists()) or (request.user.groups.filter(name='admin').exists()))):
                 customer_logger.info('Unauthorized attempt')
                 return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
             id = request.query_params['id']
@@ -32,6 +32,17 @@ def customer(request):
             customer =  customerfacade.get_customer_by_id(request=request, customer_id=id, customer_instance=customer_instance)
             serializer = DisplayCustomerSerializer(customer)
             customer_logger.info(f"Get customer by id attempt - customer {request.user.customer.id}")
+            return Response(serializer.data)
+        
+        if 'customer_id' in request.query_params:
+            if not ((request.user.is_authenticated) and (request.user.groups.filter(name='admin').exists())):
+                customer_logger.info('Unauthorized attempt')
+                return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
+            id = request.query_params['customer_id']
+          
+            customer =  adminfacade.get_customer_by_id(request=request, customer_id=id)
+            serializer = DisplayCustomerSerializer(customer)
+            customer_logger.info(f"Get customer by id attempt - customer {request.user.administrator.id}")
             return Response(serializer.data)
         
         if 'user_id' in request.query_params:

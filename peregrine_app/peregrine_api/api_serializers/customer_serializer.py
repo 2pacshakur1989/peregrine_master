@@ -75,4 +75,4 @@ class DisplayCustomerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ['id','first_name', 'last_name', 'address', 'phone_no', 'credit_card_no']
+        fields = ['id','first_name', 'last_name', 'address', 'phone_no', 'credit_card_no', 'user_id']

@@ -131,3 +131,622 @@
 2023-04-15 12:52:34,497 ERROR Dal_get_customer_by_username : Customer Does not exist in the DB
 2023-04-15 12:52:34,500 ERROR Dal_get_user_by_username : User does not exist/not found
 2023-04-15 12:52:34,504 ERROR Dal_get_user_by_username : User does not exist/not found
+2023-04-17 13:09:56,489 ERROR Dal_get_ticket_by_id : ticket does not exist/not found
+2023-04-17 17:24:42,468 ERROR Dal_get_user_by_id : User does not exist/not found
+2023-04-18 13:35:09,771 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-18 15:59:55,282 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 15:59:55,282 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 15:59:55,285 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 15:59:55,287 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 15:59:55,288 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 15:59:55,293 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 15:59:55,295 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 15:59:55,297 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 15:59:55,301 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 16:02:16,297 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 16:02:16,298 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 16:02:16,299 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 16:02:16,300 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 16:02:16,302 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 16:02:16,306 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 16:02:16,308 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 16:02:16,309 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 16:02:16,311 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got 'undefined'.
+2023-04-18 16:03:02,957 ERROR Dal_remove_flight : Flight does not exist
+2023-04-18 16:03:04,367 ERROR Dal_remove_flight : Flight does not exist
+2023-04-18 16:03:06,770 ERROR Dal_remove_flight : Flight does not exist
+2023-04-18 16:23:33,927 ERROR Dal_remove_flight : Flight does not exist
+2023-04-18 16:53:35,857 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-20 16:24:04,113 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,231 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,241 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,259 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,326 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,348 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,351 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,362 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,377 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,383 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,390 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,394 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,602 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,607 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,610 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,614 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,614 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,621 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,635 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,635 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,640 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,643 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,646 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,650 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,764 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,796 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,801 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,805 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,811 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,811 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,859 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,861 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,862 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,864 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,865 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,872 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,881 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,887 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,889 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,892 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,894 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,902 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,910 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,912 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,915 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,919 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,922 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,928 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,930 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:04,933 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,366 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,403 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,407 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,414 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,417 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,437 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,449 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,460 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,476 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,494 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,519 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,522 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,708 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,734 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,737 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,750 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,763 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,779 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,783 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,788 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,792 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,799 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,804 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:28,814 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,162 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,177 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,235 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,240 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,246 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,260 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,262 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,276 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,278 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,279 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,285 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,299 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,543 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,586 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,605 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,607 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,614 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,618 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,638 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,647 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,657 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,659 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,675 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:29,679 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,858 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,871 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,882 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,884 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,905 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,917 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,918 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,924 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,945 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,951 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,955 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:33,957 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,069 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,090 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,104 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,111 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,113 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,117 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,128 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,131 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,133 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,136 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,157 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,160 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,375 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,376 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,378 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,380 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,388 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,391 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,398 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,401 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,409 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,413 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,415 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,421 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,425 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,428 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,433 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,435 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,438 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,453 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,453 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,455 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,460 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,461 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,463 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,472 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,476 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:24:34,476 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:30:51,425 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:30:51,440 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:30:51,508 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:30:51,512 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:30:51,517 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:30:51,518 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:30:51,537 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:30:51,545 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:31:29,025 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:31:29,034 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:31:29,049 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:31:29,058 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:10,474 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:10,490 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:10,511 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:10,520 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:12,438 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:12,448 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:12,465 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:12,476 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:57,726 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:57,745 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:57,776 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:57,787 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:57,814 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:57,825 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:57,832 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:57,842 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:57,848 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:32:57,854 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:33:14,592 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:33:14,608 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:33:14,642 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:33:14,709 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:33:14,723 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-20 16:33:14,731 ERROR Dal_get_flight_by_id : An error occured while fetching flight : Field 'id' expected a number but got ''.
+2023-04-22 06:12:29,408 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,417 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,419 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,421 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,425 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,429 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,442 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,443 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,456 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,457 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,457 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,458 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,493 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,496 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,517 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,520 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,521 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,523 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,524 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,526 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,537 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,539 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,565 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,567 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,567 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,568 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,570 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,573 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,589 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,593 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,596 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,599 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,604 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,616 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,617 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,617 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,618 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,637 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,639 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,650 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,659 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,661 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,663 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,667 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,667 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,691 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,695 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,696 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,698 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,698 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,699 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,713 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,724 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,726 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,733 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,742 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,753 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,766 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,769 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,774 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,784 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,784 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,790 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,816 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,833 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,837 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,840 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,854 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,857 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,866 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,869 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,871 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,900 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,902 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,904 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,911 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,913 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,923 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,926 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,932 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,934 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,945 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,960 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,967 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,969 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,973 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,987 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:29,995 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,000 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,003 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,006 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,015 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,055 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,083 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,086 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,091 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,092 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,092 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,093 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,112 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,117 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,118 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,121 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,123 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,137 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,138 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,140 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,148 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,151 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,154 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,157 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,165 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,174 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,192 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,197 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,199 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,201 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,209 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,214 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,219 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,224 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,224 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,240 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,245 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,247 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,252 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,255 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,260 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,269 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,270 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,271 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,271 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,313 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,316 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,318 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,325 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,327 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,340 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,341 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,350 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,353 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,355 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,370 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,375 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,378 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,382 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,386 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,393 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,399 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,402 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,404 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,405 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,418 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,430 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:30,433 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,204 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,210 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,210 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,212 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,229 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,231 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,234 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,240 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,243 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,245 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,248 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,271 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,274 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,277 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,283 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,283 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,370 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,374 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,376 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,378 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,379 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,386 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,425 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,428 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,430 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,431 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,436 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,446 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,447 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,448 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,455 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,461 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,498 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,499 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,502 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,506 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,513 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,518 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,522 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,531 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,544 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,544 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,548 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,549 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,549 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,561 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,568 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,569 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,596 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,600 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,605 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,615 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,615 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,616 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,620 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,627 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,637 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,639 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,654 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,667 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,669 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,670 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,684 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,718 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,725 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,736 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,739 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,743 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,745 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,747 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,749 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,792 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,794 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,799 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,802 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,805 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,809 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,811 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,820 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,888 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,890 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,898 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,900 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,911 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,916 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,921 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,924 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,929 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,932 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,953 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,955 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,961 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,964 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,972 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,974 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:31,976 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,000 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,003 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,005 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,006 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,006 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,006 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,035 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,037 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,042 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,044 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,046 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,046 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,062 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,070 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,075 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,081 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,084 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,090 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,093 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,096 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,104 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,106 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,130 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,133 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,141 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,148 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,149 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,150 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,166 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,168 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,196 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,199 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,202 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,205 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,209 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,213 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,221 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,225 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,237 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,241 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,249 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,250 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,262 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,265 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,281 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,287 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,291 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,295 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,299 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,300 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,302 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,314 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,338 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,340 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,341 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,346 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,349 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,350 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 06:12:32,369 ERROR Dal_get_flight_by_id : Flight do not exist
+2023-04-22 12:02:38,327 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:02:38,328 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:02:49,189 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:02:49,190 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:03:28,370 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:03:28,375 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:05:35,326 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:05:35,328 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:11:56,137 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:11:56,147 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:16:40,725 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:16:40,746 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:16:41,763 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 12:16:42,825 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 12:17:11,066 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 12:19:25,177 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:19:25,198 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:21:02,463 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:21:02,488 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:21:38,837 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 12:24:18,883 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:24:18,905 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:24:34,069 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-22 12:24:37,512 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-22 12:24:37,975 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-22 12:48:02,231 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:48:02,257 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:49:44,059 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:49:44,080 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:50:58,400 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:50:58,428 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:55:56,059 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 12:55:56,060 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:00:03,525 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:00:03,550 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:00:17,317 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:00:17,338 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:00:36,259 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:01:35,746 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:01:49,146 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:02:56,131 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:02:56,166 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:37:54,936 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:37:54,954 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:38:31,272 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:38:31,296 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:42:05,401 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:42:05,423 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:43:03,694 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:43:03,716 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:48:47,517 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:49:35,381 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:49:35,684 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:49:36,352 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:49:36,715 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:49:36,868 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:49:38,281 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:49:38,987 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:50:09,144 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:50:10,538 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:50:10,966 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:50:22,577 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:50:22,601 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:50:52,870 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:50:52,897 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:51:46,094 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:52:01,787 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:52:01,809 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:52:06,224 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:52:06,789 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:52:06,970 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:52:07,135 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:52:07,301 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:52:07,457 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:52:11,647 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:52:51,594 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:53:11,219 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:54:07,448 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:54:08,365 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:54:12,924 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:54:18,318 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:54:19,208 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:54:48,791 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:58:11,727 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:58:46,081 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:58:47,529 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 13:59:23,076 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 13:59:23,113 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 14:01:31,861 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-22 14:01:32,030 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 14:02:50,247 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 14:02:54,879 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 14:04:47,638 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 14:04:50,369 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 14:04:50,598 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got '[object Object]'.
+2023-04-22 17:02:51,234 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-22 17:02:54,468 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-22 17:02:56,808 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-22 19:55:00,616 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB

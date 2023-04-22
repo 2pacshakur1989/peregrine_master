@@ -39,7 +39,8 @@ class CustomerFacade(FacadeBase):
                 for ticket in tickets:
                     if ticket.flight_id.id == int(flight_id):
                         # ticket_logger.info(f"Cannot add a ticket twice (it seems that this ticket is already added) - Customer : {request.user.customer}")
-                        return ('Cannot add a ticket twice (it seems that this ticket is already added)')
+                        return None
+                        # return ('Cannot add a ticket twice (it seems that this ticket is already added)')
                 flight = self.flight_dal.get_flight_by_id(id=flight_id)
                 if flight is None:
                     # ticket_logger.info('Flight not found')

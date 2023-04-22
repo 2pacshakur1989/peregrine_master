@@ -109,11 +109,11 @@ class CustomerDAL:
             return customer
         except Customer.DoesNotExist:
             print ('Dal : Customer Does not exist in the DB')
-            dal_logger.error(f"Dal_get_customer_by_username : Customer Does not exist in the DB")
+            dal_logger.error(f"Dal_get_customer_by_user_id : Customer Does not exist in the DB")
             return None
         except Exception as e:
-            print (f"Dal : An error occurred while deleting customer: {e}")
-            dal_logger.error(f"Dal_get_customer_by_username : An error occurred while deleting customer: {e}")
+            print (f"Dal : An error occurred while fetching customer: {e}")
+            dal_logger.error(f"Dal_get_customer_by_user_id : An error occurred while fetching customer: {e}")
             return None
                 
     @staticmethod
@@ -431,7 +431,21 @@ class AirlineCompanyDAL:
             print (f"Dal : An error occurred while fetching airline company: {e}")
             dal_logger.error(f"Dal_get_airline_by_username : An error occurred while fetching airline company: {e}")
             return None
-     
+        
+    @staticmethod
+    def get_airline_by_user_id(id):
+        try:
+            airline = AirlineCompany.objects.get(user_id__id=id)
+            return airline
+        except AirlineCompany.DoesNotExist:
+            print ('Dal : Airline Does not exist in the DB')
+            dal_logger.error(f"Dal_get_airline_by_user_id : Airline Does not exist in the DB")
+            return None
+        except Exception as e:
+            print (f"Dal : An error occurred while fetching airline: {e}")
+            dal_logger.error(f"Dal_get_airline_by_user_id : An error occurred while fetching airline: {e}")
+            return None
+        
     @staticmethod
     def get_all_airline_companies():
 

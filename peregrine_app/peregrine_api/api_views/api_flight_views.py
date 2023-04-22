@@ -26,6 +26,14 @@ def flight(request):
             flight_logger.info('get flight by id attempt')
             return Response(serializer.data)
         
+        if 'update' in request.query_params:
+            # Handle 'get a specific flight' for other users
+            id = request.query_params['update']
+            flight = airlinefacade.get_flight_by_id(request=request, id=id)  
+            serializer = FlightSerializer(flight)
+            flight_logger.info('get flight by id attempt')
+            return Response(serializer.data)
+        
         elif 'my' in request.query_params:
 
             if not ((request.user.is_authenticated) and (request.user.groups.filter(name='airline').exists())):
@@ -33,9 +41,12 @@ def flight(request):
             # my = request.query_params['my']
             id = request.user.airlinecompany.id
             flights = airlinefacade.get_my_flights(request=request, airline_company_id=id)
+            if flights is None:
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = DisplayFlightSerializer(flights, many=True)
             flight_logger.info(f"Attempted get my flights - airline {request.user.airlinecompany.id}")
-            return Response(serializer.data)  
+            return Response(serializer.data)
+              
          
         # Get parameters from query params
     
@@ -150,7 +161,8 @@ def flight(request):
             new_flight = airlinefacade.add_flight(request=request, data=serializer.validated_data, airlinecompany=airlinecompany)
             serializer = FlightSerializer(new_flight)
             flight_logger.info(f"Attempted Add flight - airline {request.user.airlinecompany.id}")
-            return Response({"message": "Flight Created successfully", "data": serializer.data}, status=status.HTTP_201_CREATED)
+            # return Response({"message": "Flight Created successfully", "data": serializer.data}, status=status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_200_OK)
         flight_logger.error(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -169,7 +181,8 @@ def flight(request):
             # Use validated data instead of request.data
             if airlinefacade.update_flight(request=request, data=serializer.validated_data, flight_id=request.query_params['id'], airlinecompany=airlinecompany) is not None:
                 flight_logger.info(f"Attempted update flight - airline {request.user.airlinecompany.id}")
-                return Response({"message": "Flight Updated successfully", "data": serializer.validated_data}, status=status.HTTP_201_CREATED)
+                return Response(status=status.HTTP_200_OK)
+                # return Response({"message": "Flight Updated successfully", "data": serializer.validated_data}, status=status.HTTP_201_CREATED)
         flight_logger.error(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -184,7 +197,11 @@ def flight(request):
            return Response("Flight id must be provided.", status=status.HTTP_400_BAD_REQUEST)   
         airlinecompany = request.user.airlinecompany  
         flight_logger.info(f"Attempted remove flight - airline {request.user.airlinecompany.id}")
-        return Response(airlinefacade.remove_flight(request=request, flight_id=request.query_params['id'] ,airlinecompany=airlinecompany))
+        if airlinefacade.remove_flight(request=request, flight_id=request.query_params['id'] ,airlinecompany=airlinecompany) is not False:
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 
 
 

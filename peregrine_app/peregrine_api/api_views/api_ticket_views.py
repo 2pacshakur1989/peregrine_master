@@ -47,9 +47,11 @@ def ticket(request):
         if not serializer.is_valid():
             ticket_logger.error(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        new_ticket = customerfacade.add_ticket(request=request, customer=customer, flight_id=request.data['flight_id'])
+        if customerfacade.add_ticket(request=request, customer=customer, flight_id=request.data['flight_id']) is not None:
+            ticket_logger.info(f"Adding ticket attempt - customer {request.user.customer}")
+            return Response(status=status.HTTP_200_OK)
         ticket_logger.info(f"Adding ticket attempt - customer {request.user.customer}")
-        return Response(new_ticket)
+        return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
     
 
     # DELETE REQUESTS

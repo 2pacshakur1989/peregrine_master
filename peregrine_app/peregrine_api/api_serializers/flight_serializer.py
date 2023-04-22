@@ -53,13 +53,13 @@ class FlightSerializer(serializers.ModelSerializer):
             
         current_time = datetime.now()
         twelve_hours_from_now = current_time + timedelta(hours=12)
-        departure_time = departure_time.astimezone(pytz.UTC).replace(tzinfo=None)
-        landing_time = landing_time.astimezone(pytz.UTC).replace(tzinfo=None)
+        departure_time_clone = departure_time.astimezone(pytz.UTC).replace(tzinfo=None)
+        landing_time_clone = landing_time.astimezone(pytz.UTC).replace(tzinfo=None)
 
         current_time = current_time.replace(second=0, microsecond=0)
-        if departure_time < twelve_hours_from_now:
+        if departure_time_clone < twelve_hours_from_now:
             raise serializers.ValidationError ('Departure time must be minimum 12 hours from now') 
-        if not ((landing_time>(departure_time+timedelta(hours=2))) and (landing_time<(departure_time+timedelta(hours=18)))):
+        if not ((landing_time_clone>(departure_time_clone+timedelta(hours=2))) and (landing_time_clone<(departure_time_clone+timedelta(hours=18)))):
             raise serializers.ValidationError ('Landing time has to be 2-18 hours difference from departure time')
         if landing_time <= departure_time:
             raise serializers.ValidationError ('Landing time cannot be prior or equal to the departure time')

@@ -51,7 +51,20 @@ class AdministratorFacade(FacadeBase):
         adminfacade_logger.error('Dal is not accessible')
         raise AccessDeniedError
 
-
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['admin']))
+    def get_customer_by_id(self, request, customer_id):
+        if self.check_access('customer_dal', 'get_customer_by_id'):
+            try:
+                return self.customer_dal.get_customer_by_id(customer_id=customer_id)
+            except Exception as e:
+                adminfacade_logger.error(f"An error occurred while fetching customer: {e}")
+                print(f"An error occurred while fetching customer: {e}")
+                return None
+        else:
+            adminfacade_logger.error('Dal is not accessible')
+            raise AccessDeniedError 
+        
     @method_decorator(login_required)
     @method_decorator(allowed_users(allowed_roles=['admin']))
     def remove_customer(self, request, customer_id):
