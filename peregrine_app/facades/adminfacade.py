@@ -72,14 +72,14 @@ class AdministratorFacade(FacadeBase):
 
             customer = self.customer_dal.get_customer_by_id(customer_id=customer_id)
             if customer is None:
-                return ("Customer not found")
+                return None
             user_id = customer.user_id.id
             tickets = self.ticket_dal.get_tickets_by_customer_id(customer_id=customer_id)
             if  tickets.exists():
-                return ("This customer has an on going active ticket thus cannot be deleted")
+                return False
             try:
                 self.user_dal.remove_user(id=user_id)
-                return ('Customer removed successfully')         
+                return True         
             except Exception as e:
                 adminfacade_logger.error(f"An error occurred while removing customer: {e}")
                 print(f"An error occurred while removing customer: {e}")
@@ -102,6 +102,7 @@ class AdministratorFacade(FacadeBase):
                         new_user.groups.add(group) 
                         data['user_id'] = new_user
                         self.airline_company_dal.add_airline_company(data=data)
+                    
             except Exception as e:
                 transaction.set_rollback(True)
                 adminfacade_logger.error(f"An error occurred while adding airline: {e}")
@@ -109,8 +110,9 @@ class AdministratorFacade(FacadeBase):
                 return None
             finally:    
                 self.__disable_add_user()
-        adminfacade_logger.error('Dal is not accessible')
-        raise AccessDeniedError
+        else:
+            adminfacade_logger.error('Dal is not accessible')
+            raise AccessDeniedError
 
 
     @method_decorator(login_required)
@@ -120,14 +122,15 @@ class AdministratorFacade(FacadeBase):
 
                 airline = self.airline_company_dal.get_airline_company_by_id(id=id)
                 if airline is None:
-                        return ('Airline not found')
+                    return ('Airline not found')
                 user_id = airline.user_id.id
                 flights = self.flight_dal.get_flights_by_airline_company_id(airline_company_id=id)
                 if (flights.exists()):
-                    return ("This airline has an active flights, thus cannot be removed")
+                    return False
+                    # return ("This airline has an active flights, thus cannot be removed")
                 try:
                     self.user_dal.remove_user(id=user_id)
-                    return ({'Flight removed successfully'})
+                    return True
                 except Exception as e:
                     adminfacade_logger.error(f"An error occurred while removing airline: {e}")
                     print(f"An error occurred while removing airline: {e}")
@@ -194,10 +197,10 @@ class AdministratorFacade(FacadeBase):
             try:
                 admin = self.administrator_dal.get_admin_by_id(id=id)
                 if admin is None:
-                    return ('Admin not found')
+                    return False
                 user_id = admin.user_id.id
                 self.user_dal.remove_user(id=user_id)
-                return ('Admin removed successfully')
+                return True
             except Exception as e:
                 adminfacade_logger.error(f"An error occurred while removing admin: {e}")
                 print(f"An error occurred while removing admin: {e}")

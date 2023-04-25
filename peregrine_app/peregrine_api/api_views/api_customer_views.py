@@ -148,4 +148,6 @@ def customer(request):
             customer_logger.info('Ticket id must be provided')
             return Response("Ticket id must be provided.", status=status.HTTP_400_BAD_REQUEST)
         customer_logger.info(f"Attempted remove customer - admin {request.user.administrator.id}")
-        return Response(adminfacade.remove_customer(request=request ,customer_id=request.query_params['id']))
+        if (adminfacade.remove_customer(request=request ,customer_id=request.query_params['id'])) == False:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return Response(status=status.HTTP_200_OK)   

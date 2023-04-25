@@ -161,7 +161,9 @@ def airline(request):
             airline_logger.info('Airline id must be provided')
             return Response("Airline id must be provided.", status=status.HTTP_400_BAD_REQUEST)
         airline_logger.error(f"Attempted remove airline - admin {request.user.administrator.id}")
-        return Response (adminfacade.remove_airline(request=request, id=request.query_params['id']))
+        if (adminfacade.remove_airline(request=request, id=request.query_params['id'])) == False:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return Response(status=status.HTTP_200_OK)  
 
         
        

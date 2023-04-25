@@ -26,3 +26,12 @@ class AdminSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError ('Names should contain only letters and spaces')
         elif len(name) < 3 or len(name) > 20:
             raise serializers.ValidationError ('Name should be between 3 and 20 characters long')
+        
+
+
+
+class DisplayAdminSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Administrator
+        fields = ['id','first_name', 'last_name','user_id']

@@ -750,3 +750,45 @@
 2023-04-22 17:02:54,468 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
 2023-04-22 17:02:56,808 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
 2023-04-22 19:55:00,616 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:23:18,756 ERROR Dal_remove_user : An error occurred while removing user: (1213, 'Deadlock found when trying to get lock; try restarting transaction')
+2023-04-23 08:23:18,787 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:23:18,787 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:23:18,819 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:23:18,822 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:23:39,370 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:23:39,375 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:23:54,754 ERROR Dal_remove_user : User does not exist/not found
+2023-04-23 08:23:54,756 ERROR Dal_remove_user : An error occurred while removing user: (1213, 'Deadlock found when trying to get lock; try restarting transaction')
+2023-04-23 08:30:01,433 ERROR Dal_remove_user : An error occurred while removing user: (1213, 'Deadlock found when trying to get lock; try restarting transaction')
+2023-04-23 08:30:01,433 ERROR Dal_remove_user : User does not exist/not found
+2023-04-23 08:30:01,436 ERROR Dal_remove_user : User does not exist/not found
+2023-04-23 08:30:01,465 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:30:01,476 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:30:01,489 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:30:01,492 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:30:05,615 ERROR Dal_remove_user : An error occurred while removing user: (1213, 'Deadlock found when trying to get lock; try restarting transaction')
+2023-04-23 08:30:07,286 ERROR Dal_remove_user : An error occurred while removing user: (1213, 'Deadlock found when trying to get lock; try restarting transaction')
+2023-04-23 08:30:07,286 ERROR Dal_remove_user : An error occurred while removing user: (1213, 'Deadlock found when trying to get lock; try restarting transaction')
+2023-04-23 08:30:10,135 ERROR Dal_remove_user : An error occurred while removing user: (1213, 'Deadlock found when trying to get lock; try restarting transaction')
+2023-04-23 08:33:22,349 ERROR Dal_remove_user : An error occurred while removing user: (1213, 'Deadlock found when trying to get lock; try restarting transaction')
+2023-04-23 08:33:22,382 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:33:22,384 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:33:22,414 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:33:22,417 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 08:34:45,223 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 09:04:19,080 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 09:04:42,073 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 09:05:18,029 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 09:05:20,743 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 09:19:19,669 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 09:27:16,818 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 14:07:33,799 ERROR Dal_get_customer_by_id : An error occurred while deleting customer: Field 'id' expected a number but got ''.
+2023-04-23 14:08:21,318 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 14:08:25,749 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 14:08:31,683 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-23 16:23:26,333 ERROR Dal_get_admin_by_id : An error occurred while fetching admin: Field 'id' expected a number but got ''.
+2023-04-23 17:01:55,597 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-24 08:28:22,842 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-24 08:28:35,160 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-24 08:32:33,837 ERROR Dal_get_customer_by_id : Customer Does not exist in the DB
+2023-04-24 13:26:30,520 ERROR Dal_get_admin_by_id : Admin does not exist/not found
