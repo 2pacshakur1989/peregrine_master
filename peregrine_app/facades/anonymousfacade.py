@@ -12,16 +12,14 @@ from peregrine_app.exceptions import AccessDeniedError
 from django.db import transaction
 from django.contrib.auth import authenticate, login, logout
 from peregrine_app.loggers import anonymousfacade_logger
-import jwt
 from rest_framework_simplejwt.tokens import AccessToken
-
 
 
 class AnonymousFacade(FacadeBase):
 
     def __init__(self):
         super().__init__(dals=['user_dal', 'customer_dal' ,'token_dal'])
-        self.session = None
+        # self.session = None
         self.add_user_allowed = False    # allowing the add_user method work only when add_customer,add_admin , add_airline is requested
 
     @property
@@ -40,49 +38,6 @@ class AnonymousFacade(FacadeBase):
     def __disable_add_user(self):
         self.add_user_allowed = False
 
-    
-    # def login_func(self, request, **kwargs):
-
-    #     if self.check_access('token_dal','create_token'):
-    #         username = kwargs.get('username')
-    #         password = kwargs.get('password')
-    #         user = authenticate(username=username, password=password)
-
-    #         if user is not None:
-    #             login(request,user=user)
-    #             user_groups = user.groups.all()
-    #             for group in user_groups:
-    #                 if group.name == 'admin':
-    #                     facade = AdministratorFacade(user_group='admin')
-    #                 elif group.name == 'airline':
-    #                     facade = AirlineFacade(user_group='airline')
-    #                 elif group.name == 'customer':
-    #                     facade = CustomerFacade(user_group='customer')
-    #                 else:
-    #                     facade = AnonymousFacade()
-
-    #             token, created = self.token_dal.create_token(user=user)
-    #             # Include additional information in the token payload
-    #             token_payload = {
-    #                 'user_id': user.id,
-    #                 'username': user.username,
-    #                 'is_staff': user.is_staff,
-    #                 'is_superuser': user.is_superuser
-    #             }
-    #             if user.groups.filter(name='airline').exists():
-    #                 token_payload['roles'] = ['airline']
-    #             elif user.groups.filter(name='customer').exists():
-    #                 token_payload['roles'] = ['customer']
-    #             elif user.groups.filter(name='admin').exists():
-    #                 token_payload['roles'] = ['admin']
-    #             return ({'token': token.key})
-    #             # return ({'token': token.key, 'payload': token_payload})
-    #         else:
-    #             anonymousfacade_logger.error('Invalid credentials')
-    #             return ({'error': 'Invalid credentials'})
-    #     else:
-    #         anonymousfacade_logger.error('Dal is not accessible')
-    #         raise AccessDeniedError
 
     def logout_func(self, request, user):
         if self.check_access('token_dal','delete_token'):
@@ -97,6 +52,8 @@ class AnonymousFacade(FacadeBase):
     def add_customer(self, request, user_data, data):
         if (self.check_access('customer_dal','add_customer')) and (self.check_access('user_dal','add_user')) and (self.check_access('group_dal', 'get_userRole_by_role')):
             self.__enable_add_user()
+            if (user_data is None) or (data is None):
+                raise ValueError('no content')
             try:
                 user_data['password'] = user_data['password1']
                 group = self.group_dal.get_userRole_by_role(user_role='customer')
@@ -120,49 +77,42 @@ class AnonymousFacade(FacadeBase):
             raise AccessDeniedError
 
 
-
     def login_func(self, request, **kwargs):
 
-        if self.check_access('token_dal','create_token'):
-            username = kwargs.get('username')
-            password = kwargs.get('password')
-            user = authenticate(username=username, password=password)
+        print(request)
+        username = kwargs.get('username')
+        password = kwargs.get('password')
+        user = authenticate(username=username, password=password)
 
-            if user is not None:
-                login(request,user=user)
-                user_groups = user.groups.all()
-                for group in user_groups:
-                    if group.name == 'admin':
-                        facade = AdministratorFacade(user_group='admin')
-                    elif group.name == 'airline':
-                        facade = AirlineFacade(user_group='airline')
-                    elif group.name == 'customer':
-                        facade = CustomerFacade(user_group='customer')
-                    else:
-                        facade = AnonymousFacade()
+        if user is not None:
+            login(request,user=user)
+            user_groups = user.groups.all()
+            for group in user_groups:
+                if group.name == 'admin':
+                    facade = AdministratorFacade(user_group='admin')
+                elif group.name == 'airline':
+                    facade = AirlineFacade(user_group='airline')
+                elif group.name == 'customer':
+                    facade = CustomerFacade(user_group='customer')
+                else:
+                    facade = AnonymousFacade()
 
-                # token, created = self.token_dal.create_token(user=user)
-                # Include additional information in the token payload
-                token_payload = {
-                    'user_id': user.id,
-                    'username': user.username,
-                    'is_staff': user.is_staff,
-                    'is_superuser': user.is_superuser
-                }
-                if user.groups.filter(name='airline').exists():
-                    token_payload['roles'] = ['airline']
-                elif user.groups.filter(name='customer').exists():
-                    token_payload['roles'] = ['customer']
-                elif user.groups.filter(name='admin').exists():
-                    token_payload['roles'] = ['admin']
-                access_token = AccessToken.for_user(user)
-                token = str(access_token)
+            token_payload = {
+                'user_id': user.id,
+                'username': user.username,
+                'is_staff': user.is_staff,
+                'is_superuser': user.is_superuser
+            }
+            if user.groups.filter(name='airline').exists():
+                token_payload['roles'] = ['airline']
+            elif user.groups.filter(name='customer').exists():
+                token_payload['roles'] = ['customer']
+            elif user.groups.filter(name='admin').exists():
+                token_payload['roles'] = ['admin']
+            access_token = AccessToken.for_user(user)
+            token = str(access_token)
 
-                return {'access_token': token, 'payload': token_payload}
-                # return ({'token': token.key, 'payload': token_payload})
-            else:
-                anonymousfacade_logger.error('Invalid credentials')
-                return ({'error': 'Invalid credentials'})
+            return {'access_token': token, 'payload': token_payload}
         else:
-            anonymousfacade_logger.error('Dal is not accessible')
-            raise AccessDeniedError
+            anonymousfacade_logger.error('Invalid credentials')
+            return ({'error': 'Invalid credentials'})

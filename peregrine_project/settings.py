@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'peregrine_app.peregrine_api',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    'peregrine_app.facade_testing',
 ]
 
 MIDDLEWARE = [
@@ -96,7 +97,11 @@ DATABASES = {
         'PORT': '3306',  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
-        }  
+        },
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+    }  
     }  
 }
 
@@ -157,7 +162,7 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=180),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,

@@ -25,8 +25,6 @@ class LoginView(APIView):
         return Response (anonymousfacade.login_func(request=request ,username=username, password=password))    
 
 class LogoutView(APIView):
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
 
     def post(self, request):
         user = request.user

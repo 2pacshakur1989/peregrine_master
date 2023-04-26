@@ -56,17 +56,7 @@ def customer(request):
             user_serializer = UserSerializer(user)
             customer_logger.info(f"Get customer by username attempt - customer {request.user.customer.id}")
             return Response({"user_data":user_serializer.data, "customer_data":customer_serializer.data})
-        # if 'username' in request.query_params:
-        #     if not ((request.user.is_authenticated) and (request.user.groups.filter(name='customer').exists())):
-        #         customer_logger.info('Unauthorized attempt')
-        #         return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
-        #     username = request.query_params['username']
-        #     customer =  customerfacade.get_customer_by_username(request=request, username=username)
-        #     user = customerfacade.get_user_by_username(request=request, username=username)
-        #     customer_serializer = DisplayCustomerSerializer(customer)
-        #     user_serializer = UserSerializer(user)
-        #     customer_logger.info(f"Get customer by username attempt - customer {request.user.customer.id}")
-        #     return Response({"user_data":user_serializer.data, "customer_data":customer_serializer.data})
+
         
         # This method is accessible only to the admin
         if not ((request.user.is_authenticated) and (request.user.groups.filter(name='admin').exists())):
