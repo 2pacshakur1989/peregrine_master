@@ -110,3 +110,14 @@
 2023-04-29 06:03:33,007 INFO Get all customers attempt - admin 1
 2023-04-29 06:03:33,024 INFO Get all customers attempt - admin 1
 2023-04-29 06:03:34,356 INFO Get customer by id attempt - customer 1
+2023-04-29 08:14:05,840 INFO Get all customers attempt - admin 1
+2023-04-29 08:14:05,857 INFO Get all customers attempt - admin 1
+2023-04-29 08:14:06,951 INFO Get customer by id attempt - customer 1
+2023-04-29 08:14:09,628 INFO Get customer by id attempt - customer 1
+2023-04-29 08:14:15,658 INFO Get all customers attempt - admin 1
+2023-04-29 08:14:15,674 INFO Get all customers attempt - admin 1
+2023-04-29 08:14:57,789 INFO Attempted create a new customer
+2023-04-29 08:15:03,930 INFO Get all customers attempt - admin 1
+2023-04-29 08:15:03,945 INFO Get all customers attempt - admin 1
+2023-04-29 10:14:09,323 INFO Get all customers attempt - admin 1
+2023-04-29 10:14:09,344 INFO Get all customers attempt - admin 1

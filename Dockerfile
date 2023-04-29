@@ -4,15 +4,13 @@ WORKDIR /Perergine
 
 COPY . /Perergine
 
+# RUN pip install --no-cache-dir -r requirements.txt
+
+RUN apt-get update && apt-get install -y default-libmysqlclient-dev
+
 RUN pip install --no-cache-dir -r requirements.txt
 
-# RUN apt-get update && apt-get install -y default-libmysqlclient-dev
-    # pip install --no-cache-dir -r requirements.txt
 
-
-# RUN apt-get update && \
-#     apt-get install -y default-libmysqlclient-dev && \
-#     pip install --no-cache-dir -r requirements.txt
 EXPOSE 8000
 
 ENV DJANGO_SETTINGS_MODULE=peregrine_project.settings.prod
