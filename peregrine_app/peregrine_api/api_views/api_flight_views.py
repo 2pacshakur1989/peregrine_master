@@ -27,7 +27,8 @@ def flight(request):
             return Response(serializer.data)
         
         if 'update' in request.query_params:
-            # Handle 'get a specific flight' for other users
+            if not ((request.user.is_authenticated) and (request.user.groups.filter(name='airline').exists())):
+                return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
             id = request.query_params['update']
             flight = airlinefacade.get_flight_by_id(request=request, id=id)  
             serializer = FlightSerializer(flight)

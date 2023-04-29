@@ -4,17 +4,12 @@ from peregrine_app.peregrine_api.api_serializers.country_serializer import Count
 import re
 
 class AirlineSerializer(serializers.ModelSerializer):
-    # country_id = AirlineCountrySerializer()
 
     class Meta:
         model = AirlineCompany
         fields = ['id','name', 'country_id']
 
-# class AirlineSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = AirlineCompany
-#         fields = ['name', 'country_id']
 
 class AddAirlineSerializer(serializers.ModelSerializer):
 

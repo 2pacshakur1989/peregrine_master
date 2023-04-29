@@ -38,8 +38,7 @@ def customer(request):
             if not ((request.user.is_authenticated) and (request.user.groups.filter(name='admin').exists())):
                 customer_logger.info('Unauthorized attempt')
                 return Response("Authentication credentials not provided.", status=status.HTTP_401_UNAUTHORIZED)
-            id = request.query_params['customer_id']
-          
+            id = request.query_params['customer_id']   
             customer =  adminfacade.get_customer_by_id(request=request, customer_id=id)
             serializer = DisplayCustomerSerializer(customer)
             customer_logger.info(f"Get customer by id attempt - customer {request.user.administrator.id}")

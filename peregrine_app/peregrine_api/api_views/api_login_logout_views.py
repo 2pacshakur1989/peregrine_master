@@ -2,8 +2,6 @@
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.authentication import TokenAuthentication 
-from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt
 from peregrine_app.facades.anonymousfacade import AnonymousFacade
 from rest_framework.exceptions import AuthenticationFailed
@@ -27,7 +25,7 @@ class LoginView(APIView):
 class LogoutView(APIView):
 
     def post(self, request):
-        user = request.user
+        # user = request.user
         loginout_logger.info(f"User logged out sucessfully")
-        return Response (anonymousfacade.logout_func(request=request,user=user))
+        return Response (anonymousfacade.logout_func(request=request))
         

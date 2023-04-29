@@ -1,2 +1,109 @@
 2023-04-25 16:15:39,380 INFO Get all customers attempt - admin 1
 2023-04-25 16:15:39,387 INFO Get all customers attempt - admin 1
+2023-04-27 12:57:56,411 INFO Get all customers attempt - admin 1
+2023-04-27 12:57:56,412 INFO Get all customers attempt - admin 1
+2023-04-27 12:59:03,441 INFO Get all customers attempt - admin 1
+2023-04-27 12:59:03,442 INFO Get all customers attempt - admin 1
+2023-04-27 12:59:08,083 INFO Get customer by id attempt - customer 1
+2023-04-27 12:59:10,399 INFO Attempted remove customer - admin 1
+2023-04-27 12:59:15,873 INFO Get all customers attempt - admin 1
+2023-04-27 12:59:15,873 INFO Get all customers attempt - admin 1
+2023-04-27 13:00:23,171 INFO Get customer by username attempt - customer 214
+2023-04-27 13:00:27,984 INFO Get customer by username attempt - customer 214
+2023-04-27 13:00:27,987 INFO Get customer by username attempt - customer 214
+2023-04-27 13:00:30,005 INFO Get customer by username attempt - customer 214
+2023-04-27 13:00:30,008 INFO Get customer by username attempt - customer 214
+2023-04-27 13:00:31,401 INFO Attempted update customer - customer 214
+2023-04-27 13:00:35,741 INFO Get customer by username attempt - customer 214
+2023-04-27 13:00:35,745 INFO Get customer by username attempt - customer 214
+2023-04-27 13:00:37,638 INFO Get customer by username attempt - customer 214
+2023-04-27 13:00:37,641 INFO Get customer by username attempt - customer 214
+2023-04-27 13:03:54,531 INFO Get customer by username attempt - customer 214
+2023-04-27 13:03:54,539 INFO Get customer by username attempt - customer 214
+2023-04-27 13:04:07,684 INFO Attempted update customer - customer 214
+2023-04-27 13:05:05,609 INFO Get customer by username attempt - customer 214
+2023-04-27 13:05:05,611 INFO Get customer by username attempt - customer 214
+2023-04-27 13:05:07,722 INFO Attempted update customer - customer 214
+2023-04-27 13:05:09,793 INFO Get customer by username attempt - customer 214
+2023-04-27 13:05:09,797 INFO Get customer by username attempt - customer 214
+2023-04-27 13:05:11,437 INFO Get customer by username attempt - customer 214
+2023-04-27 13:05:11,440 INFO Get customer by username attempt - customer 214
+2023-04-27 13:05:14,767 INFO Attempted update customer - customer 214
+2023-04-27 13:05:16,282 INFO Get customer by username attempt - customer 214
+2023-04-27 13:05:16,287 INFO Get customer by username attempt - customer 214
+2023-04-27 13:05:30,071 INFO Attempted update customer - customer 214
+2023-04-27 13:10:16,543 INFO Get customer by username attempt - customer 214
+2023-04-27 13:10:16,543 INFO Get customer by username attempt - customer 214
+2023-04-27 13:10:18,158 INFO Attempted update customer - customer 214
+2023-04-28 16:51:09,043 INFO Get all customers attempt - admin 1
+2023-04-28 16:51:09,045 INFO Get all customers attempt - admin 1
+2023-04-28 16:51:10,789 INFO Get customer by id attempt - customer 1
+2023-04-28 16:51:15,215 INFO Get customer by id attempt - customer 1
+2023-04-28 16:51:15,921 INFO Attempted remove customer - admin 1
+2023-04-28 16:51:20,150 INFO Get all customers attempt - admin 1
+2023-04-28 16:51:20,152 INFO Get all customers attempt - admin 1
+2023-04-28 16:52:03,295 INFO Get all customers attempt - admin 1
+2023-04-28 16:52:03,308 INFO Get all customers attempt - admin 1
+2023-04-28 16:58:52,821 INFO Get customer by username attempt - customer 214
+2023-04-28 16:58:52,837 INFO Get customer by username attempt - customer 214
+2023-04-28 16:58:55,098 INFO Attempted update customer - customer 214
+2023-04-28 16:58:57,247 INFO Get customer by username attempt - customer 214
+2023-04-28 16:58:57,262 INFO Get customer by username attempt - customer 214
+2023-04-28 16:59:04,437 INFO Get customer by username attempt - customer 214
+2023-04-28 16:59:07,783 INFO Get customer by username attempt - customer 214
+2023-04-28 16:59:08,970 INFO Get customer by username attempt - customer 214
+2023-04-28 16:59:11,579 INFO Get customer by username attempt - customer 214
+2023-04-28 16:59:11,596 INFO Get customer by username attempt - customer 214
+2023-04-28 17:14:25,681 INFO Get customer by username attempt - customer 214
+2023-04-28 17:14:25,697 INFO Get customer by username attempt - customer 214
+2023-04-28 17:14:27,745 INFO Attempted update customer - customer 214
+2023-04-28 18:19:36,374 INFO Get all customers attempt - admin 1
+2023-04-28 18:19:36,392 INFO Get all customers attempt - admin 1
+2023-04-28 18:19:41,403 INFO Get all customers attempt - admin 1
+2023-04-28 18:19:41,414 INFO Get all customers attempt - admin 1
+2023-04-28 18:19:58,683 INFO Get all customers attempt - admin 1
+2023-04-28 18:19:58,696 INFO Get all customers attempt - admin 1
+2023-04-28 18:20:24,047 INFO Get all customers attempt - admin 1
+2023-04-28 18:20:24,062 INFO Get all customers attempt - admin 1
+2023-04-28 18:20:32,332 INFO Get customer by id attempt - customer 1
+2023-04-28 18:20:33,657 INFO Attempted remove customer - admin 1
+2023-04-28 18:20:38,312 INFO Attempted remove customer - admin 1
+2023-04-28 18:22:39,904 INFO Get customer by username attempt - customer 214
+2023-04-28 18:22:39,930 INFO Get customer by username attempt - customer 214
+2023-04-28 18:22:41,803 INFO Attempted update customer - customer 214
+2023-04-28 18:22:51,176 INFO Get customer by username attempt - customer 214
+2023-04-28 18:22:54,031 INFO Get customer by username attempt - customer 214
+2023-04-28 18:22:57,952 INFO Get customer by username attempt - customer 214
+2023-04-28 18:22:59,116 INFO Get customer by username attempt - customer 214
+2023-04-28 18:30:56,002 INFO Get customer by username attempt - customer 72
+2023-04-28 18:30:56,017 INFO Get customer by username attempt - customer 72
+2023-04-28 18:31:23,490 INFO Get customer by username attempt - customer 163
+2023-04-28 18:31:23,504 INFO Get customer by username attempt - customer 163
+2023-04-28 18:31:26,064 INFO Get customer by username attempt - customer 163
+2023-04-28 18:31:26,082 INFO Get customer by username attempt - customer 163
+2023-04-28 18:31:30,480 ERROR {'non_field_errors': [ErrorDetail(string='Username should be between 8-20 characters', code='invalid')]}
+2023-04-28 18:31:35,981 INFO Attempted update customer - customer 163
+2023-04-28 18:31:37,335 INFO Get customer by username attempt - customer 163
+2023-04-28 18:31:37,354 INFO Get customer by username attempt - customer 163
+2023-04-28 18:31:44,411 INFO Get customer by username attempt - customer 163
+2023-04-28 18:31:45,705 INFO Get customer by username attempt - customer 163
+2023-04-28 18:31:49,648 INFO Get customer by username attempt - customer 163
+2023-04-28 18:31:51,048 INFO Get customer by username attempt - customer 163
+2023-04-28 18:31:56,624 INFO Get customer by username attempt - customer 163
+2023-04-28 18:31:58,188 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:04,192 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:04,214 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:10,342 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:11,672 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:12,899 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:13,418 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:16,039 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:16,056 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:22,987 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:23,002 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:24,698 INFO Get customer by username attempt - customer 163
+2023-04-28 18:32:24,715 INFO Get customer by username attempt - customer 163
+2023-04-29 04:24:15,713 INFO Get all customers attempt - admin 1
+2023-04-29 04:24:15,727 INFO Get all customers attempt - admin 1
+2023-04-29 04:24:27,123 INFO Get all customers attempt - admin 1
+2023-04-29 04:24:27,141 INFO Get all customers attempt - admin 1

@@ -5,10 +5,10 @@ requests the permitted dals from the Father class (Facadebase) """
 # Importing the needed Facade and the needed utilities
 from .facadebase import FacadeBase
 from django.db import transaction
+from django.utils.decorators import method_decorator
 from peregrine_app.decorators import allowed_users 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
-from django.utils.decorators import method_decorator
 from peregrine_app.loggers import customerfacade_logger
 from peregrine_app.loggers import ticket_logger
 

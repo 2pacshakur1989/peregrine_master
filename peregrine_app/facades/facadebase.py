@@ -10,8 +10,12 @@ of adding one of the 2 (or user_form , or customer_form) then it won't add anyth
 from peregrine_app.dal import TokenDAL, AdministratorDAL,UserDAL,FlightDAL,TicketDAL,CountryDAL,CustomerDAL,AirlineCompanyDAL,GroupDAL
 from abc import abstractmethod
 from peregrine_app.loggers import facadebase_logger
+from django.contrib.auth import logout
+from peregrine_app.exceptions import AccessDeniedError
+from django.utils.decorators import method_decorator
+from peregrine_app.decorators import allowed_users 
+from django.contrib.auth.decorators import login_required
 
-    
 class FacadeBase:
 
     def __init__(self, dals=None):
@@ -24,6 +28,7 @@ class FacadeBase:
         self.customer_dal = CustomerDAL()
         self.group_dal = GroupDAL()
         self.airline_company_dal = AirlineCompanyDAL()
+        self.token_dal = TokenDAL()
 
         if dals is not None:
             for dal in dals:
@@ -167,6 +172,12 @@ class FacadeBase:
             facadebase_logger.error(f"An error occurred while fetching country: {e}")
             print(f"An error occurred while fetching country: {e}")
             return None
+
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(allowed_roles=['customer','airline','admin'])) 
+    def logout_func(self, request):
+        logout(request)
+        return ({'success': 'Successfully logged out.'}) 
 
 
 

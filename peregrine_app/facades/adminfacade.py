@@ -51,6 +51,7 @@ class AdministratorFacade(FacadeBase):
         adminfacade_logger.error('Dal is not accessible')
         raise AccessDeniedError
 
+
     @method_decorator(login_required)
     @method_decorator(allowed_users(allowed_roles=['admin']))
     def get_customer_by_id(self, request, customer_id):
@@ -64,7 +65,8 @@ class AdministratorFacade(FacadeBase):
         else:
             adminfacade_logger.error('Dal is not accessible')
             raise AccessDeniedError 
-        
+
+
     @method_decorator(login_required)
     @method_decorator(allowed_users(allowed_roles=['admin']))
     def remove_customer(self, request, customer_id):

@@ -39,16 +39,6 @@ class AnonymousFacade(FacadeBase):
         self.add_user_allowed = False
 
 
-    def logout_func(self, request, user):
-        if self.check_access('token_dal','delete_token'):
-            logout(request)
-            self.token_dal.delete_token(user=user)
-            return ({'success': 'Successfully logged out.'}) 
-        else:
-            anonymousfacade_logger.error('Dal is not accessible')
-            raise AccessDeniedError
-
-
     def add_customer(self, request, user_data, data):
         if (self.check_access('customer_dal','add_customer')) and (self.check_access('user_dal','add_user')) and (self.check_access('group_dal', 'get_userRole_by_role')):
             self.__enable_add_user()
@@ -65,8 +55,6 @@ class AnonymousFacade(FacadeBase):
                         new_customer = self.customer_dal.add_customer(data=data)
                         return new_customer
             except Exception as e:
-                # rollback the update
-                transaction.set_rollback(True)
                 anonymousfacade_logger.error(f"An error occurred while adding a customer: {e}")
                 print(f"An error occurred while adding a customer: {e}")
                 return None
