@@ -121,3 +121,24 @@
 2023-04-29 08:15:03,945 INFO Get all customers attempt - admin 1
 2023-04-29 10:14:09,323 INFO Get all customers attempt - admin 1
 2023-04-29 10:14:09,344 INFO Get all customers attempt - admin 1
+2023-04-29 17:50:37,982 INFO Get all customers attempt - admin 1
+2023-04-29 17:50:38,001 INFO Get all customers attempt - admin 1
+2023-04-29 17:50:44,447 INFO Get customer by id attempt - customer 1
+2023-04-29 17:50:49,775 INFO Attempted remove customer - admin 1
+2023-04-29 17:50:54,030 INFO Get all customers attempt - admin 1
+2023-04-29 17:50:54,051 INFO Get all customers attempt - admin 1
+2023-04-29 17:51:26,754 INFO Get customer by username attempt - customer 214
+2023-04-29 17:51:34,062 INFO Get customer by username attempt - customer 214
+2023-04-29 17:51:37,071 INFO Get customer by username attempt - customer 214
+2023-04-29 17:52:05,275 INFO Get customer by username attempt - customer 214
+2023-04-29 17:52:05,281 INFO Get customer by username attempt - customer 214
+2023-04-29 19:17:21,213 INFO Get all customers attempt - admin 1
+2023-04-29 19:17:21,229 INFO Get all customers attempt - admin 1
+2023-04-29 19:17:26,692 INFO Get all customers attempt - admin 1
+2023-04-29 19:17:26,696 INFO Get all customers attempt - admin 1
+2023-04-30 08:48:29,801 INFO Get all customers attempt - admin 1
+2023-04-30 08:48:29,850 INFO Get all customers attempt - admin 1
+2023-04-30 08:48:37,093 INFO Get all customers attempt - admin 1
+2023-04-30 08:48:37,107 INFO Get all customers attempt - admin 1
+2023-04-30 08:48:38,458 INFO Get customer by id attempt - customer 1
+2023-04-30 08:48:41,422 INFO Get customer by id attempt - customer 1
