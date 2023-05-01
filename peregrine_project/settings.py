@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': 'Peregrine_Falcon',  
         'USER': 'root',  
         'PASSWORD': 'Rawim1989',  
-        'HOST': '127.0.0.1',  
+        'HOST': '172.19.0.2',  
         'PORT': '3306',  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  

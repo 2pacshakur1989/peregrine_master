@@ -185,3 +185,17 @@ Contact Info :
     Name: Rawi Mousa
     Phone: 0544714325
     Email: rawi.mousa@gmail.com
+
+
+
+
+LoginInfo : 
+
+Admin : RawiMousa ,danny123
+Password : Rawim1989
+
+Airline : wizzair1989 , aircanada1989, airfrance1933 , lufthansa1989 , 
+Password : Rawim1989
+
+Customer : maxim123 , lorenzo123, jeff12345, julie123
+Password : Rawim1989
