@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: 'Peregrine_Falcon'
+      MYSQL_USER: 'myuser'
+      MYSQL_PASSWORD: 'Rawim1989'
+      MYSQL_ROOT_PASSWORD: 'Rawim1989'
+    ports:
+      - '3307:3306'
+  backend:
+    build: /Peregrine
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql://myuser:Rawim1989@db:3306/Peregrine_Falcon
+  frontend:
+    build: ../Peregrine_React/peregrine-app-try
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend

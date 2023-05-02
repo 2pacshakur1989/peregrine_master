@@ -1,0 +1,111 @@
+Instructions for Peregrine FYP:
+
+=================================================
+
+1- Install docker and docker-compose
+2- run the command "docker-compose up -d" at same directory where the docker-compose.yml is placed.
+
+Note: Make sure that all ports 3000, 8000 and 3306 are empty.
+Incase: If the port is occupied of DB change the port with "3307:3306" in docker-compose.yml's DB section.
+
+3- Now for IPv4 we have to do following steps( This is for providing the backend with the ip of docker-network of app):
+ 
+ -> docker network ls
+ -> docker network inspect <docker-network-id>
+ 
+NOTE: This ID will be the project name ID
+
+4- In Container Section you will find out IPv4 of DB container.
+
+5- There will be an IP as IPv4, Just copy that IP at some place (without /16,/32,/8,/24)
+
+
+================= To Configure DB ================
+
+following commands for configuration:
+
+
+- docker ps
+Copy the DB container ID
+
+- docker cp Peregrine.sql <conatiner_id>:.
+- docker exec -ti <container_id> bash
+- ls 
+
+
+NOTE: "ls" to confirm that the .sql is there or not
+
+
+
+
+- mysql -u root -p Peregrine_Falcon < Peregrine.sql
+
+#Password = Rawim1989 
+
+- mysql -u root -p
+
+- SHOW DATABASES;
+- use Peregrine_Falcon;
+- SHOW TABLES;
+- select * from auth_user;
+
+============== To configure copied IP in backend ==========
+
+1- Replace the copied IP in setting.py and SAVE file. (Main Project)
+2- Follow commands to delete the container of backend (in order to re-build):
+
+- docker ps 
+
+copy the container_id of backend
+
+- docker rm -f <container_id>
+- docker images
+
+find the backend image
+
+- docker rmi -f <image_id>
+
+after that again
+
+- docker-compose up -d
+
+
+** start the app with this url : http://localhost:3000/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**** In case of containers running :
+
+List all running containers:
+
+- docker ps
+
+
+Stop any running containers that are using the image:
+
+docker stop [container_name/container_id]
+
+Replace [container_name/container_id] with the name or ID of the container.
+
+Remove all stopped containers that are using the image:
+
+docker rm [container_name/container_id]
+
+Again, replace [container_name/container_id] with the name or ID of the container.
+
+Finally, remove the image:
+
+docker rmi -f [image_name/image_id]
+
+Replace [image_name/image_id] with the name or ID of the image.
